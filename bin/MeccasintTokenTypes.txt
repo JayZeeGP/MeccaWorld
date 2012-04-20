@@ -1,0 +1,11 @@
+// $ANTLR : Meccasint.g -> MeccasintTokenTypes.txt$
+Meccasint    // output token vocab name
+BEGIN_CONF=4
+END_CONF=5
+BEGIN_ADV=6
+END_ADV=7
+PARENT_IZ=8
+PARENT_DE=9
+PUNTO_COMA=10
+COMA=11
+LIT_CADENA=12
