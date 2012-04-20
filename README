@@ -5,3 +5,4 @@ That's for sure
 /********************/
 -Posible problema de precedencias en las reglas léxicas
 -Probado en otro ejemplo y la cosa va funcionando
+-Añadido aquí, el BEGIN_CONF ya lo pilla, luego hay problema con las reglas de abajo, pero algo es algo.
