@@ -26,7 +26,7 @@ protected Meccasint(TokenBuffer tokenBuf, int k) {
 }
 
 public Meccasint(TokenBuffer tokenBuf) {
-  this(tokenBuf,1);
+  this(tokenBuf,2);
 }
 
 protected Meccasint(TokenStream lexer, int k) {
@@ -35,11 +35,11 @@ protected Meccasint(TokenStream lexer, int k) {
 }
 
 public Meccasint(TokenStream lexer) {
-  this(lexer,1);
+  this(lexer,2);
 }
 
 public Meccasint(ParserSharedInputState state) {
-  super(state,1);
+  super(state,2);
   tokenNames = _tokenNames;
 }
 
@@ -91,13 +91,13 @@ public Meccasint(ParserSharedInputState state) {
 			nombrefuncion();
 			match(PARENT_IZ);
 			{
-			_loop685:
+			_loop2268:
 			do {
-				if ((LA(1)==LIT_CADENA)) {
+				if ((LA(1)==IDENT)) {
 					parametros();
 				}
 				else {
-					break _loop685;
+					break _loop2268;
 				}
 				
 			} while (true);
@@ -105,13 +105,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(PARENT_DE);
 			match(PUNTO_COMA);
 			{
-			_loop687:
+			_loop2270:
 			do {
-				if ((LA(1)==LIT_CADENA)) {
+				if ((LA(1)==IDENT) && (LA(2)==PARENT_IZ)) {
 					expr();
 				}
 				else {
-					break _loop687;
+					break _loop2270;
 				}
 				
 			} while (true);
@@ -127,7 +127,7 @@ public Meccasint(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
-			match(LIT_CADENA);
+			match(IDENT);
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -141,13 +141,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop690:
+			_loop2273:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop690;
+					break _loop2273;
 				}
 				
 			} while (true);
@@ -163,7 +163,7 @@ public Meccasint(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
-			match(LIT_CADENA);
+			match(IDENT);
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -198,7 +198,7 @@ public Meccasint(ParserSharedInputState state) {
 		"PARENT_DE",
 		"PUNTO_COMA",
 		"COMA",
-		"LIT_CADENA"
+		"IDENT"
 	};
 	
 	private static final long[] mk_tokenSet_0() {

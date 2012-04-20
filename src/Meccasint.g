@@ -1,6 +1,5 @@
 /*
  Ejemplo 5
-
 	Incluye 
 	Se ha incluido un contador de instrucciones reconocidas
 
@@ -16,7 +15,11 @@
 // Analizador sintáctico
 
 class Meccasint extends Parser;
-
+options
+{
+  // Para diferenciar si una sentencia es una asignación o una expresión que comienza con ID
+   k = 2;
+}
 // Nuevos atributos de la clase Anasint
 {
   // Atributo de Anasint para contar las instrucciones reconocidas
@@ -40,8 +43,8 @@ parametros: valorparametro (parametros_prima)*;
 
 parametros_prima: COMA valorparametro;
 
-nombrefuncion: LIT_CADENA;
+nombrefuncion: IDENT;
 
-valorparametro: LIT_CADENA;
+valorparametro: IDENT;
 
 //HECHO POR TEAM MECCA

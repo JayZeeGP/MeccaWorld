@@ -35,7 +35,13 @@ options{
 
 tokens
 {
+	//HECHO POR TEAM MECCA - THIS WORKS
 	// Tipos basicos
+	BEGIN_CONF       = "ConfigurationMode";
+	END_CONF         = "endConfigurationMode";
+    BEGIN_ADV        = "AdventureMode";
+    END_ADV          = "endAdventureMode";
+    //FIN HECHO POR TEAM MECCA
 	TIPO_ENTERO   = "Entero";
 	TIPO_REAL     = "Real";
 	TIPO_BOOLEANO = "Logico";
@@ -51,13 +57,6 @@ tokens
 	LIT_TAB = "tab" ; 
 	LIT_COM = "com" ;
     
-    //HECHO POR TEAM MECCA
-	// Palabras reservadas
-    BEGIN_CONF       = "ConfigurationMode";
-    END_CONF         = "endConfigurationMode";
-    BEGIN_ADV        = "AdventureMode";
-    END_ADV          = "endAdventureMode";
-    //FIN HECHO POR TEAM MECCA
 
     RES_MIENTRAS     = "mientras";
 	RES_HACER        = "hacer" ;
@@ -96,9 +95,14 @@ tokens
 
 ////////////////////////////////////////////////////////////////////////////
 
-
+    //HECHO POR TEAM MECCA
+	// Palabras reservadas
+    //protected BEGIN_CONF       : "configurationmode";
+    //END_CONF         : "endConfigurationMode";
+    //BEGIN_ADV        : "AdventureMode";
+    //END_ADV          : "endAdventureMode";
+    //FIN HECHO POR TEAM MECCA
 // ZONA DE REGLAS
-
 // Tipos de retorno de carro o salto de línea
 protected NL :
 	(

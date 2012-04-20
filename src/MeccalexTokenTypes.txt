@@ -1,18 +1,18 @@
 // $ANTLR : Meccalex.g -> MeccalexTokenTypes.txt$
 Meccalex    // output token vocab name
-TIPO_ENTERO="Entero"=4
-TIPO_REAL="Real"=5
-TIPO_BOOLEANO="Logico"=6
-TIPO_CADENA="Cadena"=7
-LIT_CIERTO="cierto"=8
-LIT_FALSO="falso"=9
-LIT_NL="nl"=10
-LIT_TAB="tab"=11
-LIT_COM="com"=12
-BEGIN_CONF="ConfigurationMode"=13
-END_CONF="endConfigurationMode"=14
-BEGIN_ADV="AdventureMode"=15
-END_ADV="endAdventureMode"=16
+BEGIN_CONF="ConfigurationMode"=4
+END_CONF="endConfigurationMode"=5
+BEGIN_ADV="AdventureMode"=6
+END_ADV="endAdventureMode"=7
+TIPO_ENTERO="Entero"=8
+TIPO_REAL="Real"=9
+TIPO_BOOLEANO="Logico"=10
+TIPO_CADENA="Cadena"=11
+LIT_CIERTO="cierto"=12
+LIT_FALSO="falso"=13
+LIT_NL="nl"=14
+LIT_TAB="tab"=15
+LIT_COM="com"=16
 RES_MIENTRAS="mientras"=17
 RES_HACER="hacer"=18
 RES_FIN_MIENTRAS="fin_mientras"=19

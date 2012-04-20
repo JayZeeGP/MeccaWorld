@@ -11,5 +11,5 @@ public interface MeccasintTokenTypes {
 	int PARENT_DE = 9;
 	int PUNTO_COMA = 10;
 	int COMA = 11;
-	int LIT_CADENA = 12;
+	int IDENT = 12;
 }
