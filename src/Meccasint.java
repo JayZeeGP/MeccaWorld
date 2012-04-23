@@ -62,17 +62,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
-			int _cnt856=0;
-			_loop856:
+			int _cnt427=0;
+			_loop427:
 			do {
 				if ((LA(1)==FUNC_LEER)) {
 					instructionConf();
 				}
 				else {
-					if ( _cnt856>=1 ) { break _loop856; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt427>=1 ) { break _loop427; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt856++;
+				_cnt427++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -89,17 +89,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
-			int _cnt859=0;
-			_loop859:
+			int _cnt430=0;
+			_loop430:
 			do {
 				if ((LA(1)==FUNC_LEER)) {
 					instructionAd();
 				}
 				else {
-					if ( _cnt859>=1 ) { break _loop859; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt430>=1 ) { break _loop430; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt859++;
+				_cnt430++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -117,17 +117,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(FUNC_LEER);
 			match(PARENT_IZ);
 			{
-			int _cnt862=0;
-			_loop862:
+			int _cnt433=0;
+			_loop433:
 			do {
 				if ((LA(1)==IDENT)) {
 					parametros();
 				}
 				else {
-					if ( _cnt862>=1 ) { break _loop862; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt433>=1 ) { break _loop433; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt862++;
+				_cnt433++;
 			} while (true);
 			}
 			match(PARENT_DE);
@@ -146,13 +146,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(FUNC_LEER);
 			match(PARENT_IZ);
 			{
-			_loop865:
+			_loop436:
 			do {
 				if ((LA(1)==IDENT)) {
 					parametros();
 				}
 				else {
-					break _loop865;
+					break _loop436;
 				}
 				
 			} while (true);
@@ -172,13 +172,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop868:
+			_loop439:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop868;
+					break _loop439;
 				}
 				
 			} while (true);
