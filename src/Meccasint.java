@@ -62,17 +62,29 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
+<<<<<<< HEAD
 			int _cnt1287=0;
 			_loop1287:
+=======
+			int _cnt427=0;
+			_loop427:
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instructionConf();
 				}
 				else {
+<<<<<<< HEAD
 					if ( _cnt1287>=1 ) { break _loop1287; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
 				_cnt1287++;
+=======
+					if ( _cnt427>=1 ) { break _loop427; } else {throw new NoViableAltException(LT(1), getFilename());}
+				}
+				
+				_cnt427++;
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 			} while (true);
 			}
 			match(END_CONF);
@@ -89,17 +101,29 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
+<<<<<<< HEAD
 			int _cnt1290=0;
 			_loop1290:
+=======
+			int _cnt430=0;
+			_loop430:
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 			do {
 				if ((LA(1)==FUNC_LEER)) {
 					instructionAd();
 				}
 				else {
+<<<<<<< HEAD
 					if ( _cnt1290>=1 ) { break _loop1290; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
 				_cnt1290++;
+=======
+					if ( _cnt430>=1 ) { break _loop430; } else {throw new NoViableAltException(LT(1), getFilename());}
+				}
+				
+				_cnt430++;
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 			} while (true);
 			}
 			match(END_ADV);
@@ -117,6 +141,7 @@ public Meccasint(ParserSharedInputState state) {
 			switch ( LA(1)) {
 			case FUNC_LEER:
 			{
+<<<<<<< HEAD
 				match(FUNC_LEER);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -228,6 +253,20 @@ public Meccasint(ParserSharedInputState state) {
 			{
 				throw new NoViableAltException(LT(1), getFilename());
 			}
+=======
+			int _cnt433=0;
+			_loop433:
+			do {
+				if ((LA(1)==IDENT)) {
+					parametros();
+				}
+				else {
+					if ( _cnt433>=1 ) { break _loop433; } else {throw new NoViableAltException(LT(1), getFilename());}
+				}
+				
+				_cnt433++;
+			} while (true);
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 			}
 		}
 		catch (RecognitionException ex) {
@@ -243,13 +282,21 @@ public Meccasint(ParserSharedInputState state) {
 			match(FUNC_LEER);
 			match(PARENT_IZ);
 			{
+<<<<<<< HEAD
 			_loop1294:
+=======
+			_loop436:
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 			do {
 				if ((LA(1)==IDENT)) {
 					parametros();
 				}
 				else {
+<<<<<<< HEAD
 					break _loop1294;
+=======
+					break _loop436;
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 				}
 				
 			} while (true);
@@ -269,13 +316,21 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
+<<<<<<< HEAD
 			_loop1297:
+=======
+			_loop439:
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
+<<<<<<< HEAD
 					break _loop1297;
+=======
+					break _loop439;
+>>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 				}
 				
 			} while (true);
