@@ -28,6 +28,8 @@ options{
 
 	// No se tiene en cuenta la diferencia entre mayúsculas y minúsculas en los literales (palabras reservadas)
 	caseSensitiveLiterals = false;
+	
+	importVocab = Meccasint;
 }
 // FIN DE LA ZONA DE OPCIONES DEL ANALIZADOR LÉXICO
 
@@ -41,6 +43,41 @@ tokens
 	END_CONF         = "endConfigurationMode";
     BEGIN_ADV        = "AdventureMode";
     END_ADV          = "endAdventureMode";
+    //Funciones
+    FUNC_LEER = "leer";
+    FUNC_SETBOARDSIZE = "setBoardSize";
+    FUNC_GETBOARDROWS = "getBoardRows";
+    FUNC_GETBOARDCOLUMNS = "getBoardColumns";
+    FUNC_GETBOARDSIZE = "getBoardSize";
+    FUNC_SETTREASURE = "setTreasure";
+    FUNC_GETTOTALTREASURES = "getTotalTreasures";
+    FUNC_GETTREASURE = "getTreasure";
+    FUNC_SETHOLE = "setHole";
+    FUNC_GETNUMBEROFHOLES = "getNumberOfHoles";
+    FUNC_GETHOLE = "getHole";
+    FUNC_SETWUMPUS = "setWumpus";
+    FUNC_GETWUMPUS = "getWumpus";
+    FUNC_SETSTART = "setStart";
+    FUNC_GETSTART = "getStart";
+    FUNC_SETEXIT = "setExit";
+    FUNC_GETEXIT = "getExit";
+    FUNC_GETMECCA = "getMecca";
+    FUNC_GETREMAININGTREASURES = "getRemainingTreasures";
+    
+    //MECCA
+    FUNC_SETARROWS = "setArrows";
+    FUNC_GETARROWS = "getArrows";
+    FUNC_INCARROWS = "incArrows";
+    FUNC_DECARROWS = "decArrows";
+    FUNC_SHOOTLEFT = "shootLeft";
+    FUNC_SHOOTRIGHT = "shootRighT";
+    FUNC_SHOOTUP = "shootUp";
+    FUNC_SHOOTDOWN = "shootDown";
+    FUNC_GOLEFT = "goLeft";
+    FUNC_GORIGHT = "goRight";
+    FUNC_GOUP = "goUp";
+    FUNC_GODOWN = "goDown";
+    
     //FIN HECHO POR TEAM MECCA
 	TIPO_ENTERO   = "Entero";
 	TIPO_REAL     = "Real";
@@ -95,13 +132,7 @@ tokens
 
 ////////////////////////////////////////////////////////////////////////////
 
-    //HECHO POR TEAM MECCA
-	// Palabras reservadas
-    //protected BEGIN_CONF       : "configurationmode";
-    //END_CONF         : "endConfigurationMode";
-    //BEGIN_ADV        : "AdventureMode";
-    //END_ADV          : "endAdventureMode";
-    //FIN HECHO POR TEAM MECCA
+
 // ZONA DE REGLAS
 // Tipos de retorno de carro o salto de línea
 protected NL :
@@ -164,7 +195,7 @@ protected DIGITO : '0'..'9';
 IDENT
 	// Se indica que se comprueben las palabras reservadas
 	options {testLiterals=true;} 
-	: (LETRA|'_') (LETRA|DIGITO|'_')*
+	: (LETRA|'_') (LETRA|DIGITO|'_'(LETRA|DIGITO))*
 	;
 
 // Separadores 

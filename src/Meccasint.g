@@ -33,12 +33,16 @@ options
 
 mecca: configuration adventure;
 
-configuration: BEGIN_CONF expr END_CONF;
+configuration: BEGIN_CONF (instructionConf)+ END_CONF;
 
-adventure: BEGIN_ADV expr END_ADV;
+adventure: BEGIN_ADV (instructionAd)+ END_ADV;
 
-expr: nombrefuncion PARENT_IZ (parametros)* PARENT_DE PUNTO_COMA (expr)*;
+instructionConf: FUNC_LEER PARENT_IZ (parametros)+ PARENT_DE PUNTO_COMA
+               ;
 
+instructionAd: FUNC_LEER PARENT_IZ (parametros)* PARENT_DE PUNTO_COMA
+               ;
+               
 parametros: valorparametro (parametros_prima)*;
 
 parametros_prima: COMA valorparametro;

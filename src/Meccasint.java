@@ -61,7 +61,20 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(BEGIN_CONF);
-			expr();
+			{
+			int _cnt616=0;
+			_loop616:
+			do {
+				if ((LA(1)==FUNC_LEER)) {
+					instructionConf();
+				}
+				else {
+					if ( _cnt616>=1 ) { break _loop616; } else {throw new NoViableAltException(LT(1), getFilename());}
+				}
+				
+				_cnt616++;
+			} while (true);
+			}
 			match(END_CONF);
 		}
 		catch (RecognitionException ex) {
@@ -75,7 +88,20 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(BEGIN_ADV);
-			expr();
+			{
+			int _cnt619=0;
+			_loop619:
+			do {
+				if ((LA(1)==FUNC_LEER)) {
+					instructionAd();
+				}
+				else {
+					if ( _cnt619>=1 ) { break _loop619; } else {throw new NoViableAltException(LT(1), getFilename());}
+				}
+				
+				_cnt619++;
+			} while (true);
+			}
 			match(END_ADV);
 		}
 		catch (RecognitionException ex) {
@@ -84,38 +110,28 @@ public Meccasint(ParserSharedInputState state) {
 		}
 	}
 	
-	public final void expr() throws RecognitionException, TokenStreamException {
+	public final void instructionConf() throws RecognitionException, TokenStreamException {
 		
 		
 		try {      // for error handling
-			nombrefuncion();
+			match(FUNC_LEER);
 			match(PARENT_IZ);
 			{
-			_loop2268:
+			int _cnt622=0;
+			_loop622:
 			do {
 				if ((LA(1)==IDENT)) {
 					parametros();
 				}
 				else {
-					break _loop2268;
+					if ( _cnt622>=1 ) { break _loop622; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
+				_cnt622++;
 			} while (true);
 			}
 			match(PARENT_DE);
 			match(PUNTO_COMA);
-			{
-			_loop2270:
-			do {
-				if ((LA(1)==IDENT) && (LA(2)==PARENT_IZ)) {
-					expr();
-				}
-				else {
-					break _loop2270;
-				}
-				
-			} while (true);
-			}
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -123,11 +139,26 @@ public Meccasint(ParserSharedInputState state) {
 		}
 	}
 	
-	public final void nombrefuncion() throws RecognitionException, TokenStreamException {
+	public final void instructionAd() throws RecognitionException, TokenStreamException {
 		
 		
 		try {      // for error handling
-			match(IDENT);
+			match(FUNC_LEER);
+			match(PARENT_IZ);
+			{
+			_loop625:
+			do {
+				if ((LA(1)==IDENT)) {
+					parametros();
+				}
+				else {
+					break _loop625;
+				}
+				
+			} while (true);
+			}
+			match(PARENT_DE);
+			match(PUNTO_COMA);
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -141,13 +172,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop2273:
+			_loop628:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop2273;
+					break _loop628;
 				}
 				
 			} while (true);
@@ -184,6 +215,18 @@ public Meccasint(ParserSharedInputState state) {
 		}
 	}
 	
+	public final void nombrefuncion() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			match(IDENT);
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_0);
+		}
+	}
+	
 	
 	public static final String[] _tokenNames = {
 		"<0>",
@@ -194,6 +237,7 @@ public Meccasint(ParserSharedInputState state) {
 		"END_CONF",
 		"BEGIN_ADV",
 		"END_ADV",
+		"FUNC_LEER",
 		"PARENT_IZ",
 		"PARENT_DE",
 		"PUNTO_COMA",
@@ -212,22 +256,22 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
 	private static final long[] mk_tokenSet_2() {
-		long[] data = { 4256L, 0L};
+		long[] data = { 288L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 256L, 0L};
+		long[] data = { 384L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 4608L, 0L};
+		long[] data = { 9216L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 6656L, 0L};
+		long[] data = { 13312L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
