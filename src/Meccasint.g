@@ -40,7 +40,8 @@ adventure: BEGIN_ADV (instructionAd)+ END_ADV;
 instructionConf: FUNC_LEER PARENT_IZ (parametros)+ PARENT_DE PUNTO_COMA
                ;
 
-instructionAd: FUNC_LEER PARENT_IZ (parametros)* PARENT_DE PUNTO_COMA
+instructionAd: FUNC_LEER PARENT_IZ (parametros)* PARENT_DE PUNTO_COMA 
+
                ;
                
 parametros: valorparametro (parametros_prima)*;
