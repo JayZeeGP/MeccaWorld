@@ -62,24 +62,24 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
-			int _cnt856=0;
-			_loop856:
+			int _cnt1287=0;
+			_loop1287:
 			do {
-				if ((LA(1)==FUNC_LEER)) {
+				if ((_tokenSet_1.member(LA(1)))) {
 					instructionConf();
 				}
 				else {
-					if ( _cnt856>=1 ) { break _loop856; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt1287>=1 ) { break _loop1287; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt856++;
+				_cnt1287++;
 			} while (true);
 			}
 			match(END_CONF);
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_1);
+			recover(ex,_tokenSet_2);
 		}
 	}
 	
@@ -89,17 +89,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
-			int _cnt859=0;
-			_loop859:
+			int _cnt1290=0;
+			_loop1290:
 			do {
 				if ((LA(1)==FUNC_LEER)) {
 					instructionAd();
 				}
 				else {
-					if ( _cnt859>=1 ) { break _loop859; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt1290>=1 ) { break _loop1290; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt859++;
+				_cnt1290++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -114,28 +114,125 @@ public Meccasint(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
-			match(FUNC_LEER);
-			match(PARENT_IZ);
+			switch ( LA(1)) {
+			case FUNC_LEER:
 			{
-			int _cnt862=0;
-			_loop862:
-			do {
-				if ((LA(1)==IDENT)) {
-					parametros();
-				}
-				else {
-					if ( _cnt862>=1 ) { break _loop862; } else {throw new NoViableAltException(LT(1), getFilename());}
-				}
-				
-				_cnt862++;
-			} while (true);
+				match(FUNC_LEER);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Reading");
+				break;
 			}
-			match(PARENT_DE);
-			match(PUNTO_COMA);
+			case FUNC_SETBOARDSIZE:
+			{
+				match(FUNC_SETBOARDSIZE);
+				match(PARENT_IZ);
+				match(LIT_ENTERO);
+				match(COMA);
+				match(LIT_ENTERO);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Board size saved");
+				break;
+			}
+			case FUNC_GETBOARDROWS:
+			{
+				match(FUNC_GETBOARDROWS);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Board has X rows");
+				break;
+			}
+			case FUNC_GETBOARDCOLUMNS:
+			{
+				match(FUNC_GETBOARDCOLUMNS);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Board has X columns");
+				break;
+			}
+			case FUNC_GETBOARDSIZE:
+			{
+				match(FUNC_GETBOARDSIZE);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Board size is X rows and Y columns");
+				break;
+			}
+			case FUNC_SETTREASURE:
+			{
+				match(FUNC_SETTREASURE);
+				match(PARENT_IZ);
+				match(LIT_ENTERO);
+				match(COMA);
+				match(LIT_ENTERO);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Treasure position saved");
+				break;
+			}
+			case FUNC_GETTOTALTREASURES:
+			{
+				match(FUNC_GETTOTALTREASURES);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Treasures are:");
+				break;
+			}
+			case FUNC_GETTREASURE:
+			{
+				match(FUNC_GETTREASURE);
+				match(PARENT_IZ);
+				match(LIT_ENTERO);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Treasure X is on row Y column Z:");
+				break;
+			}
+			case FUNC_SETHOLE:
+			{
+				match(FUNC_SETHOLE);
+				match(PARENT_IZ);
+				match(LIT_ENTERO);
+				match(COMA);
+				match(LIT_ENTERO);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("Hole set on row X column Y");
+				break;
+			}
+			case FUNC_GETNUMBEROFHOLES:
+			{
+				match(FUNC_GETNUMBEROFHOLES);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("The number of holes is:");
+				break;
+			}
+			case FUNC_GETHOLE:
+			{
+				match(FUNC_GETHOLE);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				System.out.println("The number of holes is:");
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_2);
+			recover(ex,_tokenSet_3);
 		}
 	}
 	
@@ -146,13 +243,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(FUNC_LEER);
 			match(PARENT_IZ);
 			{
-			_loop865:
+			_loop1294:
 			do {
 				if ((LA(1)==IDENT)) {
 					parametros();
 				}
 				else {
-					break _loop865;
+					break _loop1294;
 				}
 				
 			} while (true);
@@ -162,7 +259,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_3);
+			recover(ex,_tokenSet_4);
 		}
 	}
 	
@@ -172,13 +269,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop868:
+			_loop1297:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop868;
+					break _loop1297;
 				}
 				
 			} while (true);
@@ -186,7 +283,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_4);
+			recover(ex,_tokenSet_5);
 		}
 	}
 	
@@ -198,7 +295,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_5);
+			recover(ex,_tokenSet_6);
 		}
 	}
 	
@@ -211,7 +308,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_5);
+			recover(ex,_tokenSet_6);
 		}
 	}
 	
@@ -241,7 +338,18 @@ public Meccasint(ParserSharedInputState state) {
 		"PARENT_IZ",
 		"PARENT_DE",
 		"PUNTO_COMA",
+		"FUNC_SETBOARDSIZE",
+		"LIT_ENTERO",
 		"COMA",
+		"FUNC_GETBOARDROWS",
+		"FUNC_GETBOARDCOLUMNS",
+		"FUNC_GETBOARDSIZE",
+		"FUNC_SETTREASURE",
+		"FUNC_GETTOTALTREASURES",
+		"FUNC_GETTREASURE",
+		"FUNC_SETHOLE",
+		"FUNC_GETNUMBEROFHOLES",
+		"FUNC_GETHOLE",
 		"IDENT"
 	};
 	
@@ -251,29 +359,34 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 64L, 0L};
+		long[] data = { 16748800L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
 	private static final long[] mk_tokenSet_2() {
-		long[] data = { 288L, 0L};
+		long[] data = { 64L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 384L, 0L};
+		long[] data = { 16748832L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 9216L, 0L};
+		long[] data = { 384L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 13312L, 0L};
+		long[] data = { 16778240L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
+	private static final long[] mk_tokenSet_6() {
+		long[] data = { 16794624L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
 	
 	}

@@ -11,6 +11,17 @@ public interface MeccasintTokenTypes {
 	int PARENT_IZ = 9;
 	int PARENT_DE = 10;
 	int PUNTO_COMA = 11;
-	int COMA = 12;
-	int IDENT = 13;
+	int FUNC_SETBOARDSIZE = 12;
+	int LIT_ENTERO = 13;
+	int COMA = 14;
+	int FUNC_GETBOARDROWS = 15;
+	int FUNC_GETBOARDCOLUMNS = 16;
+	int FUNC_GETBOARDSIZE = 17;
+	int FUNC_SETTREASURE = 18;
+	int FUNC_GETTOTALTREASURES = 19;
+	int FUNC_GETTREASURE = 20;
+	int FUNC_SETHOLE = 21;
+	int FUNC_GETNUMBEROFHOLES = 22;
+	int FUNC_GETHOLE = 23;
+	int IDENT = 24;
 }
