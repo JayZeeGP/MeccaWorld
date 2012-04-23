@@ -53,10 +53,5 @@ public class Test {
 	
 	// Comienza la ejecución de la función asociada al símbolo inicial: prog
 	parser.mecca();
-<<<<<<< HEAD
-=======
-	System.out.println("VISCA EL MARRI");
-	System.out.println("HOLA AMIGOS Somos la leche");
->>>>>>> 41341afa7c83f02eed14b847757918f434e6bb17
 	}
 }
