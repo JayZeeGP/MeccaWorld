@@ -53,6 +53,6 @@ public class Test {
 	
 	// Comienza la ejecución de la función asociada al símbolo inicial: prog
 	parser.mecca();
-	System.out.println("HOLA AMIGOS");
+	System.out.println("HOLA AMIGOS Somos la leche");
 	}
 }
