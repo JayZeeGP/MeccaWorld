@@ -53,5 +53,6 @@ public class Test {
 	
 	// Comienza la ejecución de la función asociada al símbolo inicial: prog
 	parser.mecca();
+	System.out.println("HOLA AMIGOS");
 	}
 }
