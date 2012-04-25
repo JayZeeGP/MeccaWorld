@@ -25,6 +25,9 @@ options
 {
   // Atributo de Anasint para contar las instrucciones reconocidas
   int contador = 0;
+  Board board = new Board();
+  Mecca mecca = new Mecca();
+  
 }
 
 
@@ -38,11 +41,11 @@ configuration: BEGIN_CONF (instructionConf)+ END_CONF;
 
 adventure: BEGIN_ADV (instructionAd)+ END_ADV;
 
-instructionConf: FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Reading");}
+instructionConf: FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Reading");System.out.println(board.toString());}
 				| FUNC_SETBOARDSIZE PARENT_IZ LIT_ENTERO COMA LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Board size saved");}
-				| FUNC_GETBOARDROWS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board has X rows");}
-				| FUNC_GETBOARDCOLUMNS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board has X columns");}
-				| FUNC_GETBOARDSIZE PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board size is X rows and Y columns");}
+				| FUNC_GETBOARDROWS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board has "+board.getRows()+" rows");}
+				| FUNC_GETBOARDCOLUMNS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board has "+board.getCols()+" columns");}
+				| FUNC_GETBOARDSIZE PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board size is "+board.getRows()+" rows and "+board.getCols()+" columns");}
 				| FUNC_SETTREASURE PARENT_IZ LIT_ENTERO COMA LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Treasure position saved");}
 				| FUNC_GETTOTALTREASURES PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Treasures are:");}
 				| FUNC_GETTREASURE PARENT_IZ LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Treasure X is on row Y column Z:");}

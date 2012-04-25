@@ -35,6 +35,6 @@ public class Size {
 	}
 	
 	public String toString(){
-		return new String("Size:\n \twidth="+width+"\n \theight="+height);
+		return new String("Size:\n\tWidth="+width+" \tHeight="+height);
 	}
 }

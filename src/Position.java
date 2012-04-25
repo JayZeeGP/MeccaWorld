@@ -35,7 +35,7 @@ public class Position {
 	}
 	
 	public String toString(){
-		return new String("Position:\n \tx="+x+"\n \ty="+y);
+		return new String("Position:\n\tx="+x+" \ty="+y);
 	}
 
 }
