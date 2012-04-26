@@ -38,32 +38,40 @@ public class Board {
 
 	}
 	
-	public int getRows(){
-		return boardSize.getHeight();
+	public Size getSize(){
+		return boardSize;
 	}
 	
-	public void setCols(int newWidth){
-		boardSize.setWidth(newWidth);
-	}
-	
-	public void setRows(int newHeight){
-		boardSize.setHeight(newHeight);
-	}
-	
-	public int getCols(){
-		return boardSize.getWidth();
+	public void setSize(Size newSize){
+		boardSize.setWidth(newSize.getWidth());
+		boardSize.setHeight(newSize.getHeight());
 	}
 	
 	public Position getWumpusPos(){
 		return wumpusPos;
 	}
 	
+	public void setWumpusPos(Position newPos){
+		wumpusPos.setX(newPos.getX());
+		wumpusPos.setY(newPos.getY());
+	}
+	
 	public Position getStartPos(){
 		return startPos;
 	}
 	
+	public void setStartPos(Position newPos){
+		startPos.setX(newPos.getX());
+		startPos.setY(newPos.getY());
+	}
+	
 	public Position getExitPos(){
 		return exitPos;
+	}
+	
+	public void setExitPos(Position newPos){
+		exitPos.setX(newPos.getX());
+		exitPos.setY(newPos.getY());
 	}
 	
 	public int getTotalTreasures(){

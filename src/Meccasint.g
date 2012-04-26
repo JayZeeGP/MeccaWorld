@@ -41,40 +41,112 @@ configuration: BEGIN_CONF (instructionConf)+ END_CONF;
 adventure: BEGIN_ADV (instructionAd)+ END_ADV;
 
 instructionConf{int param1, param2;}: FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA 
-					{System.out.println("Reading");System.out.println(board.toString());}
+					{
+						System.out.println("Reading");System.out.println(board.toString());
+					}
 					
 				| FUNC_SETBOARDSIZE PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{
-						board.setCols(param1);
-						board.setRows(param2);
-						System.out.println("Board has now "+board.getCols()+" columns and "+board.getRows()+" rows");}
+						Size newSize = new Size(param1,param2);
+						board.setSize(newSize);
+						System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
+					}
+					
 				| FUNC_GETBOARDROWS PARENT_IZ PARENT_DE PUNTO_COMA 
-					{System.out.println("Board has "+board.getRows()+" rows");}
+					{
+						System.out.println("Board has "+board.getSize().getHeight()+" rows");
+					}
 					
 				| FUNC_GETBOARDCOLUMNS PARENT_IZ PARENT_DE PUNTO_COMA 
-					{System.out.println("Board has "+board.getCols()+" columns");}
+					{
+						System.out.println("Board has "+board.getSize().getWidth()+" columns");
+					}
 					
 				| FUNC_GETBOARDSIZE PARENT_IZ PARENT_DE PUNTO_COMA 
-					{System.out.println("Board size is "+board.getRows()+" rows and "+board.getCols()+" columns");}
-				| FUNC_SETTREASURE PARENT_IZ LIT_ENTERO COMA LIT_ENTERO PARENT_DE PUNTO_COMA 
-					{System.out.println("Treasure position saved");}
+					{
+						System.out.println("Board size is "+board.getSize().getHeight()+" rows and "+board.getSize().getWidth()+" columns");
+					}
+					
+				| FUNC_SETTREASURE PARENT_IZ entero COMA entero PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Treasure position saved");
+					}
+					
 				| FUNC_GETTOTALTREASURES PARENT_IZ PARENT_DE PUNTO_COMA 
 					{System.out.println("The number of total treasures is: "+board.getTotalTreasures());}
-				| FUNC_GETTREASURE PARENT_IZ LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Treasure X is on row Y column Z:");}
-				| FUNC_SETHOLE PARENT_IZ LIT_ENTERO COMA LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Hole set on row X column Y");}
-				| FUNC_GETNUMBEROFHOLES PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("The number of holes is: "+board.getNumberOfHoles());}
-				| FUNC_GETHOLE PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("The hole number X is on row Y column Z");}
-				| FUNC_SETWUMPUS PARENT_IZ LIT_ENTERO COMA LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Wumpus set on row X column Y");}
-				| FUNC_GETWUMPUS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("The Wumpus is on row "+ board.getWumpusPos().getY()+" column " + board.getWumpusPos().getX());}
-				| FUNC_SETSTART PARENT_IZ LIT_ENTERO COMA LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Start set on row X column Y");}
-				| FUNC_GETSTART PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Start is on row "+ board.getStartPos().getY()+" column " + board.getStartPos().getX());}
-				| FUNC_SETEXIT PARENT_IZ LIT_ENTERO COMA LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Exit set on row X column Y");}
-				| FUNC_GETEXIT PARENT_IZ  PARENT_DE PUNTO_COMA {System.out.println("Exit is on row "+ board.getExitPos().getY()+" column " + board.getExitPos().getX());}
-				| FUNC_GETMECCA PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Mecca is on row "+ board.getStartPos().getY()+" column " + board.getStartPos().getX());}
-				| FUNC_SETARROWS PARENT_IZ LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Mecca has now X arrows");}
-				| FUNC_GETARROWS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Mecca has X arrows");}
-				| FUNC_INCARROWS PARENT_IZ LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Arrows incremented in X, Mecca has now Y arrows");}
-				| FUNC_DECARROWS PARENT_IZ LIT_ENTERO PARENT_DE PUNTO_COMA {System.out.println("Arrows decremented in X, Mecca has now Y arrows");}
+					
+				| FUNC_GETTREASURE PARENT_IZ entero PARENT_DE PUNTO_COMA 
+					{System.out.println("Treasure X is on row Y column Z:");}
+				
+				| FUNC_SETHOLE PARENT_IZ entero COMA entero PARENT_DE PUNTO_COMA 
+					{System.out.println("Hole set on row X column Y");}
+					
+				| FUNC_GETNUMBEROFHOLES PARENT_IZ PARENT_DE PUNTO_COMA 
+					{System.out.println("The number of holes is: "+board.getNumberOfHoles());}
+					
+				| FUNC_GETHOLE PARENT_IZ PARENT_DE PUNTO_COMA 
+					{System.out.println("The hole number X is on row Y column Z");}
+					
+				| FUNC_SETWUMPUS PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
+					{
+						Position newWumpus = new Position(param1,param2);
+						board.setWumpusPos(newWumpus);
+						System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+					}
+					
+				| FUNC_GETWUMPUS PARENT_IZ PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("The Wumpus is on column "+ board.getWumpusPos().getX()+" row " + board.getWumpusPos().getY());
+					}
+					
+				| FUNC_SETSTART PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
+					{
+						Position newStart = new Position(param1,param2);
+						board.setStartPos(newStart);
+						System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+					}
+					
+				| FUNC_GETSTART PARENT_IZ PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Start is on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());	
+					}
+					
+				| FUNC_SETEXIT PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
+					{
+						Position newExit = new Position(param1,param2);
+						board.setExitPos(newExit);
+						System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+					}
+					
+				| FUNC_GETEXIT PARENT_IZ  PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Exit is on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+					}
+					
+				| FUNC_GETMECCA PARENT_IZ PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Mecca is on row "+ board.getStartPos().getY()+" column " + board.getStartPos().getX());
+					}
+					
+				| FUNC_SETARROWS PARENT_IZ entero PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Mecca has now X arrows");
+					}
+					
+				| FUNC_GETARROWS PARENT_IZ PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Mecca has X arrows");
+					}
+					
+				| FUNC_INCARROWS PARENT_IZ entero PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Arrows incremented in X, Mecca has now Y arrows");
+					}
+					
+				| FUNC_DECARROWS PARENT_IZ entero PARENT_DE PUNTO_COMA 
+					{
+						System.out.println("Arrows decremented in X, Mecca has now Y arrows");
+					}
                ;
 
 instructionAd: FUNC_LEER PARENT_IZ (parametros)* PARENT_DE PUNTO_COMA
