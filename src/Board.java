@@ -3,13 +3,16 @@ import java.util.ArrayList;
 
 public class Board {
 	//W = Wumpus, T = Treasure, H = Hole, B = Breeze, S = Smell, + = StartPos, - = endPos
-	//private ArrayList <Character> [][] boardMatrix;
+	//private ArrayList <Character> [][] boardMatrix;	
 	private ArrayList [][] boardMatrix;
 	private Size boardSize;
 	
+	public   Mecca mecca = new Mecca();
+	
 	private Position wumpusPos;
 	private Position startPos;
-	private Position endPos;
+	private Position exitPos;
+	private Position meccaPos;
 	
 	private ArrayList <Position> treasuresPos;
 	private ArrayList <Position> holesPos;
@@ -22,9 +25,10 @@ public class Board {
 		//Con respecto a lo de arriba, mi idea es hacer un inicializador de matrices
 		//que "bebiendo" de todos los datos de los atributos de Board lo cree.	 
 		
-		wumpusPos=new Position();  //(1,1) by default
-		startPos=new Position();
-		endPos=new Position();
+		wumpusPos = new Position();  //(1,1) by default
+		startPos = new Position();
+		exitPos = new Position();
+		meccaPos = new Position();
 		
 		isWumpusAlive=true;
 		
@@ -38,18 +42,46 @@ public class Board {
 		return boardSize.getHeight();
 	}
 	
+	public void setCols(int newWidth){
+		boardSize.setWidth(newWidth);
+	}
+	
+	public void setRows(int newHeight){
+		boardSize.setHeight(newHeight);
+	}
+	
 	public int getCols(){
 		return boardSize.getWidth();
 	}
 	
+	public Position getWumpusPos(){
+		return wumpusPos;
+	}
+	
+	public Position getStartPos(){
+		return startPos;
+	}
+	
+	public Position getExitPos(){
+		return exitPos;
+	}
+	
+	public int getTotalTreasures(){
+		return treasuresPos.size();
+	}
+	
+	public int getNumberOfHoles(){
+		return holesPos.size();
+	}
+	
 	public String toString(){
-		String returnString=new String();
+		String returnString = new String();
 		returnString+="Board information\n";
 		returnString+="=================\n";
 		returnString+=boardSize.toString();
 		returnString+="\nWumpus "+wumpusPos.toString();
 		returnString+="\nStart "+startPos.toString();
-		returnString+="\nEnd "+endPos.toString();
+		returnString+="\nEnd "+exitPos.toString();
 		return returnString;
 	}
 

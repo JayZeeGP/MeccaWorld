@@ -20,7 +20,6 @@ public class Meccasint extends antlr.LLkParser       implements MeccasintTokenTy
   // Atributo de Anasint para contar las instrucciones reconocidas
   int contador = 0;
   Board board = new Board();
-  Mecca mecca = new Mecca();
   
 
 protected Meccasint(TokenBuffer tokenBuf, int k) {
@@ -65,17 +64,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
-			int _cnt438=0;
-			_loop438:
+			int _cnt668=0;
+			_loop668:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instructionConf();
 				}
 				else {
-					if ( _cnt438>=1 ) { break _loop438; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt668>=1 ) { break _loop668; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt438++;
+				_cnt668++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -92,17 +91,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
-			int _cnt441=0;
-			_loop441:
+			int _cnt671=0;
+			_loop671:
 			do {
 				if ((_tokenSet_3.member(LA(1)))) {
 					instructionAd();
 				}
 				else {
-					if ( _cnt441>=1 ) { break _loop441; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt671>=1 ) { break _loop671; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt441++;
+				_cnt671++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -115,6 +114,7 @@ public Meccasint(ParserSharedInputState state) {
 	
 	public final void instructionConf() throws RecognitionException, TokenStreamException {
 		
+		int param1, param2;
 		
 		try {      // for error handling
 			switch ( LA(1)) {
@@ -131,12 +131,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 				match(FUNC_SETBOARDSIZE);
 				match(PARENT_IZ);
-				match(LIT_ENTERO);
+				param1=entero();
 				match(COMA);
-				match(LIT_ENTERO);
+				param2=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Board size saved");
+				
+										board.setCols(param1);
+										board.setRows(param2);
+										System.out.println("Board has now "+board.getCols()+" columns and "+board.getRows()+" rows");
 				break;
 			}
 			case FUNC_GETBOARDROWS:
@@ -184,7 +187,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Treasures are:");
+				System.out.println("The number of total treasures is: "+board.getTotalTreasures());
 				break;
 			}
 			case FUNC_GETTREASURE:
@@ -215,7 +218,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("The number of holes is:");
+				System.out.println("The number of holes is: "+board.getNumberOfHoles());
 				break;
 			}
 			case FUNC_GETHOLE:
@@ -245,7 +248,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("The Wumpus is on row Y column Z");
+				System.out.println("The Wumpus is on row "+ board.getWumpusPos().getY()+" column " + board.getWumpusPos().getX());
 				break;
 			}
 			case FUNC_SETSTART:
@@ -266,7 +269,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Start is on row X column Y");
+				System.out.println("Start is on row "+ board.getStartPos().getY()+" column " + board.getStartPos().getX());
 				break;
 			}
 			case FUNC_SETEXIT:
@@ -287,7 +290,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Exit is on row X column Y");
+				System.out.println("Exit is on row "+ board.getExitPos().getY()+" column " + board.getExitPos().getX());
 				break;
 			}
 			case FUNC_GETMECCA:
@@ -296,7 +299,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca is on row X column Y");
+				System.out.println("Mecca is on row "+ board.getStartPos().getY()+" column " + board.getStartPos().getX());
 				break;
 			}
 			case FUNC_SETARROWS:
@@ -360,13 +363,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(FUNC_LEER);
 				match(PARENT_IZ);
 				{
-				_loop445:
+				_loop675:
 				do {
 					if ((LA(1)==IDENT)) {
 						parametros();
 					}
 					else {
-						break _loop445;
+						break _loop675;
 					}
 					
 				} while (true);
@@ -522,19 +525,36 @@ public Meccasint(ParserSharedInputState state) {
 		}
 	}
 	
+	public final int  entero() throws RecognitionException, TokenStreamException {
+		int value=0;
+		
+		Token  i1 = null;
+		
+		try {      // for error handling
+			i1 = LT(1);
+			match(LIT_ENTERO);
+			value = Integer.parseInt(i1.getText());
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_6);
+		}
+		return value;
+	}
+	
 	public final void parametros() throws RecognitionException, TokenStreamException {
 		
 		
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop448:
+			_loop678:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop448;
+					break _loop678;
 				}
 				
 			} while (true);
@@ -542,7 +562,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_6);
+			recover(ex,_tokenSet_7);
 		}
 	}
 	
@@ -554,7 +574,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_7);
+			recover(ex,_tokenSet_8);
 		}
 	}
 	
@@ -567,7 +587,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_7);
+			recover(ex,_tokenSet_8);
 		}
 	}
 	
@@ -598,12 +618,12 @@ public Meccasint(ParserSharedInputState state) {
 		"PARENT_DE",
 		"PUNTO_COMA",
 		"FUNC_SETBOARDSIZE",
-		"LIT_ENTERO",
 		"COMA",
 		"FUNC_GETBOARDROWS",
 		"FUNC_GETBOARDCOLUMNS",
 		"FUNC_GETBOARDSIZE",
 		"FUNC_SETTREASURE",
+		"LIT_ENTERO",
 		"FUNC_GETTOTALTREASURES",
 		"FUNC_GETTREASURE",
 		"FUNC_SETHOLE",
@@ -638,7 +658,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 34359709952L, 0L};
+		long[] data = { 34359464192L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
@@ -648,29 +668,34 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 17563195769088L, 0L};
+		long[] data = { 17563195654400L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 34359709984L, 0L};
+		long[] data = { 34359464224L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 17563195769216L, 0L};
+		long[] data = { 17563195654528L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
 	private static final long[] mk_tokenSet_6() {
-		long[] data = { 17592186045440L, 0L};
+		long[] data = { 9216L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
 	private static final long[] mk_tokenSet_7() {
-		long[] data = { 17592186061824L, 0L};
+		long[] data = { 17592186045440L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
+	private static final long[] mk_tokenSet_8() {
+		long[] data = { 17592186053632L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());
 	
 	}

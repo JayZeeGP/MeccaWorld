@@ -43,11 +43,11 @@ public Meccalex(LexerSharedInputState state) {
 	literals.put(new ANTLRHashString("goRight", this), new Integer(41));
 	literals.put(new ANTLRHashString("endConfigurationMode", this), new Integer(5));
 	literals.put(new ANTLRHashString("decArrows", this), new Integer(34));
-	literals.put(new ANTLRHashString("getBoardColumns", this), new Integer(16));
-	literals.put(new ANTLRHashString("getBoardRows", this), new Integer(15));
+	literals.put(new ANTLRHashString("getBoardColumns", this), new Integer(15));
+	literals.put(new ANTLRHashString("getBoardRows", this), new Integer(14));
 	literals.put(new ANTLRHashString("ConfigurationMode", this), new Integer(4));
 	literals.put(new ANTLRHashString("Entero", this), new Integer(45));
-	literals.put(new ANTLRHashString("getBoardSize", this), new Integer(17));
+	literals.put(new ANTLRHashString("getBoardSize", this), new Integer(16));
 	literals.put(new ANTLRHashString("tab", this), new Integer(52));
 	literals.put(new ANTLRHashString("getMecca", this), new Integer(30));
 	literals.put(new ANTLRHashString("getHole", this), new Integer(23));
@@ -59,7 +59,7 @@ public Meccalex(LexerSharedInputState state) {
 	literals.put(new ANTLRHashString("not", this), new Integer(69));
 	literals.put(new ANTLRHashString("desde", this), new Integer(62));
 	literals.put(new ANTLRHashString("getExit", this), new Integer(29));
-	literals.put(new ANTLRHashString("setTreasure", this), new Integer(18));
+	literals.put(new ANTLRHashString("setTreasure", this), new Integer(17));
 	literals.put(new ANTLRHashString("shootUp", this), new Integer(38));
 	literals.put(new ANTLRHashString("Real", this), new Integer(46));
 	literals.put(new ANTLRHashString("Logico", this), new Integer(47));
@@ -298,10 +298,10 @@ tryAgain:
 		int _saveIndex;
 		
 		{
-		boolean synPredMatched455 = false;
+		boolean synPredMatched686 = false;
 		if (((LA(1)=='\r') && (LA(2)=='\n'))) {
-			int _m455 = mark();
-			synPredMatched455 = true;
+			int _m686 = mark();
+			synPredMatched686 = true;
 			inputState.guessing++;
 			try {
 				{
@@ -309,12 +309,12 @@ tryAgain:
 				}
 			}
 			catch (RecognitionException pe) {
-				synPredMatched455 = false;
+				synPredMatched686 = false;
 			}
-			rewind(_m455);
+			rewind(_m686);
 inputState.guessing--;
 		}
-		if ( synPredMatched455 ) {
+		if ( synPredMatched686 ) {
 			match("\r\n");
 		}
 		else if ((LA(1)=='\n')) {
@@ -432,7 +432,7 @@ inputState.guessing--;
 		}
 		}
 		{
-		_loop464:
+		_loop695:
 		do {
 			switch ( LA(1)) {
 			case 'a':  case 'b':  case 'c':  case 'd':
@@ -486,7 +486,7 @@ inputState.guessing--;
 			}
 			default:
 			{
-				break _loop464;
+				break _loop695;
 			}
 			}
 		} while (true);
@@ -777,60 +777,60 @@ inputState.guessing--;
 		_ttype = LIT_NUMERO;
 		int _saveIndex;
 		
-		boolean synPredMatched490 = false;
+		boolean synPredMatched721 = false;
 		if ((((LA(1) >= '0' && LA(1) <= '9')) && (_tokenSet_0.member(LA(2))))) {
-			int _m490 = mark();
-			synPredMatched490 = true;
+			int _m721 = mark();
+			synPredMatched721 = true;
 			inputState.guessing++;
 			try {
 				{
 				{
-				int _cnt489=0;
-				_loop489:
+				int _cnt720=0;
+				_loop720:
 				do {
 					if (((LA(1) >= '0' && LA(1) <= '9'))) {
 						mDIGITO(false);
 					}
 					else {
-						if ( _cnt489>=1 ) { break _loop489; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+						if ( _cnt720>=1 ) { break _loop720; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 					}
 					
-					_cnt489++;
+					_cnt720++;
 				} while (true);
 				}
 				match('.');
 				}
 			}
 			catch (RecognitionException pe) {
-				synPredMatched490 = false;
+				synPredMatched721 = false;
 			}
-			rewind(_m490);
+			rewind(_m721);
 inputState.guessing--;
 		}
-		if ( synPredMatched490 ) {
+		if ( synPredMatched721 ) {
 			{
-			int _cnt492=0;
-			_loop492:
+			int _cnt723=0;
+			_loop723:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					if ( _cnt492>=1 ) { break _loop492; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+					if ( _cnt723>=1 ) { break _loop723; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 				}
 				
-				_cnt492++;
+				_cnt723++;
 			} while (true);
 			}
 			match('.');
 			{
-			_loop494:
+			_loop725:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					break _loop494;
+					break _loop725;
 				}
 				
 			} while (true);
@@ -841,17 +841,17 @@ inputState.guessing--;
 		}
 		else if (((LA(1) >= '0' && LA(1) <= '9')) && (true)) {
 			{
-			int _cnt496=0;
-			_loop496:
+			int _cnt727=0;
+			_loop727:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					if ( _cnt496>=1 ) { break _loop496; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+					if ( _cnt727>=1 ) { break _loop727; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 				}
 				
-				_cnt496++;
+				_cnt727++;
 			} while (true);
 			}
 			if ( inputState.guessing==0 ) {
@@ -876,7 +876,7 @@ inputState.guessing--;
 		
 		match("//");
 		{
-		_loop500:
+		_loop731:
 		do {
 			if ((_tokenSet_1.member(LA(1)))) {
 				{
@@ -884,7 +884,7 @@ inputState.guessing--;
 				}
 			}
 			else {
-				break _loop500;
+				break _loop731;
 			}
 			
 		} while (true);
@@ -903,15 +903,15 @@ inputState.guessing--;
 		
 		match("/*");
 		{
-		_loop503:
+		_loop734:
 		do {
 			// nongreedy exit test
-			if ((LA(1)=='*') && (LA(2)=='/')) break _loop503;
+			if ((LA(1)=='*') && (LA(2)=='/')) break _loop734;
 			if (((LA(1) >= '\u0003' && LA(1) <= '\u00ff')) && ((LA(2) >= '\u0003' && LA(2) <= '\u00ff'))) {
 				matchNot(EOF_CHAR);
 			}
 			else {
-				break _loop503;
+				break _loop734;
 			}
 			
 		} while (true);
@@ -960,10 +960,10 @@ inputState.guessing--;
 		match('"');
 		text.setLength(_saveIndex);
 		{
-		_loop509:
+		_loop740:
 		do {
 			// nongreedy exit test
-			if ((LA(1)=='"') && (true)) break _loop509;
+			if ((LA(1)=='"') && (true)) break _loop740;
 			if ((_tokenSet_2.member(LA(1))) && ((LA(2) >= '\u0003' && LA(2) <= '\u00ff'))) {
 				{
 				match(_tokenSet_2);
@@ -973,7 +973,7 @@ inputState.guessing--;
 				match("\\\"");
 			}
 			else {
-				break _loop509;
+				break _loop740;
 			}
 			
 		} while (true);
@@ -997,7 +997,7 @@ inputState.guessing--;
 		match('\'');
 		text.setLength(_saveIndex);
 		{
-		_loop513:
+		_loop744:
 		do {
 			if ((_tokenSet_3.member(LA(1)))) {
 				{
@@ -1005,7 +1005,7 @@ inputState.guessing--;
 				}
 			}
 			else {
-				break _loop513;
+				break _loop744;
 			}
 			
 		} while (true);
