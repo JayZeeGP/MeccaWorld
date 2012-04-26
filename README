@@ -9,3 +9,12 @@ That's for sure
 -La Y son las filas y las X las columnas
 -En mi humilde opinión hay que poner algo para borrar tesoros o algo así,
 por si te equivocas al meter uno :)
+-Podría ser interesante, de cara al futuro que las funciones devolvieran
+un string diciendo si se pudo meter el tesoro en tal casilla o algo así.
+-Al final lo que he hecho con Mecca es que esté dentro del tablero y llamas
+al tablero para que le modifique.
+La otra opción es que además de estar en el tablero, haya una referencia a él
+en Meccasint, las dos formas me parecen buenas y malas, si quieres cambiarlo
+o decirme algo, guay.
+-Por ahora Mecca puede tener flechas negativas, es una chorrada pero 
+me duele la espalda, así que voy a parar un rato.

@@ -64,17 +64,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
-			int _cnt1379=0;
-			_loop1379:
+			int _cnt607=0;
+			_loop607:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instructionConf();
 				}
 				else {
-					if ( _cnt1379>=1 ) { break _loop1379; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt607>=1 ) { break _loop607; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt1379++;
+				_cnt607++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -91,17 +91,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
-			int _cnt1382=0;
-			_loop1382:
+			int _cnt610=0;
+			_loop610:
 			do {
 				if ((_tokenSet_3.member(LA(1)))) {
 					instructionAd();
 				}
 				else {
-					if ( _cnt1382>=1 ) { break _loop1382; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt610>=1 ) { break _loop610; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt1382++;
+				_cnt610++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -182,13 +182,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 				match(FUNC_SETTREASURE);
 				match(PARENT_IZ);
-				entero();
+				param1=entero();
 				match(COMA);
-				entero();
+				param2=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Treasure position saved");
+										Position newTreasure = new Position(param1,param2);
+										int position = board.setTreasurePos(newTreasure);
+										System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
 									
 				break;
 			}
@@ -198,29 +200,41 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("The number of total treasures is: "+board.getTotalTreasures());
+				
+										System.out.println("The number of total treasures is: "+board.getTotalTreasures());
+									
 				break;
 			}
 			case FUNC_GETTREASURE:
 			{
 				match(FUNC_GETTREASURE);
 				match(PARENT_IZ);
-				entero();
+				param1=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Treasure X is on row Y column Z:");
+				
+										//Check if that treasure exists
+										if(board.getTotalTreasures()>=param1&&param1>0)
+											System.out.println("Treasure "+(param1)+" set on column "+board.getTreasurePos(param1-1).getX()+" row "+board.getTreasurePos(param1-1).getY());
+										else
+											System.out.println("There is no treasure with that number");
+									
 				break;
 			}
 			case FUNC_SETHOLE:
 			{
 				match(FUNC_SETHOLE);
 				match(PARENT_IZ);
-				entero();
+				param1=entero();
 				match(COMA);
-				entero();
+				param2=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Hole set on row X column Y");
+				
+										Position newHole = new Position(param1,param2);
+										int position = board.setTreasurePos(newHole);
+										System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+									
 				break;
 			}
 			case FUNC_GETNUMBEROFHOLES:
@@ -229,16 +243,25 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("The number of holes is: "+board.getNumberOfHoles());
+				
+										System.out.println("The number of holes is: "+board.getNumberOfHoles());
+									
 				break;
 			}
 			case FUNC_GETHOLE:
 			{
 				match(FUNC_GETHOLE);
 				match(PARENT_IZ);
+				param1=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("The hole number X is on row Y column Z");
+				
+										//Check if that hole exists
+										if(board.getNumberOfHoles()>=param1&&param1>0)
+											System.out.println("Treasure "+(param1)+" set on column "+board.getHolePos(param1-1).getX()+" row "+board.getHolePos(param1-1).getY());
+										else
+											System.out.println("There is no treasure with that number");
+									
 				break;
 			}
 			case FUNC_SETWUMPUS:
@@ -329,7 +352,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Mecca is on row "+ board.getStartPos().getY()+" column " + board.getStartPos().getX());
+										System.out.println("Mecca is on row "+ board.getMeccaPos().getY()+" column " + board.getMeccaPos().getX());
 									
 				break;
 			}
@@ -337,11 +360,12 @@ public Meccasint(ParserSharedInputState state) {
 			{
 				match(FUNC_SETARROWS);
 				match(PARENT_IZ);
-				entero();
+				param1=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Mecca has now X arrows");
+										board.setMeccaNArrows(param1);
+										System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows"); 				
 									
 				break;
 			}
@@ -352,7 +376,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Mecca has X arrows");
+										System.out.println("Mecca has "+board.getMeccaNArrows()+" arrows");
 									
 				break;
 			}
@@ -360,11 +384,16 @@ public Meccasint(ParserSharedInputState state) {
 			{
 				match(FUNC_INCARROWS);
 				match(PARENT_IZ);
-				entero();
+				param1=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				
-										System.out.println("Arrows incremented in X, Mecca has now Y arrows");
+					
+										if(param1>=0){
+											board.incMeccaNArrows(param1);
+											System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+										}
+										else
+											System.out.println("You have to enter an integer bigger than 0");
 									
 				break;
 			}
@@ -372,11 +401,16 @@ public Meccasint(ParserSharedInputState state) {
 			{
 				match(FUNC_DECARROWS);
 				match(PARENT_IZ);
-				entero();
+				param1=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Arrows decremented in X, Mecca has now Y arrows");
+										if(param1>=0){
+											board.decMeccaNArrows(param1);
+											System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+										}
+										else
+											System.out.println("You have to enter an integer bigger than 0");
 									
 				break;
 			}
@@ -402,13 +436,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(FUNC_LEER);
 				match(PARENT_IZ);
 				{
-				_loop1386:
+				_loop614:
 				do {
 					if ((LA(1)==IDENT)) {
 						parametros();
 					}
 					else {
-						break _loop1386;
+						break _loop614;
 					}
 					
 				} while (true);
@@ -587,13 +621,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop1389:
+			_loop617:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop1389;
+					break _loop617;
 				}
 				
 			} while (true);

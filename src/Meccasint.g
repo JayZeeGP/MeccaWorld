@@ -67,25 +67,47 @@ instructionConf{int param1, param2;}: FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA
 						System.out.println("Board size is "+board.getSize().getHeight()+" rows and "+board.getSize().getWidth()+" columns");
 					}
 					
-				| FUNC_SETTREASURE PARENT_IZ entero COMA entero PARENT_DE PUNTO_COMA 
+				| FUNC_SETTREASURE PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{
-						System.out.println("Treasure position saved");
+						Position newTreasure = new Position(param1,param2);
+						int position = board.setTreasurePos(newTreasure);
+						System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
 					}
 					
 				| FUNC_GETTOTALTREASURES PARENT_IZ PARENT_DE PUNTO_COMA 
-					{System.out.println("The number of total treasures is: "+board.getTotalTreasures());}
+					{
+						System.out.println("The number of total treasures is: "+board.getTotalTreasures());
+					}
 					
-				| FUNC_GETTREASURE PARENT_IZ entero PARENT_DE PUNTO_COMA 
-					{System.out.println("Treasure X is on row Y column Z:");}
+				| FUNC_GETTREASURE PARENT_IZ param1=entero PARENT_DE PUNTO_COMA 
+					{
+						//Check if that treasure exists
+						if(board.getTotalTreasures()>=param1&&param1>0)
+							System.out.println("Treasure "+(param1)+" set on column "+board.getTreasurePos(param1-1).getX()+" row "+board.getTreasurePos(param1-1).getY());
+						else
+							System.out.println("There is no treasure with that number");
+					}
 				
-				| FUNC_SETHOLE PARENT_IZ entero COMA entero PARENT_DE PUNTO_COMA 
-					{System.out.println("Hole set on row X column Y");}
+				| FUNC_SETHOLE PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
+					{
+						Position newHole = new Position(param1,param2);
+						int position = board.setTreasurePos(newHole);
+						System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+					}
 					
 				| FUNC_GETNUMBEROFHOLES PARENT_IZ PARENT_DE PUNTO_COMA 
-					{System.out.println("The number of holes is: "+board.getNumberOfHoles());}
+					{
+						System.out.println("The number of holes is: "+board.getNumberOfHoles());
+					}
 					
-				| FUNC_GETHOLE PARENT_IZ PARENT_DE PUNTO_COMA 
-					{System.out.println("The hole number X is on row Y column Z");}
+				| FUNC_GETHOLE PARENT_IZ param1=entero PARENT_DE PUNTO_COMA 
+					{
+						//Check if that hole exists
+						if(board.getNumberOfHoles()>=param1&&param1>0)
+							System.out.println("Treasure "+(param1)+" set on column "+board.getHolePos(param1-1).getX()+" row "+board.getHolePos(param1-1).getY());
+						else
+							System.out.println("There is no treasure with that number");
+					}
 					
 				| FUNC_SETWUMPUS PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{
@@ -123,29 +145,41 @@ instructionConf{int param1, param2;}: FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA
 						System.out.println("Exit is on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
 					}
 					
+					//Esto en realidad no tiene pinta de que se vaya a utilizar en el conf mode
 				| FUNC_GETMECCA PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
-						System.out.println("Mecca is on row "+ board.getStartPos().getY()+" column " + board.getStartPos().getX());
+						System.out.println("Mecca is on row "+ board.getMeccaPos().getY()+" column " + board.getMeccaPos().getX());
 					}
 					
-				| FUNC_SETARROWS PARENT_IZ entero PARENT_DE PUNTO_COMA 
+				| FUNC_SETARROWS PARENT_IZ param1=entero PARENT_DE PUNTO_COMA 
 					{
-						System.out.println("Mecca has now X arrows");
+						board.setMeccaNArrows(param1);
+						System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows"); 				
 					}
 					
 				| FUNC_GETARROWS PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
-						System.out.println("Mecca has X arrows");
+						System.out.println("Mecca has "+board.getMeccaNArrows()+" arrows");
 					}
 					
-				| FUNC_INCARROWS PARENT_IZ entero PARENT_DE PUNTO_COMA 
-					{
-						System.out.println("Arrows incremented in X, Mecca has now Y arrows");
+				| FUNC_INCARROWS PARENT_IZ param1=entero PARENT_DE PUNTO_COMA 
+					{	
+						if(param1>=0){
+							board.incMeccaNArrows(param1);
+							System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+						}
+						else
+							System.out.println("You have to enter an integer bigger than 0");
 					}
 					
-				| FUNC_DECARROWS PARENT_IZ entero PARENT_DE PUNTO_COMA 
+				| FUNC_DECARROWS PARENT_IZ param1=entero PARENT_DE PUNTO_COMA 
 					{
-						System.out.println("Arrows decremented in X, Mecca has now Y arrows");
+						if(param1>=0){
+							board.decMeccaNArrows(param1);
+							System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+						}
+						else
+							System.out.println("You have to enter an integer bigger than 0");
 					}
                ;
 

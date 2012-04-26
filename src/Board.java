@@ -12,7 +12,6 @@ public class Board {
 	private Position wumpusPos;
 	private Position startPos;
 	private Position exitPos;
-	private Position meccaPos;
 	
 	private ArrayList <Position> treasuresPos;
 	private ArrayList <Position> holesPos;
@@ -28,7 +27,6 @@ public class Board {
 		wumpusPos = new Position();  //(1,1) by default
 		startPos = new Position();
 		exitPos = new Position();
-		meccaPos = new Position();
 		
 		isWumpusAlive=true;
 		
@@ -74,12 +72,72 @@ public class Board {
 		exitPos.setY(newPos.getY());
 	}
 	
+	//It may be good to change this name
+	//It returns the position where the treasure was storaged
+	public int setTreasurePos(Position newPos){
+		Position treasure = new Position(newPos.getX(),newPos.getY());
+		treasuresPos.add(treasure);
+		return treasuresPos.size()-1;
+	}
+	
+	public Position getTreasurePos(int treasureNo){
+		return treasuresPos.get(treasureNo);
+	}
+	
+	//We still didn't decide to put this, but I think it's good
+	public void editTreasurePos(int treasureNo, Position newPos){
+		Position treasure = new Position(newPos.getX(),newPos.getY());
+		treasuresPos.set(treasureNo, treasure);
+	}
+	
+	//It may be good to change this name
+	//It returns the position where the treasure was storaged
+	public int setHolePos(Position newPos){
+		Position hole = new Position(newPos.getX(),newPos.getY());
+		holesPos.add(hole);
+		return holesPos.size()-1;
+	}
+	
+	public Position getHolePos(int holeNo){
+		return holesPos.get(holeNo);
+	}
+	
+	//We still didn't decide to put this, but I think it's good
+	public void editHolePos(int holeNo, Position newPos){
+		Position hole = new Position(newPos.getX(),newPos.getY());
+		holesPos.set(holeNo, hole);
+	}
+	
 	public int getTotalTreasures(){
 		return treasuresPos.size();
 	}
 	
 	public int getNumberOfHoles(){
 		return holesPos.size();
+	}
+	
+	public Position getMeccaPos(){
+		return mecca.getPos();
+	}
+	
+	public void setMeccaPos(Position newPos){
+		mecca.setPos(newPos);
+	}
+	
+	public int getMeccaNArrows(){
+		return mecca.getNArrows();
+	}
+	
+	public void setMeccaNArrows(int nArrows){
+		mecca.setNArrows(nArrows);
+	}
+	
+	public void incMeccaNArrows(int inc){
+		mecca.incNarrows(inc);
+	}
+	
+	public void decMeccaNArrows(int dec){
+		mecca.decNarrows(dec);
 	}
 	
 	public String toString(){
