@@ -64,17 +64,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
-			int _cnt607=0;
-			_loop607:
+			int _cnt121=0;
+			_loop121:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
-					instructionConf();
+					instruction();
 				}
 				else {
-					if ( _cnt607>=1 ) { break _loop607; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt121>=1 ) { break _loop121; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt607++;
+				_cnt121++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -91,17 +91,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
-			int _cnt610=0;
-			_loop610:
+			int _cnt124=0;
+			_loop124:
 			do {
-				if ((_tokenSet_3.member(LA(1)))) {
-					instructionAd();
+				if ((_tokenSet_1.member(LA(1)))) {
+					instruction();
 				}
 				else {
-					if ( _cnt610>=1 ) { break _loop610; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt124>=1 ) { break _loop124; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt610++;
+				_cnt124++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -112,9 +112,10 @@ public Meccasint(ParserSharedInputState state) {
 		}
 	}
 	
-	public final void instructionConf() throws RecognitionException, TokenStreamException {
+	public final void instruction() throws RecognitionException, TokenStreamException {
 		
 		int param1, param2;
+						String info;
 		
 		try {      // for error handling
 			switch ( LA(1)) {
@@ -414,88 +415,6 @@ public Meccasint(ParserSharedInputState state) {
 									
 				break;
 			}
-			default:
-			{
-				throw new NoViableAltException(LT(1), getFilename());
-			}
-			}
-		}
-		catch (RecognitionException ex) {
-			reportError(ex);
-			recover(ex,_tokenSet_4);
-		}
-	}
-	
-	public final void instructionAd() throws RecognitionException, TokenStreamException {
-		
-		
-		try {      // for error handling
-			switch ( LA(1)) {
-			case FUNC_LEER:
-			{
-				match(FUNC_LEER);
-				match(PARENT_IZ);
-				{
-				_loop614:
-				do {
-					if ((LA(1)==IDENT)) {
-						parametros();
-					}
-					else {
-						break _loop614;
-					}
-					
-				} while (true);
-				}
-				match(PARENT_DE);
-				match(PUNTO_COMA);
-				break;
-			}
-			case FUNC_GETBOARDROWS:
-			{
-				match(FUNC_GETBOARDROWS);
-				match(PARENT_IZ);
-				match(PARENT_DE);
-				match(PUNTO_COMA);
-				System.out.println("Board has X rows");
-				break;
-			}
-			case FUNC_GETBOARDCOLUMNS:
-			{
-				match(FUNC_GETBOARDCOLUMNS);
-				match(PARENT_IZ);
-				match(PARENT_DE);
-				match(PUNTO_COMA);
-				System.out.println("Board has X columns");
-				break;
-			}
-			case FUNC_GETBOARDSIZE:
-			{
-				match(FUNC_GETBOARDSIZE);
-				match(PARENT_IZ);
-				match(PARENT_DE);
-				match(PUNTO_COMA);
-				System.out.println("Board size is X rows and Y columns");
-				break;
-			}
-			case FUNC_GETTOTALTREASURES:
-			{
-				match(FUNC_GETTOTALTREASURES);
-				match(PARENT_IZ);
-				match(PARENT_DE);
-				match(PUNTO_COMA);
-				System.out.println("Treasures are:");
-				break;
-			}
-			case FUNC_GETMECCA:
-			{
-				match(FUNC_GETMECCA);
-				match(PARENT_IZ);
-				match(PARENT_DE);
-				match(PUNTO_COMA);
-				System.out.println("Mecca is on row X column Y");
-				break;
-			}
 			case FUNC_GETREMAININGTREASURES:
 			{
 				match(FUNC_GETREMAININGTREASURES);
@@ -503,15 +422,6 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				System.out.println("X Treasures remaining");
-				break;
-			}
-			case FUNC_GETARROWS:
-			{
-				match(FUNC_GETARROWS);
-				match(PARENT_IZ);
-				match(PARENT_DE);
-				match(PUNTO_COMA);
-				System.out.println("Mecca has X arrows");
 				break;
 			}
 			case FUNC_SHOOTLEFT:
@@ -594,7 +504,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_5);
+			recover(ex,_tokenSet_3);
 		}
 	}
 	
@@ -610,7 +520,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_6);
+			recover(ex,_tokenSet_4);
 		}
 		return value;
 	}
@@ -621,13 +531,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop617:
+			_loop128:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop617;
+					break _loop128;
 				}
 				
 			} while (true);
@@ -635,7 +545,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_7);
+			recover(ex,_tokenSet_0);
 		}
 	}
 	
@@ -647,7 +557,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_8);
+			recover(ex,_tokenSet_5);
 		}
 	}
 	
@@ -660,7 +570,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_8);
+			recover(ex,_tokenSet_5);
 		}
 	}
 	
@@ -731,7 +641,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 17179857152L, 0L};
+		long[] data = { 8796093010176L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
@@ -741,34 +651,19 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 8781597884672L, 0L};
+		long[] data = { 8796093010336L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 17179857184L, 0L};
+		long[] data = { 9216L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 8781597884800L, 0L};
+		long[] data = { 8194L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
-	private static final long[] mk_tokenSet_6() {
-		long[] data = { 9216L, 0L};
-		return data;
-	}
-	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
-	private static final long[] mk_tokenSet_7() {
-		long[] data = { 8796093023232L, 0L};
-		return data;
-	}
-	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
-	private static final long[] mk_tokenSet_8() {
-		long[] data = { 8796093031424L, 0L};
-		return data;
-	}
-	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());
 	
 	}

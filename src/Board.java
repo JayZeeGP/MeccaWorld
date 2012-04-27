@@ -140,6 +140,57 @@ public class Board {
 		mecca.decNarrows(dec);
 	}
 	
+	public String meccaGoUp(){
+		String retorno = new String();
+		//Check if Mecca Can go up
+		Position newPos = mecca.getPos();
+		newPos.setY(newPos.getY()+1);
+		mecca.setPos(newPos);
+		//Return message with information
+		return retorno;
+	}
+	
+	public String meccaGoDown(){
+		String retorno = new String();
+		//Check if Mecca Can go down
+		Position newPos = mecca.getPos();
+		newPos.setY(newPos.getY()-1);
+		mecca.setPos(newPos);
+		//Return message with information
+		return retorno;
+	}
+	
+	public String meccaGoLeft(){
+		String retorno = new String();
+		//Check if Mecca Can go left
+		Position newPos = mecca.getPos();
+		newPos.setX(newPos.getX()-1);
+		mecca.setPos(newPos);
+		//Return message with information
+		return retorno;
+	}
+	
+	public String meccaGoRight(){
+		String retorno = new String();
+		//Check if Mecca Can go right
+		Position newPos = mecca.getPos();
+		newPos.setX(newPos.getX()+1);
+		mecca.setPos(newPos);
+		//Return message with information
+		return retorno;
+	}
+	
+	public String meccaShoot(int direction){ //1 UP 2 RIGHT 3 LEFT 4 DOWN
+		String retorno = new String();
+		//Check if Mecca Can shoot
+		if(mecca.getNArrows()>0){
+			//Check shooting result
+			mecca.decNarrows();
+		}
+		//Return message with information
+		return retorno;
+	}
+	
 	public String toString(){
 		String returnString = new String();
 		returnString+="Board information\n";

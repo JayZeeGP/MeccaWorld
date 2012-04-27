@@ -36,11 +36,14 @@ options
 
 mecca: configuration adventure;
 
-configuration: BEGIN_CONF (instructionConf)+ END_CONF;
+configuration: BEGIN_CONF (instruction)+ END_CONF;
 
-adventure: BEGIN_ADV (instructionAd)+ END_ADV;
+adventure: BEGIN_ADV (instruction)+ END_ADV;
 
-instructionConf{int param1, param2;}: FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA 
+instruction{int param1, param2;
+				String info;}: 
+				
+				FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						System.out.println("Reading");System.out.println(board.toString());
 					}
@@ -181,16 +184,8 @@ instructionConf{int param1, param2;}: FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA
 						else
 							System.out.println("You have to enter an integer bigger than 0");
 					}
-               ;
-
-instructionAd: FUNC_LEER PARENT_IZ (parametros)* PARENT_DE PUNTO_COMA
-				| FUNC_GETBOARDROWS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board has X rows");}
-				| FUNC_GETBOARDCOLUMNS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board has X columns");}
-				| FUNC_GETBOARDSIZE PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Board size is X rows and Y columns");}
-				| FUNC_GETTOTALTREASURES PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Treasures are:");}
-				| FUNC_GETMECCA PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Mecca is on row X column Y");}
+					
 				| FUNC_GETREMAININGTREASURES PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("X Treasures remaining");}
-				| FUNC_GETARROWS PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Mecca has X arrows");}
 				| FUNC_SHOOTLEFT PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Mecca shot left");}
 				| FUNC_SHOOTRIGHT PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Mecca shot right");}
 				| FUNC_SHOOTUP PARENT_IZ PARENT_DE PUNTO_COMA {System.out.println("Mecca shot up");}
