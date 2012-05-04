@@ -19,3 +19,19 @@ o decirme algo, guay.
 -Por ahora Mecca puede tener flechas negativas, es una chorrada pero 
 me duele la espalda, así que voy a parar un rato.
 -RemoveHoles y setWumpusAlive
+
+configurationMode
+setWumpus(3,3);
+That position is out of the board
+Wumpus set on column -1 row -1
+
+Idea de usar el primer elemento del arraylist en las cosas que no se pueden solapar
+	-Empty
+	-Wumpus
+	-Hole
+	-Etc.
+Dejar el y sucesivos, para las cosas que se solapan, la peste, la brisa, el brillo
+
+
+-Aún no tengo en cuenta que luego hay que borrar las cosass, es decir, si pongo wumpus en 2,2 
+y luego lo cambio a 3,3. hay que quitarlo del 2, 2

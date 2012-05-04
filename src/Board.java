@@ -20,11 +20,10 @@ public class Board {
 	
 	Board(){
 		boardSize = new Size(); //(0,0) by default
-		boardMatrix = new ArrayList [boardSize.getWidth()][boardSize.getHeight()];
-		//Con respecto a lo de arriba, mi idea es hacer un inicializador de matrices
+		this.restartBoard();		//Con respecto a lo de arriba, mi idea es hacer un inicializador de matrices
 		//que "bebiendo" de todos los datos de los atributos de Board lo cree.	 
 		
-		wumpusPos = new Position();  //(1,1) by default
+		wumpusPos = new Position();  //(-1,-1) by default
 		startPos = new Position();
 		exitPos = new Position();
 		
@@ -36,6 +35,71 @@ public class Board {
 
 	}
 	
+	/*
+	 * Initializes an empty board
+	 */
+	public void restartBoard(){
+		boardMatrix = new ArrayList [boardSize.getWidth()][boardSize.getHeight()];
+		
+		for(int x=0 ; x<boardSize.getWidth() ; x++)
+			for(int y=0; y<boardSize.getHeight() ; y++){
+				boardMatrix[x][y] = new ArrayList<String>();
+				boardMatrix[x][y].add(new String("Empty"));
+			}
+	}
+	
+	/*
+	 * Returns true if a cell is empty,
+	 * false otherways
+	 * The position it receives must be VALID in the board
+	 */
+	public boolean isEmpty(Position pos){
+		boolean retorno = false;
+		
+		if(boardMatrix[pos.getX()][pos.getY()].get(0).toString().contentEquals("Empty"))
+			retorno = true;
+		
+		return retorno;
+	}
+	
+	/*
+	 * This function returns true if the position is inside the board
+	 * and false otherways
+	 */
+	public boolean isInsideBoard(Position pos){
+		boolean retorno = false;
+		
+		if (pos.getX()<this.getSize().getWidth() && pos.getX()>=0 &&
+				pos.getY()<this.getSize().getHeight() && pos.getY()>=0)
+			retorno=true;
+		
+		return retorno;
+		
+	}
+	
+	/*
+	 * Writes a position in the board with the desired element
+	 * It returns true if everything goes well
+	 */
+	public boolean writeOnBoard(Position pos, String element){
+		boolean retorno = false;
+		
+		boardMatrix[pos.getX()][pos.getY()].set(0, element);
+		retorno = true;
+	
+		return retorno;
+	}
+	
+	
+	/*
+	 * Reads a position from the board in the desired position
+	 */
+	public String readFromBoard(Position pos){
+		String element = new String (boardMatrix[pos.getX()][pos.getY()].get(0).toString());
+	
+		return element;
+	}
+	
 	public Size getSize(){
 		return boardSize;
 	}
@@ -43,6 +107,7 @@ public class Board {
 	public void setSize(Size newSize){
 		boardSize.setWidth(newSize.getWidth());
 		boardSize.setHeight(newSize.getHeight());
+		this.restartBoard();
 	}
 	
 	public Position getWumpusPos(){
@@ -50,8 +115,19 @@ public class Board {
 	}
 	
 	public void setWumpusPos(Position newPos){
-		wumpusPos.setX(newPos.getX());
-		wumpusPos.setY(newPos.getY());
+		if(!newPos.equals(wumpusPos)){	//Checks if wumpus is already there
+			if(this.isInsideBoard(newPos))
+				if(this.isEmpty(newPos)){
+					if(writeOnBoard(newPos,"Wumpus")){
+						wumpusPos.setX(newPos.getX());
+						wumpusPos.setY(newPos.getY());
+					}
+				}else{
+					System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
+				}
+			else
+				System.out.println("That position is out of the board");
+		}
 	}
 	
 	public Position getStartPos(){
@@ -59,8 +135,19 @@ public class Board {
 	}
 	
 	public void setStartPos(Position newPos){
-		startPos.setX(newPos.getX());
-		startPos.setY(newPos.getY());
+		if(!newPos.equals(startPos)){	//Checks if startPos is already there
+			if(this.isInsideBoard(newPos))
+				if(this.isEmpty(newPos)){
+					if(writeOnBoard(newPos,"Start")){
+						startPos.setX(newPos.getX());
+						startPos.setY(newPos.getY());
+					}
+				}else{
+					System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
+				}
+			else
+				System.out.println("That position is out of the board");
+		}
 	}
 	
 	public Position getExitPos(){

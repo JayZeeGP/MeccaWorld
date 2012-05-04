@@ -37,5 +37,14 @@ public class Position {
 	public String toString(){
 		return new String("Position:\n\tx="+x+" \ty="+y);
 	}
+	
+	public boolean equals(Position newPos){
+		boolean retorno = false;
+		
+		if(newPos.getX()==x && newPos.getY()==y)
+			retorno = true;
+		
+		return retorno;
+	}
 
 }
