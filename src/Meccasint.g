@@ -74,7 +74,12 @@ instruction{int param1, param2;
 					{
 						Position newTreasure = new Position(param1,param2);
 						int position = board.setTreasurePos(newTreasure);
-						System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+						
+						if(position != -1) {
+							System.out.println("Treasure "+(position)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					}
 					
 				| FUNC_GETTOTALTREASURES PARENT_IZ PARENT_DE PUNTO_COMA 
@@ -87,6 +92,7 @@ instruction{int param1, param2;
 						//Check if that treasure exists
 						if(board.getTotalTreasures()>=param1&&param1>0)
 							System.out.println("Treasure "+(param1)+" set on column "+board.getTreasurePos(param1-1).getX()+" row "+board.getTreasurePos(param1-1).getY());
+							
 						else
 							System.out.println("There is no treasure with that number");
 					}
@@ -94,8 +100,13 @@ instruction{int param1, param2;
 				| FUNC_SETHOLE PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{
 						Position newHole = new Position(param1,param2);
-						int position = board.setTreasurePos(newHole);
-						System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+						int position = board.setHolePos(newHole);
+						
+						if(position != -1) {
+							System.out.println("Hole "+(position)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					}
 					
 				| FUNC_GETNUMBEROFHOLES PARENT_IZ PARENT_DE PUNTO_COMA 
@@ -115,8 +126,10 @@ instruction{int param1, param2;
 				| FUNC_SETWUMPUS PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{
 						Position newWumpus = new Position(param1,param2);
-						board.setWumpusPos(newWumpus);
-						System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+						
+						if(board.setWumpusPos(newWumpus)) {
+							System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+						}
 					}
 					
 				| FUNC_GETWUMPUS PARENT_IZ PARENT_DE PUNTO_COMA 
@@ -127,8 +140,12 @@ instruction{int param1, param2;
 				| FUNC_SETSTART PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{
 						Position newStart = new Position(param1,param2);
-						board.setStartPos(newStart);
-						System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+						
+						if(board.setStartPos(newStart)) {
+							System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					}
 					
 				| FUNC_GETSTART PARENT_IZ PARENT_DE PUNTO_COMA 
@@ -139,8 +156,12 @@ instruction{int param1, param2;
 				| FUNC_SETEXIT PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{
 						Position newExit = new Position(param1,param2);
-						board.setExitPos(newExit);
-						System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+						
+						if(board.setExitPos(newExit)) {
+							System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					}
 					
 				| FUNC_GETEXIT PARENT_IZ  PARENT_DE PUNTO_COMA 

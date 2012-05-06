@@ -64,17 +64,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
-			int _cnt190=0;
-			_loop190:
+			int _cnt139=0;
+			_loop139:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt190>=1 ) { break _loop190; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt139>=1 ) { break _loop139; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt190++;
+				_cnt139++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -91,17 +91,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
-			int _cnt193=0;
-			_loop193:
+			int _cnt142=0;
+			_loop142:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt193>=1 ) { break _loop193; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt142>=1 ) { break _loop142; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt193++;
+				_cnt142++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -191,7 +191,12 @@ public Meccasint(ParserSharedInputState state) {
 				
 										Position newTreasure = new Position(param1,param2);
 										int position = board.setTreasurePos(newTreasure);
-										System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+										
+										if(position != -1) {
+											System.out.println("Treasure "+(position)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+										} else {
+											System.out.println("The given board position is not empty or not exists");
+										}
 									
 				break;
 			}
@@ -217,6 +222,7 @@ public Meccasint(ParserSharedInputState state) {
 										//Check if that treasure exists
 										if(board.getTotalTreasures()>=param1&&param1>0)
 											System.out.println("Treasure "+(param1)+" set on column "+board.getTreasurePos(param1-1).getX()+" row "+board.getTreasurePos(param1-1).getY());
+											
 										else
 											System.out.println("There is no treasure with that number");
 									
@@ -233,8 +239,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										Position newHole = new Position(param1,param2);
-										int position = board.setTreasurePos(newHole);
-										System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+										int position = board.setHolePos(newHole);
+										
+										if(position != -1) {
+											System.out.println("Hole "+(position)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+										} else {
+											System.out.println("The given board position is not empty or not exists");
+										}
 									
 				break;
 			}
@@ -276,8 +287,10 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										Position newWumpus = new Position(param1,param2);
-										board.setWumpusPos(newWumpus);
-										System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+										
+										if(board.setWumpusPos(newWumpus)) {
+											System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+										}
 									
 				break;
 			}
@@ -303,8 +316,12 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										Position newStart = new Position(param1,param2);
-										board.setStartPos(newStart);
-										System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+										
+										if(board.setStartPos(newStart)) {
+											System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+										} else {
+											System.out.println("The given board position is not empty or not exists");
+										}
 									
 				break;
 			}
@@ -330,8 +347,12 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										Position newExit = new Position(param1,param2);
-										board.setExitPos(newExit);
-										System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+										
+										if(board.setExitPos(newExit)) {
+											System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+										} else {
+											System.out.println("The given board position is not empty or not exists");
+										}
 									
 				break;
 			}
@@ -531,13 +552,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop197:
+			_loop146:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop197;
+					break _loop146;
 				}
 				
 			} while (true);

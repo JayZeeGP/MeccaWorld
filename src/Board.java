@@ -2,12 +2,20 @@ import java.util.ArrayList;
 
 
 public class Board {
-	//W = Wumpus, T = Treasure, H = Hole, B = Breeze, S = Smell, + = StartPos, - = endPos
+	public static final String WUMPUS = "Wumpus";
+	public static final String TREASURE = "Treasure";
+	public static final String HOLE = "Hole";
+	public static final String BREEZE = "Breeze";
+	public static final String SMELL = "Smell";
+	public static final String START = "Start";
+	public static final String EXIT = "Exit";
+	public static final String EMPTY = "Empty"; // No Wumpus, no hole, no treasure, no start, no exit
+	
 	//private ArrayList <Character> [][] boardMatrix;	
 	private ArrayList [][] boardMatrix;
 	private Size boardSize;
 	
-	public   Mecca mecca = new Mecca();
+	public Mecca mecca = new Mecca();
 	
 	private Position wumpusPos;
 	private Position startPos;
@@ -18,7 +26,7 @@ public class Board {
 	
 	boolean isWumpusAlive;
 	
-	Board(){
+	public Board(){
 		boardSize = new Size(); //(0,0) by default
 		this.restartBoard();		//Con respecto a lo de arriba, mi idea es hacer un inicializador de matrices
 		//que "bebiendo" de todos los datos de los atributos de Board lo cree.	 
@@ -39,13 +47,14 @@ public class Board {
 	 * Initializes an empty board
 	 */
 	public void restartBoard(){
-		boardMatrix = new ArrayList [boardSize.getWidth()][boardSize.getHeight()];
+		boardMatrix = new ArrayList [getSize().getWidth()][getSize().getHeight()];
 		
-		for(int x=0 ; x<boardSize.getWidth() ; x++)
-			for(int y=0; y<boardSize.getHeight() ; y++){
+		for(int x=0 ; x<getSize().getWidth() ; x++) {
+			for(int y=0; y<getSize().getHeight() ; y++){
 				boardMatrix[x][y] = new ArrayList<String>();
-				boardMatrix[x][y].add(new String("Empty"));
+				boardMatrix[x][y].add(new String(EMPTY));
 			}
+		}
 	}
 	
 	/*
@@ -54,12 +63,12 @@ public class Board {
 	 * The position it receives must be VALID in the board
 	 */
 	public boolean isEmpty(Position pos){
-		boolean retorno = false;
+		boolean empty = false;
 		
-		if(boardMatrix[pos.getX()][pos.getY()].get(0).toString().contentEquals("Empty"))
-			retorno = true;
+		if(readFromBoard(pos).contains(EMPTY))
+			empty = true;
 		
-		return retorno;
+		return empty;
 	}
 	
 	/*
@@ -67,13 +76,13 @@ public class Board {
 	 * and false otherways
 	 */
 	public boolean isInsideBoard(Position pos){
-		boolean retorno = false;
+		boolean inside = false;
 		
 		if (pos.getX()<this.getSize().getWidth() && pos.getX()>=0 &&
 				pos.getY()<this.getSize().getHeight() && pos.getY()>=0)
-			retorno=true;
+			inside=true;
 		
-		return retorno;
+		return inside;
 		
 	}
 	
@@ -82,22 +91,43 @@ public class Board {
 	 * It returns true if everything goes well
 	 */
 	public boolean writeOnBoard(Position pos, String element){
-		boolean retorno = false;
+		boolean write = false;
 		
-		boardMatrix[pos.getX()][pos.getY()].set(0, element);
-		retorno = true;
+		boardMatrix[pos.getX()][pos.getY()].add(element);
+		write = true;
 	
-		return retorno;
+		return write;
 	}
 	
 	
 	/*
 	 * Reads a position from the board in the desired position
 	 */
-	public String readFromBoard(Position pos){
-		String element = new String (boardMatrix[pos.getX()][pos.getY()].get(0).toString());
+	public ArrayList<String> readFromBoard(Position pos){
+		ArrayList<String> elements = boardMatrix[pos.getX()][pos.getY()];
 	
-		return element;
+		return elements;
+	}
+	
+	/*
+	 * Removes from board the given element in the given position
+	 */
+	public boolean removeFromBoard(String element, Position position) {
+		boolean remove = false;
+		
+		ArrayList<String> elements = readFromBoard(position);
+		
+		if(!element.equals(BREEZE) && !element.equals(SMELL)) {
+			if(elements.remove(element)) {
+				remove = true;
+				
+				if(!element.equals(EMPTY)) {
+					writeOnBoard(position, EMPTY);
+				}
+			}
+		}
+		
+		return remove;
 	}
 	
 	public Size getSize(){
@@ -105,8 +135,8 @@ public class Board {
 	}
 	
 	public void setSize(Size newSize){
-		boardSize.setWidth(newSize.getWidth());
-		boardSize.setHeight(newSize.getHeight());
+		getSize().setWidth(newSize.getWidth());
+		getSize().setHeight(newSize.getHeight());
 		this.restartBoard();
 	}
 	
@@ -114,93 +144,191 @@ public class Board {
 		return wumpusPos;
 	}
 	
-	public void setWumpusPos(Position newPos){
-		if(!newPos.equals(wumpusPos)){	//Checks if wumpus is already there
-			if(this.isInsideBoard(newPos))
-				if(this.isEmpty(newPos)){
-					if(writeOnBoard(newPos,"Wumpus")){
-						wumpusPos.setX(newPos.getX());
-						wumpusPos.setY(newPos.getY());
+	public boolean setWumpusPos(Position newPos){
+		boolean success = false;
+		
+		if(getWumpusPos().getX() == -1 && getWumpusPos().getY() == -1) { // There is no Wumpus
+			if(this.isInsideBoard(newPos)) {
+				if(this.isEmpty(newPos)) {
+					// Set Wumpus
+					if(writeOnBoard(newPos,WUMPUS)){
+						getWumpusPos().setX(newPos.getX());
+						getWumpusPos().setY(newPos.getY());
+						
+						removeFromBoard(EMPTY, newPos);
+						
+						// Set Smell
+						Position smell = new Position();
+						for(int i=-1; i<2; i++) {
+							smell.setX(newPos.getX());						
+							smell.setX(smell.getX()+i);
+							for(int j=-1; j<2; j++) {
+								smell.setY(newPos.getY());
+								smell.setY(smell.getY()+j);
+								
+								if(isInsideBoard(smell)) {
+									writeOnBoard(smell, SMELL);
+								}
+							}
+						}
+						
+						success = true;
 					}
 				}else{
 					System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
 				}
-			else
+			} else {
 				System.out.println("That position is out of the board");
+			}
+		} else {
+			System.out.println("Wumpus already exists: " + getWumpusPos().toString());
 		}
+		
+		return success;
 	}
 	
 	public Position getStartPos(){
 		return startPos;
 	}
 	
-	public void setStartPos(Position newPos){
-		if(!newPos.equals(startPos)){	//Checks if startPos is already there
-			if(this.isInsideBoard(newPos))
+	public boolean setStartPos(Position newPos){
+		boolean success = false;
+		
+		if(!newPos.equals(getStartPos())){	//Checks if startPos is already there
+			if(this.isInsideBoard(newPos)) {
 				if(this.isEmpty(newPos)){
-					if(writeOnBoard(newPos,"Start")){
-						startPos.setX(newPos.getX());
-						startPos.setY(newPos.getY());
+					if(writeOnBoard(newPos,START)){
+						getStartPos().setX(newPos.getX());
+						getStartPos().setY(newPos.getY());
+						
+						removeFromBoard(EMPTY, newPos);
+						
+						success = true;
 					}
 				}else{
 					System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
 				}
-			else
+			} else {
 				System.out.println("That position is out of the board");
+			}
 		}
+		
+		return success;
 	}
 	
 	public Position getExitPos(){
 		return exitPos;
 	}
 	
-	public void setExitPos(Position newPos){
-		exitPos.setX(newPos.getX());
-		exitPos.setY(newPos.getY());
+	public boolean setExitPos(Position newPos){
+		boolean success = false;
+		
+		if(isInsideBoard(newPos)) {
+			if(isEmpty(newPos)) {
+				if(writeOnBoard(newPos, EXIT)) {
+					getExitPos().setX(newPos.getX());
+					getExitPos().setY(newPos.getY());
+					
+					removeFromBoard(EMPTY, newPos);
+					
+					success = true;
+				}
+			}
+		}
+		
+		return success;
 	}
 	
 	//It may be good to change this name
-	//It returns the position where the treasure was storaged
-	public int setTreasurePos(Position newPos){
-		Position treasure = new Position(newPos.getX(),newPos.getY());
-		treasuresPos.add(treasure);
-		return treasuresPos.size()-1;
+	public int setTreasurePos(Position newPos) {
+		int nTreasure = -1;
+	
+		if(isInsideBoard(newPos)) {
+			if(isEmpty(newPos)) {
+				if(writeOnBoard(newPos, TREASURE)) {
+					Position treasure = new Position(newPos.getX(),newPos.getY());
+					getTreasuresPos().add(treasure);
+					
+					removeFromBoard(EMPTY, treasure);
+					
+					nTreasure = getTotalTreasures()-1;
+				}
+			}				
+		}
+			
+		return nTreasure;
 	}
 	
 	public Position getTreasurePos(int treasureNo){
-		return treasuresPos.get(treasureNo);
+		return getTreasuresPos().get(treasureNo);
+	}
+	
+	public ArrayList<Position> getTreasuresPos() {
+		return treasuresPos;
 	}
 	
 	//We still didn't decide to put this, but I think it's good
 	public void editTreasurePos(int treasureNo, Position newPos){
 		Position treasure = new Position(newPos.getX(),newPos.getY());
-		treasuresPos.set(treasureNo, treasure);
+		getTreasuresPos().set(treasureNo, treasure);
 	}
 	
 	//It may be good to change this name
-	//It returns the position where the treasure was storaged
 	public int setHolePos(Position newPos){
-		Position hole = new Position(newPos.getX(),newPos.getY());
-		holesPos.add(hole);
-		return holesPos.size()-1;
+		int nHole = -1;
+		
+		if(isInsideBoard(newPos)) {
+			if(isEmpty(newPos)) {
+				// Set Hole
+				if(writeOnBoard(newPos, HOLE)) {
+					Position hole = new Position(newPos.getX(),newPos.getY());
+					getHolesPos().add(hole);
+					
+					removeFromBoard(EMPTY, hole);
+					
+					nHole = getHolesPos().size()-1;
+					
+					// Set Breeze
+					Position breeze = new Position();
+					for(int i=-1; i<2; i++) {
+						breeze.setX(newPos.getX());						
+						breeze.setX(breeze.getX()+i);
+						for(int j=-1; j<2; j++) {
+							breeze.setY(newPos.getY());
+							breeze.setY(breeze.getY()+j);
+							
+							if(isInsideBoard(breeze)) {
+								writeOnBoard(breeze, BREEZE);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return nHole;
 	}
 	
 	public Position getHolePos(int holeNo){
-		return holesPos.get(holeNo);
+		return getHolesPos().get(holeNo);
+	}
+	
+	public ArrayList<Position> getHolesPos() {
+		return holesPos;
 	}
 	
 	//We still didn't decide to put this, but I think it's good
 	public void editHolePos(int holeNo, Position newPos){
 		Position hole = new Position(newPos.getX(),newPos.getY());
-		holesPos.set(holeNo, hole);
+		getHolesPos().set(holeNo, hole);
 	}
 	
 	public int getTotalTreasures(){
-		return treasuresPos.size();
+		return getTreasuresPos().size();
 	}
 	
 	public int getNumberOfHoles(){
-		return holesPos.size();
+		return getHolesPos().size();
 	}
 	
 	public Position getMeccaPos(){
@@ -228,54 +356,54 @@ public class Board {
 	}
 	
 	public String meccaGoUp(){
-		String retorno = new String();
+		String msg = new String();
 		//Check if Mecca Can go up
 		Position newPos = mecca.getPos();
 		newPos.setY(newPos.getY()+1);
 		mecca.setPos(newPos);
 		//Return message with information
-		return retorno;
+		return msg;
 	}
 	
 	public String meccaGoDown(){
-		String retorno = new String();
+		String msg = new String();
 		//Check if Mecca Can go down
 		Position newPos = mecca.getPos();
 		newPos.setY(newPos.getY()-1);
 		mecca.setPos(newPos);
 		//Return message with information
-		return retorno;
+		return msg;
 	}
 	
 	public String meccaGoLeft(){
-		String retorno = new String();
+		String msg = new String();
 		//Check if Mecca Can go left
 		Position newPos = mecca.getPos();
 		newPos.setX(newPos.getX()-1);
 		mecca.setPos(newPos);
 		//Return message with information
-		return retorno;
+		return msg;
 	}
 	
 	public String meccaGoRight(){
-		String retorno = new String();
+		String msg = new String();
 		//Check if Mecca Can go right
 		Position newPos = mecca.getPos();
 		newPos.setX(newPos.getX()+1);
 		mecca.setPos(newPos);
 		//Return message with information
-		return retorno;
+		return msg;
 	}
 	
 	public String meccaShoot(int direction){ //1 UP 2 RIGHT 3 LEFT 4 DOWN
-		String retorno = new String();
+		String msg = new String();
 		//Check if Mecca Can shoot
 		if(mecca.getNArrows()>0){
 			//Check shooting result
 			mecca.decNarrows();
 		}
 		//Return message with information
-		return retorno;
+		return msg;
 	}
 	
 	public String toString(){
@@ -286,6 +414,7 @@ public class Board {
 		returnString+="\nWumpus "+wumpusPos.toString();
 		returnString+="\nStart "+startPos.toString();
 		returnString+="\nEnd "+exitPos.toString();
+		
 		return returnString;
 	}
 

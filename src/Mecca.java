@@ -6,7 +6,7 @@ public class Mecca {
 	private Position position;
 	private ArrayList<Integer> treasuresWon;
 	
-	Mecca(){
+	public Mecca(){
 		position = new Position();
 		nArrows = 0;
 		treasuresWon = new ArrayList<Integer>();
@@ -17,7 +17,11 @@ public class Mecca {
 	}
 	
 	public void setNArrows(int newArrows){
-		nArrows = newArrows;
+		if(newArrows >= 0) {
+			nArrows = newArrows;
+		} else {
+			nArrows = 0;
+		}
 	}
 	
 	public void incNarrows(int inc){
@@ -25,7 +29,11 @@ public class Mecca {
 	}
 	
 	public void decNarrows(int dec){
-		nArrows-=dec;
+		if(nArrows-dec >= 0) {
+			nArrows-=dec;
+		} else {
+			nArrows = 0;
+		}
 	}
 	
 	public void incNarrows(){
@@ -33,7 +41,9 @@ public class Mecca {
 	}
 	
 	public void decNarrows(){
-		nArrows--;
+		if(nArrows > 0) {
+			nArrows--;
+		}
 	}
 	
 	public Position getPos(){
