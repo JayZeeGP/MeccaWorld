@@ -64,17 +64,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_CONF);
 			{
-			int _cnt139=0;
-			_loop139:
+			int _cnt718=0;
+			_loop718:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt139>=1 ) { break _loop139; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt718>=1 ) { break _loop718; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt139++;
+				_cnt718++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -91,17 +91,17 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			match(BEGIN_ADV);
 			{
-			int _cnt142=0;
-			_loop142:
+			int _cnt721=0;
+			_loop721:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt142>=1 ) { break _loop142; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt721>=1 ) { break _loop721; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt142++;
+				_cnt721++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -200,6 +200,22 @@ public Meccasint(ParserSharedInputState state) {
 									
 				break;
 			}
+			case FUNC_REMOVETREASURE:
+			{
+				match(FUNC_REMOVETREASURE);
+				match(PARENT_IZ);
+				param1=entero();
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+										
+										if(board.removeTreasure(param1)) {
+											System.out.println("Treasure " + param1 + " has been removed");
+										} else {
+											System.out.println("Treasure " + param1 + " does not exist");
+										}	
+									
+				break;
+			}
 			case FUNC_GETTOTALTREASURES:
 			{
 				match(FUNC_GETTOTALTREASURES);
@@ -242,10 +258,26 @@ public Meccasint(ParserSharedInputState state) {
 										int position = board.setHolePos(newHole);
 										
 										if(position != -1) {
-											System.out.println("Hole "+(position)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+											System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
 										} else {
 											System.out.println("The given board position is not empty or not exists");
 										}
+									
+				break;
+			}
+			case FUNC_REMOVEHOLE:
+			{
+				match(FUNC_REMOVEHOLE);
+				match(PARENT_IZ);
+				param1=entero();
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+										
+										if(board.removeHole(param1)) {
+											System.out.println("Hole " + param1 + " has been removed");
+										} else {
+											System.out.println("Hole " + param1 + " does not exist");
+										}	
 									
 				break;
 			}
@@ -552,13 +584,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop146:
+			_loop725:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop146;
+					break _loop725;
 				}
 				
 			} while (true);
@@ -627,9 +659,11 @@ public Meccasint(ParserSharedInputState state) {
 		"FUNC_GETBOARDCOLUMNS",
 		"FUNC_GETBOARDSIZE",
 		"FUNC_SETTREASURE",
+		"FUNC_REMOVETREASURE",
 		"FUNC_GETTOTALTREASURES",
 		"FUNC_GETTREASURE",
 		"FUNC_SETHOLE",
+		"FUNC_REMOVEHOLE",
 		"FUNC_GETNUMBEROFHOLES",
 		"FUNC_GETHOLE",
 		"FUNC_SETWUMPUS",
@@ -662,7 +696,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 8796093010176L, 0L};
+		long[] data = { 35184372076800L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
@@ -672,7 +706,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 8796093010336L, 0L};
+		long[] data = { 35184372076960L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());

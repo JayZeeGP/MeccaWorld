@@ -12,7 +12,7 @@ public class Board {
 	public static final String EMPTY = "Empty"; // No Wumpus, no hole, no treasure, no start, no exit
 	
 	//private ArrayList <Character> [][] boardMatrix;	
-	private ArrayList [][] boardMatrix;
+	private ArrayList<String> [][] boardMatrix;
 	private Size boardSize;
 	
 	public Mecca mecca = new Mecca();
@@ -46,6 +46,7 @@ public class Board {
 	/*
 	 * Initializes an empty board
 	 */
+	@SuppressWarnings("unchecked")
 	public void restartBoard(){
 		boardMatrix = new ArrayList [getSize().getWidth()][getSize().getHeight()];
 		
@@ -58,7 +59,7 @@ public class Board {
 	}
 	
 	/*
-	 * Returns true if a cell is empty,
+	 * Returns true if a square is empty,
 	 * false otherways
 	 * The position it receives must be VALID in the board
 	 */
@@ -93,7 +94,7 @@ public class Board {
 	public boolean writeOnBoard(Position pos, String element){
 		boolean write = false;
 		
-		boardMatrix[pos.getX()][pos.getY()].add(element);
+		readFromBoard(pos).add(element);
 		write = true;
 	
 		return write;
@@ -104,25 +105,25 @@ public class Board {
 	 * Reads a position from the board in the desired position
 	 */
 	public ArrayList<String> readFromBoard(Position pos){
-		ArrayList<String> elements = boardMatrix[pos.getX()][pos.getY()];
-	
-		return elements;
+		return boardMatrix[pos.getX()][pos.getY()];
 	}
 	
 	/*
 	 * Removes from board the given element in the given position
 	 */
-	public boolean removeFromBoard(String element, Position position) {
+	private boolean removeFromBoard(String element, Position position) {
 		boolean remove = false;
 		
-		ArrayList<String> elements = readFromBoard(position);
-		
-		if(!element.equals(BREEZE) && !element.equals(SMELL)) {
-			if(elements.remove(element)) {
-				remove = true;
-				
-				if(!element.equals(EMPTY)) {
-					writeOnBoard(position, EMPTY);
+		if(position.getX() >= 0 && position.getY() >= 0) {
+			ArrayList<String> elements = readFromBoard(position);
+			
+			if(elements.contains(element)) {
+				if(elements.remove(element)) {
+					remove = true;
+					
+					if(!element.equals(EMPTY) && !element.equals(BREEZE) && !element.equals(SMELL)) {
+						writeOnBoard(position, EMPTY);
+					}
 				}
 			}
 		}
@@ -147,41 +148,69 @@ public class Board {
 	public boolean setWumpusPos(Position newPos){
 		boolean success = false;
 		
-		if(getWumpusPos().getX() == -1 && getWumpusPos().getY() == -1) { // There is no Wumpus
-			if(this.isInsideBoard(newPos)) {
-				if(this.isEmpty(newPos)) {
-					// Set Wumpus
-					if(writeOnBoard(newPos,WUMPUS)){
-						getWumpusPos().setX(newPos.getX());
-						getWumpusPos().setY(newPos.getY());
-						
-						removeFromBoard(EMPTY, newPos);
-						
-						// Set Smell
-						Position smell = new Position();
-						for(int i=-1; i<2; i++) {
-							smell.setX(newPos.getX());						
-							smell.setX(smell.getX()+i);
-							for(int j=-1; j<2; j++) {
-								smell.setY(newPos.getY());
-								smell.setY(smell.getY()+j);
-								
-								if(isInsideBoard(smell)) {
-									writeOnBoard(smell, SMELL);
-								}
+		if(getWumpusPos().getX() != -1 && getWumpusPos().getY() != -1) { // Wumpus already exists
+			removeWumpus();
+		}
+		if(this.isInsideBoard(newPos)) {
+			if(this.isEmpty(newPos)) {
+				// Set Wumpus
+				if(writeOnBoard(newPos,WUMPUS)){
+					getWumpusPos().setX(newPos.getX());
+					getWumpusPos().setY(newPos.getY());
+					
+					removeFromBoard(EMPTY, newPos);
+					
+					// Set Smell
+					Position smell = new Position();
+					for(int i=-1; i<2; i++) {
+						smell.setX(newPos.getX());						
+						smell.setX(smell.getX()+i);
+						for(int j=-1; j<2; j++) {
+							smell.setY(newPos.getY());
+							smell.setY(smell.getY()+j);
+							
+							if(isInsideBoard(smell)) {
+								writeOnBoard(smell, SMELL);
 							}
 						}
-						
-						success = true;
 					}
-				}else{
-					System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
+					
+					success = true;
 				}
-			} else {
-				System.out.println("That position is out of the board");
+			}else{
+				System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
 			}
 		} else {
-			System.out.println("Wumpus already exists: " + getWumpusPos().toString());
+			System.out.println("That position is out of the board");
+		}
+		
+		return success;
+	}
+	
+	private boolean removeWumpus() {
+		boolean success = false;
+		
+		if(removeFromBoard(WUMPUS, getWumpusPos())) {
+			// Remove Smell
+			Position smell = new Position();
+			for(int i=-1; i<2; i++) {
+				smell.setX(getWumpusPos().getX());						
+				smell.setX(smell.getX()+i);
+				for(int j=-1; j<2; j++) {
+					smell.setY(getWumpusPos().getY());
+					smell.setY(smell.getY()+j);
+					
+					if(isInsideBoard(smell)) {
+						removeFromBoard(SMELL, smell);
+					}
+				}
+			}
+			
+			// Remove Wumpus
+			getWumpusPos().setX(-1);
+			getWumpusPos().setY(-1);
+			
+			success = true;
 		}
 		
 		return success;
@@ -194,23 +223,25 @@ public class Board {
 	public boolean setStartPos(Position newPos){
 		boolean success = false;
 		
-		if(!newPos.equals(getStartPos())){	//Checks if startPos is already there
-			if(this.isInsideBoard(newPos)) {
-				if(this.isEmpty(newPos)){
-					if(writeOnBoard(newPos,START)){
-						getStartPos().setX(newPos.getX());
-						getStartPos().setY(newPos.getY());
-						
-						removeFromBoard(EMPTY, newPos);
-						
-						success = true;
-					}
-				}else{
-					System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
+		if(getStartPos().getX() != -1 && getStartPos().getY() != -1) { // Start already exists
+			removeFromBoard(START, getStartPos());
+		}
+		
+		if(this.isInsideBoard(newPos)) {
+			if(this.isEmpty(newPos)){
+				if(writeOnBoard(newPos,START)){
+					getStartPos().setX(newPos.getX());
+					getStartPos().setY(newPos.getY());
+					
+					removeFromBoard(EMPTY, newPos);
+					
+					success = true;
 				}
-			} else {
-				System.out.println("That position is out of the board");
+			}else{
+				System.out.println("That position is occupied by: "+this.readFromBoard(newPos));
 			}
+		} else {
+			System.out.println("That position is out of the board");
 		}
 		
 		return success;
@@ -220,8 +251,12 @@ public class Board {
 		return exitPos;
 	}
 	
-	public boolean setExitPos(Position newPos){
+	public boolean setExitPos(Position newPos) {
 		boolean success = false;
+		
+		if(getExitPos().getX() != -1 && getExitPos().getY() != -1) { // Exit already exists
+			removeFromBoard(EXIT, getExitPos());
+		}
 		
 		if(isInsideBoard(newPos)) {
 			if(isEmpty(newPos)) {
@@ -271,6 +306,19 @@ public class Board {
 	public void editTreasurePos(int treasureNo, Position newPos){
 		Position treasure = new Position(newPos.getX(),newPos.getY());
 		getTreasuresPos().set(treasureNo, treasure);
+	}
+	
+	public boolean removeTreasure(int treasureNumber) {
+		boolean success = false;
+		
+		if(treasureNumber <= getTreasuresPos().size()) {	
+			removeFromBoard(TREASURE, getHolesPos().get(treasureNumber-1));
+			getHolesPos().remove(treasureNumber-1);
+			
+			success = true;
+		}
+		
+		return success;
 	}
 	
 	//It may be good to change this name
@@ -323,6 +371,35 @@ public class Board {
 		getHolesPos().set(holeNo, hole);
 	}
 	
+	public boolean removeHole(int holeNumber) {
+		boolean success = false;
+		
+		if(holeNumber <= getHolesPos().size()) {
+			// Remove Smell
+			Position hole = new Position();
+			for(int i=-1; i<2; i++) {
+				hole.setX(getHolePos(holeNumber-1).getX());						
+				hole.setX(hole.getX()+i);
+				for(int j=-1; j<2; j++) {
+					hole.setY(getHolePos(holeNumber-1).getY());
+					hole.setY(hole.getY()+j);
+					
+					if(isInsideBoard(hole)) {
+						removeFromBoard(HOLE, hole);
+					}
+				}
+			}
+			
+			// Remove Hole
+			removeFromBoard(HOLE, getHolesPos().get(holeNumber-1));
+			getHolesPos().remove(holeNumber-1);
+			
+			success = true;
+		}
+		
+		return success;
+	}
+
 	public int getTotalTreasures(){
 		return getTreasuresPos().size();
 	}
@@ -330,7 +407,7 @@ public class Board {
 	public int getNumberOfHoles(){
 		return getHolesPos().size();
 	}
-	
+
 	public Position getMeccaPos(){
 		return mecca.getPos();
 	}

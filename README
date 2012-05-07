@@ -36,6 +36,16 @@ Dejar el y sucesivos, para las cosas que se solapan, la peste, la brisa, el bril
 -Aún no tengo en cuenta que luego hay que borrar las cosass, es decir, si pongo wumpus en 2,2 
 y luego lo cambio a 3,3. hay que quitarlo del 2, 2
 
+################# TO DO ##########################
+- Función para mostrar los agujeros existentes y sus posiciones (idem para los tesoros)
+##################################################
+
+*********** JeTBLaCK- <> 07/05/2012 ***********
+- Implementada lax funciones para eliminar elementos de las casillas:
+	removeHole(number), removeTreasure(number)
+- Modificadas las funciones para mover los elementos que deben existir en una partida:
+	setWumpusPos(), setStartPos(), setExitPos()
+
 *********** JeTBLaCK- <> 06/05/2012 ***********
 - Mecca ya no puede tener flechas negativas
 - Al situar a Wumpus, se crea también su hedor alrededor
