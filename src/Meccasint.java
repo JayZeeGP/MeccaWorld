@@ -69,17 +69,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			int _cnt338=0;
-			_loop338:
+			int _cnt752=0;
+			_loop752:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt338>=1 ) { break _loop338; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt752>=1 ) { break _loop752; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt338++;
+				_cnt752++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -97,17 +97,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			mode = ADVENTURE_MODE;
 			{
-			int _cnt341=0;
-			_loop341:
+			int _cnt755=0;
+			_loop755:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt341>=1 ) { break _loop341; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt755>=1 ) { break _loop755; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt341++;
+				_cnt755++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -691,13 +691,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop345:
+			_loop759:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop345;
+					break _loop759;
 				}
 				
 			} while (true);

@@ -211,10 +211,10 @@ CORCHETE_IZ : '['
 	    ;
 CORCHETE_DE : ']' 
 	    ;
-LLAVE_IZ : '{' 
-	 ;
-LLAVE_DE : '}' 
-	 ;
+//LLAVE_IZ : '{' 
+//	 ;
+//LLAVE_DE : '}' 
+//	 ;
 PUNTO : '.' 
       ;
 BARRA_VERT : '|' 
@@ -272,10 +272,9 @@ LIT_NUMERO :
 
 // Comentario de una sola línea
 
-protected COMENTARIO1: "//" (~ ('\n'|'\r') )*	
+protected COMENTARIO1: "#" (~ ('\n'|'\r') )*	
 		     ;
 
-// Comentarios de varias líneas
 //protected COMENTARIO2 : "/*" 
 //			( 	
 //				('*' NL) => '*' NL
@@ -287,9 +286,9 @@ protected COMENTARIO1: "//" (~ ('\n'|'\r') )*
 //			;
 
 protected COMENTARIO2: 
-			"/*" 
+			"{" 
 			   (options {greedy=false;} : . )* 
-		        "*/"			 
+		        "}"			 
    		      ; 
 
 // Los comentarios se ignoran
