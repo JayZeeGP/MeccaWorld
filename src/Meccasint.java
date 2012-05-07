@@ -17,9 +17,13 @@ import antlr.collections.impl.BitSet;
 public class Meccasint extends antlr.LLkParser       implements MeccasintTokenTypes
  {
 
-  // Atributo de Anasint para contar las instrucciones reconocidas
-  int contador = 0;
-  Board board = new Board();
+	public static final String NO_MODE = "NoMode";
+	public static final String CONFIGURATION_MODE = "ConfigurationMode";
+	public static final String ADVENTURE_MODE = "AdventureMode";
+	// Atributo de Anasint para contar las instrucciones reconocidas
+	int contador = 0;
+	Board board = new Board();
+	String mode = new String(NO_MODE);
   
 
 protected Meccasint(TokenBuffer tokenBuf, int k) {
@@ -63,18 +67,19 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(BEGIN_CONF);
+			mode = CONFIGURATION_MODE;
 			{
-			int _cnt139=0;
-			_loop139:
+			int _cnt338=0;
+			_loop338:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt139>=1 ) { break _loop139; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt338>=1 ) { break _loop338; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt139++;
+				_cnt338++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -90,18 +95,19 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(BEGIN_ADV);
+			mode = ADVENTURE_MODE;
 			{
-			int _cnt142=0;
-			_loop142:
+			int _cnt341=0;
+			_loop341:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt142>=1 ) { break _loop142; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt341>=1 ) { break _loop341; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt142++;
+				_cnt341++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -140,9 +146,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										Size newSize = new Size(param1,param2);
-										board.setSize(newSize);
-										System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
+										if(mode == CONFIGURATION_MODE) {
+											Size newSize = new Size(param1,param2);
+											board.setSize(newSize);
+											System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}
 									
 				break;
 			}
@@ -153,7 +163,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Board has "+board.getSize().getHeight()+" rows");
+										if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {					
+											System.out.println("Board has "+board.getSize().getHeight()+" rows");
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");							
+										}
 									
 				break;
 			}
@@ -164,7 +178,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Board has "+board.getSize().getWidth()+" columns");
+										if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {	
+											System.out.println("Board has "+board.getSize().getWidth()+" columns");
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");							
+										}
 									
 				break;
 			}
@@ -175,7 +193,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Board size is "+board.getSize().getHeight()+" rows and "+board.getSize().getWidth()+" columns");
+										if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {	
+											System.out.println("Board size is "+board.getSize().getHeight()+" rows and "+board.getSize().getWidth()+" columns");
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");													
+										}
 									
 				break;
 			}
@@ -189,13 +211,17 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										Position newTreasure = new Position(param1,param2);
-										int position = board.setTreasurePos(newTreasure);
-										
-										if(position != -1) {
-											System.out.println("Treasure "+(position)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+										if(mode == CONFIGURATION_MODE) {
+											Position newTreasure = new Position(param1,param2);
+											int position = board.setTreasurePos(newTreasure);
+											
+											if(position != -1) {
+												System.out.println("Treasure "+(position)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+											} else {
+												System.out.println("The given board position is not empty or not exists");
+											}
 										} else {
-											System.out.println("The given board position is not empty or not exists");
+											System.out.println("This instruction has to be called in Configuration Mode");
 										}
 									
 				break;
@@ -219,12 +245,16 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										//Check if that treasure exists
-										if(board.getTotalTreasures()>=param1&&param1>0)
-											System.out.println("Treasure "+(param1)+" set on column "+board.getTreasurePos(param1-1).getX()+" row "+board.getTreasurePos(param1-1).getY());
-											
-										else
-											System.out.println("There is no treasure with that number");
+										if(mode == CONFIGURATION_MODE) {						
+											//Check if that treasure exists
+											if(board.getTotalTreasures()>=param1&&param1>0) {
+												System.out.println("Treasure "+(param1)+" set on column "+board.getTreasurePos(param1-1).getX()+" row "+board.getTreasurePos(param1-1).getY());
+											} else {
+												System.out.println("There is no treasure with that number");
+											}
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}
 									
 				break;
 			}
@@ -238,13 +268,17 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										Position newHole = new Position(param1,param2);
-										int position = board.setHolePos(newHole);
-										
-										if(position != -1) {
-											System.out.println("Hole "+(position)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+										if(mode == CONFIGURATION_MODE) {
+											Position newHole = new Position(param1,param2);
+											int position = board.setHolePos(newHole);
+											
+											if(position != -1) {
+												System.out.println("Hole "+(position)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+											} else {
+												System.out.println("The given board position is not empty or not exists");
+											}
 										} else {
-											System.out.println("The given board position is not empty or not exists");
+											System.out.println("This instruction has to be called in Configuration Mode");
 										}
 									
 				break;
@@ -256,7 +290,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("The number of holes is: "+board.getNumberOfHoles());
+										if(mode == CONFIGURATION_MODE) {
+											System.out.println("The number of holes is: "+board.getNumberOfHoles());
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");							
+										}
 									
 				break;
 			}
@@ -268,11 +306,16 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										//Check if that hole exists
-										if(board.getNumberOfHoles()>=param1&&param1>0)
-											System.out.println("Treasure "+(param1)+" set on column "+board.getHolePos(param1-1).getX()+" row "+board.getHolePos(param1-1).getY());
-										else
-											System.out.println("There is no treasure with that number");
+										if(mode == CONFIGURATION_MODE) {
+											//Check if that hole exists
+											if(board.getNumberOfHoles()>=param1&&param1>0) {
+												System.out.println("Treasure "+(param1)+" set on column "+board.getHolePos(param1-1).getX()+" row "+board.getHolePos(param1-1).getY());
+											} else {
+												System.out.println("There is no treasure with that number");
+											}
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");							
+										}
 									
 				break;
 			}
@@ -286,10 +329,14 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										Position newWumpus = new Position(param1,param2);
-										
-										if(board.setWumpusPos(newWumpus)) {
-											System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+										if(mode == CONFIGURATION_MODE) {
+											Position newWumpus = new Position(param1,param2);
+											
+											if(board.setWumpusPos(newWumpus)) {
+												System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+											}
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
 										}
 									
 				break;
@@ -301,7 +348,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("The Wumpus is on column "+ board.getWumpusPos().getX()+" row " + board.getWumpusPos().getY());
+										if(mode == CONFIGURATION_MODE) {		
+											System.out.println("The Wumpus is on column "+ board.getWumpusPos().getX()+" row " + board.getWumpusPos().getY());
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}
 									
 				break;
 			}
@@ -315,12 +366,16 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										Position newStart = new Position(param1,param2);
-										
-										if(board.setStartPos(newStart)) {
-											System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+										if(mode == CONFIGURATION_MODE) {
+											Position newStart = new Position(param1,param2);
+											
+											if(board.setStartPos(newStart)) {
+												System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+											} else {
+												System.out.println("The given board position is not empty or not exists");
+											}
 										} else {
-											System.out.println("The given board position is not empty or not exists");
+											System.out.println("This instruction has to be called in Configuration Mode");
 										}
 									
 				break;
@@ -332,7 +387,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Start is on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());	
+										if(mode == CONFIGURATION_MODE) {
+											System.out.println("Start is on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}	
 									
 				break;
 			}
@@ -346,12 +405,16 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										Position newExit = new Position(param1,param2);
-										
-										if(board.setExitPos(newExit)) {
-											System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+										if(mode == CONFIGURATION_MODE) {
+											Position newExit = new Position(param1,param2);
+											
+											if(board.setExitPos(newExit)) {
+												System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+											} else {
+												System.out.println("The given board position is not empty or not exists");
+											}
 										} else {
-											System.out.println("The given board position is not empty or not exists");
+											System.out.println("This instruction has to be called in Configuration Mode");
 										}
 									
 				break;
@@ -363,7 +426,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Exit is on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+										if(mode == CONFIGURATION_MODE) {
+											System.out.println("Exit is on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}
 									
 				break;
 			}
@@ -374,7 +441,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Mecca is on row "+ board.getMeccaPos().getY()+" column " + board.getMeccaPos().getX());
+										if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {
+											System.out.println("Mecca is on row "+ board.getMeccaPos().getY()+" column " + board.getMeccaPos().getX());
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");
+										}
 									
 				break;
 			}
@@ -386,8 +457,12 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										board.setMeccaNArrows(param1);
-										System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows"); 				
+										if(mode == CONFIGURATION_MODE) {
+											board.setMeccaNArrows(param1);
+											System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows");
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										} 				
 									
 				break;
 			}
@@ -398,7 +473,11 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										System.out.println("Mecca has "+board.getMeccaNArrows()+" arrows");
+										if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {
+											System.out.println("Mecca has "+board.getMeccaNArrows()+" arrows");
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");
+										}						
 									
 				break;
 			}
@@ -409,13 +488,18 @@ public Meccasint(ParserSharedInputState state) {
 				param1=entero();
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-					
-										if(param1>=0){
-											board.incMeccaNArrows(param1);
-											System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
-										}
-										else
-											System.out.println("You have to enter an integer bigger than 0");
+				
+										if(mode == CONFIGURATION_MODE) {
+											if(param1>=0) {
+												board.incMeccaNArrows(param1);
+												System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+											}
+											else {
+												System.out.println("You have to enter an integer bigger than 0");
+											}
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}	
 									
 				break;
 			}
@@ -427,12 +511,17 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-										if(param1>=0){
-											board.decMeccaNArrows(param1);
-											System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
-										}
-										else
-											System.out.println("You have to enter an integer bigger than 0");
+										if(mode == CONFIGURATION_MODE) {						
+											if(param1>=0) {
+												board.decMeccaNArrows(param1);
+												System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+											}
+											else {
+												System.out.println("The number of arrows has to be positive");
+											}
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}	
 									
 				break;
 			}
@@ -442,7 +531,9 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("X Treasures remaining");
+				
+										System.out.println("X Treasures remaining");
+									
 				break;
 			}
 			case FUNC_SHOOTLEFT:
@@ -451,7 +542,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca shot left");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca shot left");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			case FUNC_SHOOTRIGHT:
@@ -460,7 +557,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca shot right");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca shot right");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			case FUNC_SHOOTUP:
@@ -469,7 +572,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca shot up");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca shot up");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			case FUNC_SHOOTDOWN:
@@ -478,7 +587,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca shot down");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca shot down");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			case FUNC_GOLEFT:
@@ -487,7 +602,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca went left");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca went left");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			case FUNC_GORIGHT:
@@ -496,7 +617,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca went right");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca went right");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			case FUNC_GOUP:
@@ -505,7 +632,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca went up");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca went up");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			case FUNC_GODOWN:
@@ -514,7 +647,13 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				System.out.println("Mecca went down");
+				
+										if(mode == ADVENTURE_MODE) {
+											System.out.println("Mecca went down");
+										} else {
+											System.out.println("This instruction has to be called in Adventure Mode");
+										}
+									
 				break;
 			}
 			default:
@@ -552,13 +691,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop146:
+			_loop345:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop146;
+					break _loop345;
 				}
 				
 			} while (true);
