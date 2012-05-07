@@ -2,7 +2,7 @@ ConfigurationMode
 	setBoardSize(5,4);
 	setTreasure(3,1);
 	setWumpus(2,1);	
-setStart(0,0);
+	setStart(0,0);
 	setEnd(4,3);
 	setHole(1,1);
 	setArrows(3);
