@@ -375,7 +375,7 @@ public class Board {
 		boolean success = false;
 		
 		if(holeNumber <= getHolesPos().size()) {
-			// Remove Smell
+			// Remove Breeze
 			Position hole = new Position();
 			for(int i=-1; i<2; i++) {
 				hole.setX(getHolePos(holeNumber-1).getX());						
@@ -385,7 +385,7 @@ public class Board {
 					hole.setY(hole.getY()+j);
 					
 					if(isInsideBoard(hole)) {
-						removeFromBoard(HOLE, hole);
+						removeFromBoard(BREEZE, hole);
 					}
 				}
 			}
