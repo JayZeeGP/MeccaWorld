@@ -52,6 +52,7 @@ tokens
     FUNC_SETTREASURE = "setTreasure";
     FUNC_GETTOTALTREASURES = "getTotalTreasures";
     FUNC_GETTREASURE = "getTreasure";
+    FUNC_REMOVETREASURE = "removeTreasure";
     FUNC_SETHOLE = "setHole";
     FUNC_REMOVEHOLE = "removeHole";
     FUNC_GETNUMBEROFHOLES = "getNumberOfHoles";

@@ -483,14 +483,53 @@ public class Board {
 		return msg;
 	}
 	
+	public Size getBoardSize() {
+		return boardSize;
+	}
+	
 	public String toString(){
 		String returnString = new String();
-		returnString+="Board information\n";
+		/*returnString+="Board information\n";
 		returnString+="=================\n";
 		returnString+=boardSize.toString();
 		returnString+="\nWumpus "+wumpusPos.toString();
 		returnString+="\nStart "+startPos.toString();
-		returnString+="\nEnd "+exitPos.toString();
+		returnString+="\nEnd "+exitPos.toString();*/
+		if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
+			for(int i=0; i<getBoardSize().getHeight(); i++) {
+				returnString += "\n";
+				for(int j=0; j<getBoardSize().getWidth(); j++) {
+					ArrayList<String> square = readFromBoard(new Position(i, j));
+					
+					returnString += "\t";
+					
+					String element = new String("");
+					for(int k=0; k<square.size(); k++) {
+						if(square.get(k).equals(WUMPUS)) {
+							element = "W";
+						} else if(square.get(k).equals(HOLE)) {
+							element = "H";
+						} else if(square.get(k).equals(TREASURE)) {
+							element = "T";
+						} else if(square.get(k).equals(START)) {
+							element = "+";
+						} else if(square.get(k).equals(EXIT)) {
+							element = "X";
+						} else if(square.get(k).equals(BREEZE) && !element.equals("H")) {
+							element = "~";
+						} else if(square.get(k).equals(SMELL) && !element.equals("W")) {
+							element = "=";
+						} else if(square.get(k).equals(EMPTY) && element.equals("")) {
+							element = "-";
+						}
+					}
+	
+					returnString += element;
+				}
+			}
+		} else {
+			returnString += "There is no board";
+		}
 		
 		return returnString;
 	}
