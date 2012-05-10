@@ -57,3 +57,5 @@ y luego lo cambio a 3,3. hay que quitarlo del 2, 2
 - La función isEmpty() ahora busca EMPTY en cualquier posición del array de elementos
 + Problema detectado con los números negativos. Ejemplo: setArrows(-19);
 - Realizada un poco de refactorización de código
+#################JayZee a.k.a Messi a.k.a IKillMecca###########
+-Añadidos showholes y showtreasures
