@@ -97,7 +97,7 @@ instruction{int param1, param2;
 							int position = board.setTreasurePos(newTreasure);
 							
 							if(position != -1) {
-								System.out.println("Treasure "+(position)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+								System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
 							} else {
 								System.out.println("The given board position is not empty or not exists");
 							}
@@ -118,6 +118,15 @@ instruction{int param1, param2;
 					{
 						System.out.println("The number of total treasures is: "+board.getTotalTreasures());
 					}
+				
+				| FUNC_SHOWTREASURES PARENT_IZ  PARENT_DE PUNTO_COMA 
+					{
+						if(mode == CONFIGURATION_MODE) {
+							board.showTreasures();
+						} else {
+							System.out.println("This instruction has to be called in Configuration Mode");							
+						}
+					}					
 					
 				| FUNC_GETTREASURE PARENT_IZ param1=entero PARENT_DE PUNTO_COMA 
 					{
@@ -140,7 +149,7 @@ instruction{int param1, param2;
 							int position = board.setHolePos(newHole);
 							
 							if(position != -1) {
-								System.out.println("Hole "+(position)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+								System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
 							} else {
 								System.out.println("The given board position is not empty or not exists");
 							}
@@ -180,7 +189,15 @@ instruction{int param1, param2;
 							System.out.println("This instruction has to be called in Configuration Mode");							
 						}
 					}
-
+					
+				| FUNC_SHOWHOLES PARENT_IZ  PARENT_DE PUNTO_COMA 
+					{
+						if(mode == CONFIGURATION_MODE) {
+							board.showHoles();
+						} else {
+							System.out.println("This instruction has to be called in Configuration Mode");							
+						}
+					}
 					
 				| FUNC_SETWUMPUS PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 
 					{

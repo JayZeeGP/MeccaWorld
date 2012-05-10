@@ -1,0 +1,59 @@
+shMECCA TEAM GONNA WIN
+====================
+That's for sure
+
+/********************/
+-Posible problema de precedencias en las reglas léxicas
+-Probado en otro ejemplo y la cosa va funcionando
+-Añadido aquí, el BEGIN_CONF ya lo pilla, luego hay problema con las reglas de abajo, pero algo es algo.
+-La Y son las filas y las X las columnas
+-En mi humilde opinión hay que poner algo para borrar tesoros o algo así,
+por si te equivocas al meter uno :)
+-Podría ser interesante, de cara al futuro que las funciones devolvieran
+un string diciendo si se pudo meter el tesoro en tal casilla o algo así.
+-Al final lo que he hecho con Mecca es que esté dentro del tablero y llamas
+al tablero para que le modifique.
+La otra opción es que además de estar en el tablero, haya una referencia a él
+en Meccasint, las dos formas me parecen buenas y malas, si quieres cambiarlo
+o decirme algo, guay.
+-Por ahora Mecca puede tener flechas negativas, es una chorrada pero 
+me duele la espalda, así que voy a parar un rato.
+-RemoveHoles y setWumpusAlive
+
+configurationMode
+setWumpus(3,3);
+That position is out of the board
+Wumpus set on column -1 row -1
+
+Idea de usar el primer elemento del arraylist en las cosas que no se pueden solapar
+	-Empty
+	-Wumpus
+	-Hole
+	-Etc.
+Dejar el y sucesivos, para las cosas que se solapan, la peste, la brisa, el brillo
+
+
+-Aún no tengo en cuenta que luego hay que borrar las cosass, es decir, si pongo wumpus en 2,2 
+y luego lo cambio a 3,3. hay que quitarlo del 2, 2
+
+################# TO DO ##########################
+- Función para mostrar los agujeros existentes y sus posiciones (idem para los tesoros)
+##################################################
+
+*********** JeTBLaCK- <> 07/05/2012 ***********
+- Implementada lax funciones para eliminar elementos de las casillas:
+	removeHole(number), removeTreasure(number)
+- Modificadas las funciones para mover los elementos que deben existir en una partida:
+	setWumpusPos(), setStartPos(), setExitPos()
+
+*********** JeTBLaCK- <> 06/05/2012 ***********
+- Mecca ya no puede tener flechas negativas
+- Al situar a Wumpus, se crea también su hedor alrededor
+- Ya sólo puede haber un único Wumpus en el tablero
+- readFromBoard devuelve todos los elementos de la casilla
+- Al añadir tesoros se comprueba que puedan ser añadidos, en caso contrario se devuelve -1
+- Idem para añadir agujeros, además también se crea su brisa alrededor
+- Al añadir alguno de los elementos que no se pueden solapar, se elimina el elemento EMPTY (removeFromBoard)
+- La función isEmpty() ahora busca EMPTY en cualquier posición del array de elementos
++ Problema detectado con los números negativos. Ejemplo: setArrows(-19);
+- Realizada un poco de refactorización de código

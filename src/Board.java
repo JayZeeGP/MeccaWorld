@@ -302,8 +302,19 @@ public class Board {
 		return treasuresPos;
 	}
 	
+	//Displays a message with the position of every hole
+	public void showTreasures() {
+		if(treasuresPos.size()!=0) {
+			for(int i = 0; i< treasuresPos.size() ; i++) {
+				System.out.println("Treasure: "+(i+1)+" - "+treasuresPos.get(i).toString());
+			}
+		} else {
+			System.out.println("No treasures defined yet");
+		}
+	}
+	
 	//We still didn't decide to put this, but I think it's good
-	public void editTreasurePos(int treasureNo, Position newPos){
+	public void editTreasurePos(int treasureNo, Position newPos) {
 		Position treasure = new Position(newPos.getX(),newPos.getY());
 		getTreasuresPos().set(treasureNo, treasure);
 	}
@@ -398,6 +409,18 @@ public class Board {
 		}
 		
 		return success;
+	}
+	
+	
+	//Displays a message with the position of every hole
+	public void showHoles() {
+		if(holesPos.size()!=0) {
+			for(int i = 0; i< holesPos.size() ; i++) {
+				System.out.println("Hole: "+(i+1)+" - "+holesPos.get(i).toString());
+			} 
+		} else {
+				System.out.println("No holes defined yet");
+		}
 	}
 
 	public int getTotalTreasures(){

@@ -52,11 +52,13 @@ tokens
     FUNC_SETTREASURE = "setTreasure";
     FUNC_GETTOTALTREASURES = "getTotalTreasures";
     FUNC_GETTREASURE = "getTreasure";
+    FUNC_SHOWTREASURES = "showTreasures";    
     FUNC_REMOVETREASURE = "removeTreasure";
     FUNC_SETHOLE = "setHole";
     FUNC_REMOVEHOLE = "removeHole";
     FUNC_GETNUMBEROFHOLES = "getNumberOfHoles";
     FUNC_GETHOLE = "getHole";
+    FUNC_SHOWHOLES = "showHoles";
     FUNC_SETWUMPUS = "setWumpus";
     FUNC_GETWUMPUS = "getWumpus";
     FUNC_SETSTART = "setStart";

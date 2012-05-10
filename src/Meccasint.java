@@ -69,17 +69,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			int _cnt80=0;
-			_loop80:
+			int _cnt323=0;
+			_loop323:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt80>=1 ) { break _loop80; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt323>=1 ) { break _loop323; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt80++;
+				_cnt323++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -97,17 +97,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			mode = ADVENTURE_MODE;
 			{
-			int _cnt83=0;
-			_loop83:
+			int _cnt326=0;
+			_loop326:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt83>=1 ) { break _loop83; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt326>=1 ) { break _loop326; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt83++;
+				_cnt326++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -216,7 +216,7 @@ public Meccasint(ParserSharedInputState state) {
 											int position = board.setTreasurePos(newTreasure);
 											
 											if(position != -1) {
-												System.out.println("Treasure "+(position)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+												System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
 											} else {
 												System.out.println("The given board position is not empty or not exists");
 											}
@@ -250,6 +250,21 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										System.out.println("The number of total treasures is: "+board.getTotalTreasures());
+									
+				break;
+			}
+			case FUNC_SHOWTREASURES:
+			{
+				match(FUNC_SHOWTREASURES);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				
+										if(mode == CONFIGURATION_MODE) {
+											board.showTreasures();
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");							
+										}
 									
 				break;
 			}
@@ -289,7 +304,7 @@ public Meccasint(ParserSharedInputState state) {
 											int position = board.setHolePos(newHole);
 											
 											if(position != -1) {
-												System.out.println("Hole "+(position)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+												System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
 											} else {
 												System.out.println("The given board position is not empty or not exists");
 											}
@@ -345,6 +360,21 @@ public Meccasint(ParserSharedInputState state) {
 											} else {
 												System.out.println("There is no hole with that number");
 											}
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");							
+										}
+									
+				break;
+			}
+			case FUNC_SHOWHOLES:
+			{
+				match(FUNC_SHOWHOLES);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				
+										if(mode == CONFIGURATION_MODE) {
+											board.showHoles();
 										} else {
 											System.out.println("This instruction has to be called in Configuration Mode");							
 										}
@@ -723,13 +753,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop87:
+			_loop330:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop87;
+					break _loop330;
 				}
 				
 			} while (true);
@@ -800,11 +830,13 @@ public Meccasint(ParserSharedInputState state) {
 		"FUNC_SETTREASURE",
 		"FUNC_REMOVETREASURE",
 		"FUNC_GETTOTALTREASURES",
+		"FUNC_SHOWTREASURES",
 		"FUNC_GETTREASURE",
 		"FUNC_SETHOLE",
 		"FUNC_REMOVEHOLE",
 		"FUNC_GETNUMBEROFHOLES",
 		"FUNC_GETHOLE",
+		"FUNC_SHOWHOLES",
 		"FUNC_SETWUMPUS",
 		"FUNC_GETWUMPUS",
 		"FUNC_SETSTART",
@@ -835,7 +867,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 35184372076800L, 0L};
+		long[] data = { 140737488343296L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
@@ -845,7 +877,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 35184372076960L, 0L};
+		long[] data = { 140737488343456L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
