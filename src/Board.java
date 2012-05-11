@@ -447,31 +447,31 @@ public class Board {
 		return getMecca().getNArrows();
 	}
 	
-	public void setMeccaNArrows(int nArrows){
+	public void setMeccaNArrows(int nArrows) {
 		getMecca().setNArrows(nArrows);
 	}
 	
-	public void incMeccaNArrows(int inc){
+	public void incMeccaNArrows(int inc) {
 		getMecca().incNarrows(inc);
 	}
 	
-	public void decMeccaNArrows(int dec){
+	public void decMeccaNArrows(int dec) {
 		getMecca().decNarrows(dec);
 	}
 	
-	public void meccaGoUp(){
+	public void meccaGoUp() {
 		meccaGoPosition(new Position(getMeccaPos().getX(), getMeccaPos().getY()+1));
 	}
 	
-	public void meccaGoDown(){
+	public void meccaGoDown() {
 		meccaGoPosition(new Position(getMeccaPos().getX(), getMeccaPos().getY()-1));
 	}
 	
-	public void meccaGoLeft(){
+	public void meccaGoLeft() {
 		meccaGoPosition(new Position(getMeccaPos().getX()-1, getMeccaPos().getY()));
 	}
 	
-	public void meccaGoRight(){
+	public void meccaGoRight() {
 		meccaGoPosition(new Position(getMeccaPos().getX()+1, getMeccaPos().getY()));
 	}
 	
@@ -488,7 +488,8 @@ public class Board {
 	
 	private void meccaGoPosition(Position position) {		
 		if(checkMovement(position)) {
-			getMecca().setPos(position);
+			getMeccaPos().setX(position.getX());
+			getMeccaPos().setY(position.getY());
 		}
 	}
 	
@@ -498,21 +499,19 @@ public class Board {
 		
 		if(isInsideBoard(position)) {
 			if(elements.contains(WUMPUS)) {
-				success = false;
-				
+				success = false;				
 				System.out.println("Wumpus killed you... GAME OVER");
 			} else if(elements.contains(HOLE)) {
 				success = false;
-				
 				System.out.println("You've fallen into a hole... GAME OVER");
-			} else if(elements.contains(SMELL)) {
-				System.out.println("It smells bad... What could it be!?");
-			} else if(elements.contains(HOLE)) {
-				System.out.println("You feel a gentle breeze...");
 			} else if(elements.contains(TREASURE)) {
 				System.out.println("Congratulations! You found a treasure!");
-			} else if(elements.contains(EXIT)) {
+			}  else if(elements.contains(EXIT)) {
 				// Fin de la partida
+			} else if(elements.contains(SMELL)) {
+				System.out.println("It smells bad... What could it be!?");
+			} else if(elements.contains(BREEZE)) {
+				System.out.println("You feel a gentle breeze...");
 			}
 		} else {
 			success = false;
@@ -536,35 +535,40 @@ public class Board {
 		returnString+="\nStart "+startPos.toString();
 		returnString+="\nEnd "+exitPos.toString();*/
 		if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
-			for(int i=0; i<getBoardSize().getHeight(); i++) {
+			for(int i=0; i<getBoardSize().getWidth(); i++) {
 				returnString += "\n";
-				for(int j=0; j<getBoardSize().getWidth(); j++) {
+				for(int j=0; j<getBoardSize().getHeight(); j++) {
 					ArrayList<String> square = readFromBoard(new Position(i, j));
 					
 					returnString += "\t";
 					
-					String element = new String("");
-					for(int k=0; k<square.size(); k++) {
-						if(square.get(k).equals(WUMPUS)) {
+					if(getMeccaPos().getX() == i && getMeccaPos().getY() == j) {
+						returnString += "M";
+					} else {
+						String element = new String("");
+						
+						if(square.contains(WUMPUS)) {
 							element = "W";
-						} else if(square.get(k).equals(HOLE)) {
+						} else if(square.contains(HOLE)) {
 							element = "H";
-						} else if(square.get(k).equals(TREASURE)) {
+						} else if(square.contains(TREASURE)) {
 							element = "T";
-						} else if(square.get(k).equals(START)) {
+						} else if(square.contains(START)) {
 							element = "+";
-						} else if(square.get(k).equals(EXIT)) {
+						} else if(square.contains(EXIT)) {
 							element = "X";
-						} else if(square.get(k).equals(BREEZE) && !element.equals("H")) {
+						} else if(square.contains(BREEZE) && !square.contains(HOLE) && !square.contains(WUMPUS)
+								&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
 							element = "~";
-						} else if(square.get(k).equals(SMELL) && !element.equals("W")) {
+						} else if(square.contains(SMELL) && !square.contains(HOLE) && !square.contains(WUMPUS)
+								&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
 							element = "=";
-						} else if(square.get(k).equals(EMPTY) && element.equals("")) {
+						} else {
 							element = "-";
 						}
+						
+						returnString += element;
 					}
-	
-					returnString += element;
 				}
 			}
 		} else {
@@ -608,9 +612,6 @@ public class Board {
 				// Set Mecca initial position
 				getMeccaPos().setX(getStartPos().getX());
 				getMeccaPos().setY(getStartPos().getY());
-				
-				// Show initial state
-				toString();
 			}
 		}
 		

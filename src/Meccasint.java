@@ -69,17 +69,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			int _cnt34=0;
-			_loop34:
+			int _cnt231=0;
+			_loop231:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt34>=1 ) { break _loop34; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt231>=1 ) { break _loop231; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt34++;
+				_cnt231++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -97,17 +97,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			int _cnt37=0;
-			_loop37:
+			int _cnt234=0;
+			_loop234:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt37>=1 ) { break _loop37; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt234>=1 ) { break _loop234; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt37++;
+				_cnt234++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -666,7 +666,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										if(mode == ADVENTURE_MODE) {
-											System.out.println("Mecca went left");
+											board.meccaGoLeft();
 										} else {
 											System.out.println("This instruction has to be called in Adventure Mode");
 										}
@@ -681,7 +681,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										if(mode == ADVENTURE_MODE) {
-											System.out.println("Mecca went right");
+											board.meccaGoRight();
 										} else {
 											System.out.println("This instruction has to be called in Adventure Mode");
 										}
@@ -696,7 +696,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										if(mode == ADVENTURE_MODE) {
-											System.out.println("Mecca went up");
+											board.meccaGoUp();
 										} else {
 											System.out.println("This instruction has to be called in Adventure Mode");
 										}
@@ -711,7 +711,7 @@ public Meccasint(ParserSharedInputState state) {
 				match(PUNTO_COMA);
 				
 										if(mode == ADVENTURE_MODE) {
-											System.out.println("Mecca went down");
+											board.meccaGoDown();
 										} else {
 											System.out.println("This instruction has to be called in Adventure Mode");
 										}
@@ -753,13 +753,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop41:
+			_loop238:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop41;
+					break _loop238;
 				}
 				
 			} while (true);

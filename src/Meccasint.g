@@ -372,7 +372,7 @@ instruction{int param1, param2;
 				| FUNC_GOLEFT PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca went left");
+							board.meccaGoLeft();
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -381,7 +381,7 @@ instruction{int param1, param2;
 				| FUNC_GORIGHT PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca went right");
+							board.meccaGoRight();
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -390,7 +390,7 @@ instruction{int param1, param2;
 				| FUNC_GOUP PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca went up");
+							board.meccaGoUp();
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -399,7 +399,7 @@ instruction{int param1, param2;
 				| FUNC_GODOWN PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca went down");
+							board.meccaGoDown();
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}

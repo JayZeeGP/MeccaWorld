@@ -45,6 +45,7 @@ que contiene algún elemento.
 - Creada la función checkMovement(position) para comprobar si Mecca puede moverse o no y mostrar lo que sucede.
 - Modificadas las funciones de movimiento de Mecca.
 - Creada una función para inicializar el juego: initGame()
+- Ya se puede mover a Mecca por el tablero
 
 *********** JayZee a.k.a No style <> 10/05/2012 ***********
 - Añadidos showHoles y showTreasures
