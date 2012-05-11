@@ -42,7 +42,7 @@ mecca: configuration adventure;
 
 configuration: BEGIN_CONF {mode = CONFIGURATION_MODE;}(instruction)+ END_CONF;
 
-adventure: BEGIN_ADV {mode = ADVENTURE_MODE;} (instruction)+ END_ADV;
+adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)+ END_ADV;
 
 instruction{int param1, param2;
 				String info;}: 

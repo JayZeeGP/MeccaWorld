@@ -24,7 +24,7 @@ public class Board {
 	private ArrayList <Position> treasuresPos;
 	private ArrayList <Position> holesPos;
 	
-	boolean isWumpusAlive;
+	private boolean isWumpusAlive;
 	
 	public Board(){
 		boardSize = new Size(); //(0,0) by default
@@ -35,7 +35,7 @@ public class Board {
 		startPos = new Position();
 		exitPos = new Position();
 		
-		isWumpusAlive=true;
+		setWumpusAlive(true);
 		
 		
 		treasuresPos = new ArrayList<Position>();
@@ -430,80 +430,97 @@ public class Board {
 	public int getNumberOfHoles(){
 		return getHolesPos().size();
 	}
+	
+	public Mecca getMecca() {
+		return mecca;
+	}
 
 	public Position getMeccaPos(){
-		return mecca.getPos();
+		return getMecca().getPos();
 	}
 	
 	public void setMeccaPos(Position newPos){
-		mecca.setPos(newPos);
+		getMecca().setPos(newPos);
 	}
 	
 	public int getMeccaNArrows(){
-		return mecca.getNArrows();
+		return getMecca().getNArrows();
 	}
 	
 	public void setMeccaNArrows(int nArrows){
-		mecca.setNArrows(nArrows);
+		getMecca().setNArrows(nArrows);
 	}
 	
 	public void incMeccaNArrows(int inc){
-		mecca.incNarrows(inc);
+		getMecca().incNarrows(inc);
 	}
 	
 	public void decMeccaNArrows(int dec){
-		mecca.decNarrows(dec);
+		getMecca().decNarrows(dec);
 	}
 	
-	public String meccaGoUp(){
-		String msg = new String();
-		//Check if Mecca Can go up
-		Position newPos = mecca.getPos();
-		newPos.setY(newPos.getY()+1);
-		mecca.setPos(newPos);
-		//Return message with information
-		return msg;
+	public void meccaGoUp(){
+		meccaGoPosition(new Position(getMeccaPos().getX(), getMeccaPos().getY()+1));
 	}
 	
-	public String meccaGoDown(){
-		String msg = new String();
-		//Check if Mecca Can go down
-		Position newPos = mecca.getPos();
-		newPos.setY(newPos.getY()-1);
-		mecca.setPos(newPos);
-		//Return message with information
-		return msg;
+	public void meccaGoDown(){
+		meccaGoPosition(new Position(getMeccaPos().getX(), getMeccaPos().getY()-1));
 	}
 	
-	public String meccaGoLeft(){
-		String msg = new String();
-		//Check if Mecca Can go left
-		Position newPos = mecca.getPos();
-		newPos.setX(newPos.getX()-1);
-		mecca.setPos(newPos);
-		//Return message with information
-		return msg;
+	public void meccaGoLeft(){
+		meccaGoPosition(new Position(getMeccaPos().getX()-1, getMeccaPos().getY()));
 	}
 	
-	public String meccaGoRight(){
-		String msg = new String();
-		//Check if Mecca Can go right
-		Position newPos = mecca.getPos();
-		newPos.setX(newPos.getX()+1);
-		mecca.setPos(newPos);
-		//Return message with information
-		return msg;
+	public void meccaGoRight(){
+		meccaGoPosition(new Position(getMeccaPos().getX()+1, getMeccaPos().getY()));
 	}
 	
 	public String meccaShoot(int direction){ //1 UP 2 RIGHT 3 LEFT 4 DOWN
 		String msg = new String();
 		//Check if Mecca Can shoot
-		if(mecca.getNArrows()>0){
+		if(getMecca().getNArrows()>0){
 			//Check shooting result
-			mecca.decNarrows();
+			getMecca().decNarrows();
 		}
 		//Return message with information
 		return msg;
+	}
+	
+	private void meccaGoPosition(Position position) {		
+		if(checkMovement(position)) {
+			getMecca().setPos(position);
+		}
+	}
+	
+	private boolean checkMovement(Position position) {
+		boolean success = true;
+		ArrayList<String> elements = readFromBoard(position);
+		
+		if(isInsideBoard(position)) {
+			if(elements.contains(WUMPUS)) {
+				success = false;
+				
+				System.out.println("Wumpus killed you... GAME OVER");
+			} else if(elements.contains(HOLE)) {
+				success = false;
+				
+				System.out.println("You've fallen into a hole... GAME OVER");
+			} else if(elements.contains(SMELL)) {
+				System.out.println("It smells bad... What could it be!?");
+			} else if(elements.contains(HOLE)) {
+				System.out.println("You feel a gentle breeze...");
+			} else if(elements.contains(TREASURE)) {
+				System.out.println("Congratulations! You found a treasure!");
+			} else if(elements.contains(EXIT)) {
+				// Fin de la partida
+			}
+		} else {
+			success = false;
+			
+			System.out.println("You hit a wall.");
+		}
+		
+		return success;
 	}
 	
 	public Size getBoardSize() {
@@ -555,6 +572,79 @@ public class Board {
 		}
 		
 		return returnString;
+	}
+
+	public boolean isWumpusAlive() {
+		return isWumpusAlive;
+	}
+
+	public void setWumpusAlive(boolean isWumpusAlive) {
+		this.isWumpusAlive = isWumpusAlive;
+	}
+	
+	public boolean initGame() {
+		boolean init = true;
+		
+		if(getBoardSize().getHeight() == 0 || getBoardSize().getWidth() == 0) {			
+			System.out.println("ERROR: Board not defined");
+			init = false;
+		} else {
+			if(!checkStart()) {
+				init = false;
+				System.out.println("ERROR: Start not defined");
+			}
+			
+			if(!checkExit()) {
+				init = false;
+				System.out.println("ERROR: Exit not defined");
+			}
+			
+			if(!checkWumpus()) {
+				init = false;
+				System.out.println("ERROR: Wumpus not defined");
+			}
+			
+			if(init) {
+				// Set Mecca initial position
+				getMeccaPos().setX(getStartPos().getX());
+				getMeccaPos().setY(getStartPos().getY());
+				
+				// Show initial state
+				toString();
+			}
+		}
+		
+		return init;
+	}
+	
+	private boolean checkStart() {
+		boolean start = true;
+		
+		if(getStartPos().getX() == -1 && getStartPos().getY() == -1) {
+			start = false;
+		}
+		
+		return start;
+	}
+	
+	private boolean checkExit() {
+		boolean exit = true;
+		
+		if(getExitPos().getX() == -1 && getExitPos().getY() == -1) {
+			exit = false;
+		}
+		
+		return exit;
+	}
+	
+	private boolean checkWumpus() {
+		boolean wumpus = true;
+		
+		if(getWumpusPos().getX() == -1 && getWumpusPos().getY() == -1) {
+			wumpus = false;
+		}
+		
+		return wumpus;
 	}
 
 }

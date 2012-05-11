@@ -37,11 +37,20 @@ Dejar el y sucesivos, para las cosas que se solapan, la peste, la brisa, el bril
 y luego lo cambio a 3,3. hay que quitarlo del 2, 2
 
 ################# TO DO ##########################
-- Función para mostrar los agujeros existentes y sus posiciones (idem para los tesoros)
+- Varios mensajes distintos que se muestren aleatoriamente cuando Mecca se mueve a una casilla
+que contiene algún elemento.
 ##################################################
 
+*********** JeTBLaCK- <> 11/05/2012 ***********
+- Creada la función checkMovement(position) para comprobar si Mecca puede moverse o no y mostrar lo que sucede.
+- Modificadas las funciones de movimiento de Mecca.
+- Creada una función para inicializar el juego: initGame()
+
+*********** JayZee a.k.a No style <> 10/05/2012 ***********
+- Añadidos showHoles y showTreasures
+
 *********** JeTBLaCK- <> 07/05/2012 ***********
-- Implementada lax funciones para eliminar elementos de las casillas:
+- Implementadas las funciones para eliminar elementos de las casillas:
 	removeHole(number), removeTreasure(number)
 - Modificadas las funciones para mover los elementos que deben existir en una partida:
 	setWumpusPos(), setStartPos(), setExitPos()
@@ -57,5 +66,3 @@ y luego lo cambio a 3,3. hay que quitarlo del 2, 2
 - La función isEmpty() ahora busca EMPTY en cualquier posición del array de elementos
 + Problema detectado con los números negativos. Ejemplo: setArrows(-19);
 - Realizada un poco de refactorización de código
-#################JayZee a.k.a Messi a.k.a IKillMecca###########
--Añadidos showholes y showtreasures

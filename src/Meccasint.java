@@ -69,17 +69,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			int _cnt323=0;
-			_loop323:
+			int _cnt34=0;
+			_loop34:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt323>=1 ) { break _loop323; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt34>=1 ) { break _loop34; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt323++;
+				_cnt34++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -95,19 +95,19 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(BEGIN_ADV);
-			mode = ADVENTURE_MODE;
+			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			int _cnt326=0;
-			_loop326:
+			int _cnt37=0;
+			_loop37:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt326>=1 ) { break _loop326; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt37>=1 ) { break _loop37; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt326++;
+				_cnt37++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -753,13 +753,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop330:
+			_loop41:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop330;
+					break _loop41;
 				}
 				
 			} while (true);
