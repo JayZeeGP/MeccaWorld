@@ -69,17 +69,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			int _cnt4=0;
-			_loop4:
+			int _cnt128=0;
+			_loop128:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt4>=1 ) { break _loop4; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt128>=1 ) { break _loop128; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt4++;
+				_cnt128++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -97,17 +97,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			int _cnt7=0;
-			_loop7:
+			int _cnt131=0;
+			_loop131:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt7>=1 ) { break _loop7; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt131>=1 ) { break _loop131; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt7++;
+				_cnt131++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -131,8 +131,23 @@ public Meccasint(ParserSharedInputState state) {
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
-				
+										
 										System.out.println("Reading");System.out.println(board.toString());
+									
+				break;
+			}
+			case FUNC_SHOWBOARD:
+			{
+				match(FUNC_SHOWBOARD);
+				match(PARENT_IZ);
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				
+										if(mode == CONFIGURATION_MODE) {
+											System.out.println(board.toString());
+										} else {
+											System.out.println("This instruction has to be called in Configuration Mode");
+										}
 									
 				break;
 			}
@@ -753,13 +768,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop11:
+			_loop135:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop11;
+					break _loop135;
 				}
 				
 			} while (true);
@@ -822,6 +837,7 @@ public Meccasint(ParserSharedInputState state) {
 		"PARENT_IZ",
 		"PARENT_DE",
 		"PUNTO_COMA",
+		"FUNC_SHOWBOARD",
 		"FUNC_SETBOARDSIZE",
 		"COMA",
 		"FUNC_GETBOARDROWS",
@@ -867,7 +883,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 140737488343296L, 0L};
+		long[] data = { 281474976690432L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
@@ -877,17 +893,17 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 140737488343456L, 0L};
+		long[] data = { 281474976690592L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 9216L, 0L};
+		long[] data = { 17408L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 8194L, 0L};
+		long[] data = { 16386L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());

@@ -48,8 +48,17 @@ instruction{int param1, param2;
 				String info;}: 
 				
 				FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA 
-					{
+					{						
 						System.out.println("Reading");System.out.println(board.toString());
+					}
+					
+				| FUNC_SHOWBOARD PARENT_IZ PARENT_DE PUNTO_COMA 
+					{
+						if(mode == CONFIGURATION_MODE) {
+							System.out.println(board.toString());
+						} else {
+							System.out.println("This instruction has to be called in Configuration Mode");
+						}
 					}
 					
 				| FUNC_SETBOARDSIZE PARENT_IZ param1=entero COMA param2=entero PARENT_DE PUNTO_COMA 

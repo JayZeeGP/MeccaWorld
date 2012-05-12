@@ -45,6 +45,7 @@ tokens
     END_ADV          = "endAdventureMode";
     //Funciones
     FUNC_LEER = "leer";
+    FUNC_SHOWBOARD = "showBoard";
     FUNC_SETBOARDSIZE = "setBoardSize";
     FUNC_GETBOARDROWS = "getBoardRows";
     FUNC_GETBOARDCOLUMNS = "getBoardColumns";
