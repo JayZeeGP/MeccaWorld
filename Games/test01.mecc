@@ -11,6 +11,7 @@ setHole(1,1);
 setHole(2,2);
 setHole(0,1);
 showHoles();
+setArrows(3);
 setTreasure(4,3);
 showTreasures();
 setWumpus(4,0);
@@ -27,7 +28,6 @@ This is what the level should look like
 }
 #Let's start the adventure!!!
 AdventureMode
-goRight();
 goRight();
 goRight();
 goRight();	#It should smell bad right now

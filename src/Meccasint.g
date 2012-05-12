@@ -351,7 +351,13 @@ instruction{int param1, param2;
 				| FUNC_SHOOTLEFT PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca shot left");
+							if(!board.isGameFinished()) {
+								if(!board.meccaShoot(3)) {
+									System.out.println("No arrows remaining!");	
+								}
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -360,7 +366,13 @@ instruction{int param1, param2;
 				| FUNC_SHOOTRIGHT PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca shot right");
+							if(!board.isGameFinished()) {
+								if(!board.meccaShoot(2)) {
+									System.out.println("No arrows remaining!");	
+								}
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -369,7 +381,13 @@ instruction{int param1, param2;
 				| FUNC_SHOOTUP PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca shot up");
+							if(!board.isGameFinished()) {
+								if(!board.meccaShoot(1)) {
+									System.out.println("No arrows remaining!");	
+								}
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -378,7 +396,13 @@ instruction{int param1, param2;
 				| FUNC_SHOOTDOWN PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							System.out.println("Mecca shot down");
+							if(!board.isGameFinished()) {
+								if(!board.meccaShoot(4)) {
+									System.out.println("No arrows remaining!");	
+								}
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -387,7 +411,11 @@ instruction{int param1, param2;
 				| FUNC_GOLEFT PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							board.meccaGoLeft();
+							if(!board.isGameFinished()) {
+								board.meccaGoLeft();
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -396,7 +424,11 @@ instruction{int param1, param2;
 				| FUNC_GORIGHT PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							board.meccaGoRight();
+							if(!board.isGameFinished()) {
+								board.meccaGoRight();
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -405,7 +437,11 @@ instruction{int param1, param2;
 				| FUNC_GOUP PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							board.meccaGoUp();
+							if(!board.isGameFinished()) {
+								board.meccaGoUp();
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
@@ -414,7 +450,11 @@ instruction{int param1, param2;
 				| FUNC_GODOWN PARENT_IZ PARENT_DE PUNTO_COMA 
 					{
 						if(mode == ADVENTURE_MODE) {
-							board.meccaGoDown();
+							if(!board.isGameFinished()) {
+								board.meccaGoDown();
+							} else {
+								System.out.println("The game has finished!");	
+							}
 						} else {
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
