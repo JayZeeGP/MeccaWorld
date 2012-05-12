@@ -25,6 +25,7 @@ public class Board {
 	private ArrayList <Position> holesPos;
 	
 	private boolean isWumpusAlive;
+	private boolean endOfGame;
 	
 	public Board(){
 		boardSize = new Size(); //(0,0) by default
@@ -35,8 +36,7 @@ public class Board {
 		startPos = new Position();
 		exitPos = new Position();
 		
-		setWumpusAlive(true);
-		
+		setWumpusAlive(false);
 		
 		treasuresPos = new ArrayList<Position>();
 		holesPos = new ArrayList<Position>();
@@ -159,6 +159,7 @@ public class Board {
 					getWumpusPos().setY(newPos.getY());
 					
 					removeFromBoard(EMPTY, newPos);
+					setWumpusAlive(true);
 					
 					// Set Smell
 					Position smell = new Position();
@@ -190,27 +191,29 @@ public class Board {
 	private boolean removeWumpus() {
 		boolean success = false;
 		
-		if(removeFromBoard(WUMPUS, getWumpusPos())) {
-			// Remove Smell
-			Position smell = new Position();
-			for(int i=-1; i<2; i++) {
-				smell.setX(getWumpusPos().getX());						
-				smell.setX(smell.getX()+i);
-				for(int j=-1; j<2; j++) {
-					smell.setY(getWumpusPos().getY());
-					smell.setY(smell.getY()+j);
-					
-					if(isInsideBoard(smell)) {
-						removeFromBoard(SMELL, smell);
+		if(getWumpusPos().getX() != -1 && getWumpusPos().getY() != -1) {
+			if(removeFromBoard(WUMPUS, getWumpusPos())) {
+				// Remove Smell
+				Position smell = new Position();
+				for(int i=-1; i<2; i++) {
+					smell.setX(getWumpusPos().getX());						
+					smell.setX(smell.getX()+i);
+					for(int j=-1; j<2; j++) {
+						smell.setY(getWumpusPos().getY());
+						smell.setY(smell.getY()+j);
+						
+						if(isInsideBoard(smell)) {
+							removeFromBoard(SMELL, smell);
+						}
 					}
 				}
+				
+				// Remove Wumpus
+				getWumpusPos().setX(-1);
+				getWumpusPos().setY(-1);
+				
+				success = true;
 			}
-			
-			// Remove Wumpus
-			getWumpusPos().setX(-1);
-			getWumpusPos().setY(-1);
-			
-			success = true;
 		}
 		
 		return success;
@@ -324,9 +327,28 @@ public class Board {
 		
 		if(treasureNumber <= getTreasuresPos().size()) {	
 			removeFromBoard(TREASURE, getHolesPos().get(treasureNumber-1));
-			getHolesPos().remove(treasureNumber-1);
+			getTreasuresPos().remove(treasureNumber-1);
 			
 			success = true;
+		}
+		
+		return success;
+	}
+	
+	public boolean removeTreasure(Position position) {
+		boolean success = false;
+		
+		if(isInsideBoard(position)) {
+			removeFromBoard(TREASURE, position);
+			
+			for(int i=0; i<getTreasuresPos().size(); i++) {
+				if(position.getX() == getTreasuresPos().get(i).getX() &&
+						position.getY() == getTreasuresPos().get(i).getY()) {
+					getTreasuresPos().remove(i);
+					
+					success = true;
+				}
+			}
 		}
 		
 		return success;
@@ -426,7 +448,7 @@ public class Board {
 	public int getTotalTreasures(){
 		return getTreasuresPos().size();
 	}
-	
+
 	public int getNumberOfHoles(){
 		return getHolesPos().size();
 	}
@@ -475,18 +497,53 @@ public class Board {
 		meccaGoPosition(new Position(getMeccaPos().getX()+1, getMeccaPos().getY()));
 	}
 	
-	public String meccaShoot(int direction){ //1 UP 2 RIGHT 3 LEFT 4 DOWN
-		String msg = new String();
-		//Check if Mecca Can shoot
-		if(getMecca().getNArrows()>0){
-			//Check shooting result
+	public boolean meccaShoot(int direction){ //1 UP 2 RIGHT 3 LEFT 4 DOWN
+		boolean shoot = false;
+		boolean kill = false; 
+		
+		//Check if Mecca can shoot
+		if(getMecca().getNArrows() > 0){
+			shoot = true;
 			getMecca().decNarrows();
+			
+			if(direction == 1) {
+				if(getMeccaPos().getX() == getWumpusPos().getX()) {
+					if(getMeccaPos().getY() < getWumpusPos().getY()) {
+						kill = true;
+					}
+				}
+			} else if(direction == 2) {
+				if(getMeccaPos().getY() == getWumpusPos().getY()) {
+					if(getMeccaPos().getX() < getWumpusPos().getX()) {
+						kill = true;
+					}
+				}
+			} else if(direction == 3) {
+				if(getMeccaPos().getY() == getWumpusPos().getY()) {
+					if(getMeccaPos().getY() > getWumpusPos().getY()) {
+						kill = true;
+					}
+				}
+			} else if(direction == 4) {
+				if(getMeccaPos().getX() == getWumpusPos().getX()) {
+					if(getMeccaPos().getY() > getWumpusPos().getY()) {
+						kill = true;
+					}
+				}
+			}
+			
+			if(kill) {
+				setWumpusAlive(false);
+				System.out.println("You hear the Wumpus crying, he fainted!");
+			} else {
+				System.out.println("Ohh! Bad luck! You hit nothing (" + getMeccaNArrows() + " arrows remaining)");
+			}
 		}
-		//Return message with information
-		return msg;
+		
+		return shoot;
 	}
 	
-	private void meccaGoPosition(Position position) {		
+	private void meccaGoPosition(Position position) {
 		if(checkMovement(position)) {
 			getMeccaPos().setX(position.getX());
 			getMeccaPos().setY(position.getY());
@@ -495,19 +552,38 @@ public class Board {
 	
 	private boolean checkMovement(Position position) {
 		boolean success = true;
-		ArrayList<String> elements = readFromBoard(position);
 		
 		if(isInsideBoard(position)) {
+			ArrayList<String> elements = readFromBoard(position);
+			
 			if(elements.contains(WUMPUS)) {
 				success = false;				
 				System.out.println("Wumpus killed you... GAME OVER");
+				finishGame();
 			} else if(elements.contains(HOLE)) {
 				success = false;
 				System.out.println("You've fallen into a hole... GAME OVER");
+				finishGame();
 			} else if(elements.contains(TREASURE)) {
-				System.out.println("Congratulations! You found a treasure!");
+				String msg = new String("You found a treasure! (");
+				removeTreasure(position);
+				
+				if(getTotalTreasures() > 1) {
+					msg += getTotalTreasures() + " treasures remaining)";
+				} else if(getTotalTreasures() == 1) {
+					msg += getTotalTreasures() + " treasure remaining)";
+				} else {
+					msg += "All treasures found!)";
+				}
+				
+				System.out.println(msg);
 			}  else if(elements.contains(EXIT)) {
-				// Fin de la partida
+				if(getTotalTreasures() == 0) {
+					System.out.println("You win! Congratulations!");
+					finishGame();
+				} else {
+					System.out.println("Treasures are still on the board!");
+				}
 			} else {
 				if(elements.contains(SMELL)) {
 					System.out.println("It smells bad... What could it be!?");
@@ -588,6 +664,10 @@ public class Board {
 
 	public void setWumpusAlive(boolean isWumpusAlive) {
 		this.isWumpusAlive = isWumpusAlive;
+		
+		if(!isWumpusAlive) {
+			removeWumpus();
+		}
 	}
 	
 	public boolean initGame() {
@@ -620,6 +700,14 @@ public class Board {
 		}
 		
 		return init;
+	}
+	
+	public void finishGame() {
+		endOfGame = true;
+	}
+	
+	public boolean isGameFinished() {
+		return endOfGame;
 	}
 	
 	private boolean checkStart() {

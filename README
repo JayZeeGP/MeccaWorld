@@ -41,6 +41,12 @@ y luego lo cambio a 3,3. hay que quitarlo del 2, 2
 que contiene algún elemento.
 ##################################################
 
+*********** JeTBLaCK- <> 12/05/2012 ***********
+- Añadida la funcionalidad de los tesoros a la partida
+- Añadida la funcionalidad para finalizar la partida al entrar en la casilla EXIT
+- Añadida la funcionalidad para que Mecca dispare y pueda matar a Wumpus
+- Al caer en un agujero y al chocar con Wumpus, fin de la partida
+
 *********** JeTBLaCK- <> 11/05/2012 ***********
 - Creada la función checkMovement(position) para comprobar si Mecca puede moverse o no y mostrar lo que sucede.
 - Modificadas las funciones de movimiento de Mecca.
