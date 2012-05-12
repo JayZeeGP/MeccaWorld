@@ -508,10 +508,14 @@ public class Board {
 				System.out.println("Congratulations! You found a treasure!");
 			}  else if(elements.contains(EXIT)) {
 				// Fin de la partida
-			} else if(elements.contains(SMELL)) {
-				System.out.println("It smells bad... What could it be!?");
-			} else if(elements.contains(BREEZE)) {
-				System.out.println("You feel a gentle breeze...");
+			} else {
+				if(elements.contains(SMELL)) {
+					System.out.println("It smells bad... What could it be!?");
+				}
+				
+				if(elements.contains(BREEZE)) {
+					System.out.println("You feel a gentle breeze...");
+				}
 			}
 		} else {
 			success = false;
@@ -535,14 +539,14 @@ public class Board {
 		returnString+="\nStart "+startPos.toString();
 		returnString+="\nEnd "+exitPos.toString();*/
 		if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
-			for(int i=0; i<getBoardSize().getWidth(); i++) {
+			for(int i=getBoardSize().getHeight()-1; i>=0; i--) {
 				returnString += "\n";
-				for(int j=0; j<getBoardSize().getHeight(); j++) {
-					ArrayList<String> square = readFromBoard(new Position(i, j));
+				for(int j=0; j<getBoardSize().getWidth(); j++) {
+					ArrayList<String> square = readFromBoard(new Position(j, i));
 					
 					returnString += "\t";
 					
-					if(getMeccaPos().getX() == i && getMeccaPos().getY() == j) {
+					if(getMeccaPos().getX() == j && getMeccaPos().getY() == i) {
 						returnString += "M";
 					} else {
 						String element = new String("");
