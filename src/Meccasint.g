@@ -30,7 +30,7 @@ options
 	int contador = 0;
 	Board board = new Board();
 	String mode = new String(NO_MODE);
-  
+ 	TablaSimbolos symbolsTable = new TablaSimbolos(); 
 }
 
 
@@ -47,9 +47,15 @@ adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)
 instruction{int param1, param2;
 				String info;}: 
 				
-				FUNC_LEER PARENT_IZ PARENT_DE PUNTO_COMA 
-					{						
-						System.out.println("Reading");System.out.println(board.toString());
+				FUNC_LEER PARENT_IZ i2:IDENT PARENT_DE PUNTO_COMA 
+					{	
+						//It searches the identifier in the symbols table
+						int index = symbolsTable.existeSimbolo(i2.getText());
+						
+						if ( index >= 0 ) {
+							String stringValue = symbolsTable.getSimbolo(index).getValor();
+							System.out.println(stringValue);
+						}					
 					}
 					
 				| FUNC_SHOWBOARD PARENT_IZ PARENT_DE PUNTO_COMA 
@@ -413,7 +419,18 @@ instruction{int param1, param2;
 							System.out.println("This instruction has to be called in Adventure Mode");
 						}
 					}
-
+				
+				| i:IDENT OP_ASIG param1=entero PUNTO_COMA 
+					{
+						//Get identifier name
+						String idName = i.getText();
+						
+						//Convert the number value into string
+						String nValue = String.valueOf(param1);
+						
+						//Insert it into the symbols table
+						symbolsTable.insertarSimbolo(new Variable(idName,"int",nValue));	
+					}
                ;
                
 parametros: valorparametro (parametros_prima)*;
@@ -423,6 +440,8 @@ parametros_prima: COMA valorparametro;
 nombrefuncion: IDENT;
 
 valorparametro: IDENT;
+
+variable: IDENT;
 
 entero returns [int value=0]: 
 		i1:LIT_ENTERO				{value = Integer.parseInt(i1.getText());}

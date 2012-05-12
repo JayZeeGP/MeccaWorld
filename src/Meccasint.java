@@ -24,7 +24,7 @@ public class Meccasint extends antlr.LLkParser       implements MeccasintTokenTy
 	int contador = 0;
 	Board board = new Board();
 	String mode = new String(NO_MODE);
-  
+ 	TablaSimbolos symbolsTable = new TablaSimbolos(); 
 
 protected Meccasint(TokenBuffer tokenBuf, int k) {
   super(tokenBuf,k);
@@ -69,17 +69,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			int _cnt128=0;
-			_loop128:
+			int _cnt96=0;
+			_loop96:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt128>=1 ) { break _loop128; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt96>=1 ) { break _loop96; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt128++;
+				_cnt96++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -97,17 +97,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			int _cnt131=0;
-			_loop131:
+			int _cnt99=0;
+			_loop99:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt131>=1 ) { break _loop131; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt99>=1 ) { break _loop99; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt131++;
+				_cnt99++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -120,6 +120,8 @@ public Meccasint(ParserSharedInputState state) {
 	
 	public final void instruction() throws RecognitionException, TokenStreamException {
 		
+		Token  i2 = null;
+		Token  i = null;
 		int param1, param2;
 						String info;
 		
@@ -129,10 +131,18 @@ public Meccasint(ParserSharedInputState state) {
 			{
 				match(FUNC_LEER);
 				match(PARENT_IZ);
+				i2 = LT(1);
+				match(IDENT);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
+					
+										//It searches the identifier in the symbols table
+										int index = symbolsTable.existeSimbolo(i2.getText());
 										
-										System.out.println("Reading");System.out.println(board.toString());
+										if ( index >= 0 ) {
+											String stringValue = symbolsTable.getSimbolo(index).getValor();
+											System.out.println(stringValue);
+										}					
 									
 				break;
 			}
@@ -733,6 +743,25 @@ public Meccasint(ParserSharedInputState state) {
 									
 				break;
 			}
+			case IDENT:
+			{
+				i = LT(1);
+				match(IDENT);
+				match(OP_ASIG);
+				param1=entero();
+				match(PUNTO_COMA);
+				
+										//Get identifier name
+										String idName = i.getText();
+										
+										//Convert the number value into string
+										String nValue = String.valueOf(param1);
+										
+										//Insert it into the symbols table
+										symbolsTable.insertarSimbolo(new Variable(idName,"int",nValue));	
+									
+				break;
+			}
 			default:
 			{
 				throw new NoViableAltException(LT(1), getFilename());
@@ -768,13 +797,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			valorparametro();
 			{
-			_loop135:
+			_loop103:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima();
 				}
 				else {
-					break _loop135;
+					break _loop103;
 				}
 				
 			} while (true);
@@ -823,6 +852,18 @@ public Meccasint(ParserSharedInputState state) {
 		}
 	}
 	
+	public final void variable() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			match(IDENT);
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_0);
+		}
+	}
+	
 	
 	public static final String[] _tokenNames = {
 		"<0>",
@@ -835,6 +876,7 @@ public Meccasint(ParserSharedInputState state) {
 		"END_ADV",
 		"FUNC_LEER",
 		"PARENT_IZ",
+		"IDENT",
 		"PARENT_DE",
 		"PUNTO_COMA",
 		"FUNC_SHOWBOARD",
@@ -873,7 +915,7 @@ public Meccasint(ParserSharedInputState state) {
 		"FUNC_GORIGHT",
 		"FUNC_GOUP",
 		"FUNC_GODOWN",
-		"IDENT",
+		"OP_ASIG",
 		"LIT_ENTERO"
 	};
 	
@@ -883,7 +925,7 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 281474976690432L, 0L};
+		long[] data = { 562949953381632L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
@@ -893,17 +935,17 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 281474976690592L, 0L};
+		long[] data = { 562949953381792L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 17408L, 0L};
+		long[] data = { 38912L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 16386L, 0L};
+		long[] data = { 32770L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());

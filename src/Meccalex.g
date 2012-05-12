@@ -234,7 +234,7 @@ OP_IGUAL : "=="
 OP_DISTINTO : "!=" 
 	    ;
 
-OP_ASIG : '=' 
+OP_ASIG : ":=" 
 	;
 
 OP_MENOR : '<' 
