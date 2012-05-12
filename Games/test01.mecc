@@ -1,0 +1,29 @@
+{ Test file number 01
+We will show how to create a MeccaBoard }
+
+ConfigurationMode   #This is the mode to create the board
+setBoardSize(5,5);  #Size of 5 rows and 5 columns
+getBoardRows();     #Yeah, it works!
+getBoardColumns();  #Again!
+setStart(0,0);      #Down left corner
+setExit(4,4);	    #Up right corner
+setHole(1,1);	    
+setHole(2,2);
+setHole(0,1);
+showHoles();
+setTreasure(4,3);
+showTreasures();
+setWumpus(4,0);
+endConfigurationMode
+#Let's start the adventure!!!
+AdventureMode
+goRight();
+goRight();
+goRight();
+goRight();	#It should smell bad right now
+goUp();		#Let's avoid the Wumpus
+goRight();
+goUp();
+goUp();		#You should have found a treasure here
+goUp();		#Winner
+endAdventureMode
