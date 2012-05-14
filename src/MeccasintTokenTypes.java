@@ -53,7 +53,26 @@ public interface MeccasintTokenTypes {
 	int OP_MENOS = 51;
 	int OP_PRODUCTO = 52;
 	int OP_DIVISION = 53;
-	int LIT_ENTERO = 54;
+	int LIT_NUMERO = 54;
 	int PARENTESIS_IZ = 55;
 	int PARENTESIS_DE = 56;
+	int RES_SI = 57;
+	int RES_ENTONCES = 58;
+	int RES_SI_NO = 59;
+	int RES_FIN_SI = 60;
+	int OP_IGUAL = 61;
+	int OP_DISTINTO = 62;
+	int OP_MENOR = 63;
+	int OP_MENOR_IGUAL = 64;
+	int OP_MAYOR_IGUAL = 65;
+	int OP_MAYOR = 66;
+	int RES_MIENTRAS = 67;
+	int RES_HACER = 68;
+	int RES_FIN_MIENTRAS = 69;
+	int RES_REPETIR = 70;
+	int RES_HASTA = 71;
+	int RES_PARA = 72;
+	int RES_DESDE = 73;
+	int RES_PASO = 74;
+	int RES_FIN_PARA = 75;
 }

@@ -100,16 +100,18 @@ tokens
 	LIT_COM = "com" ;
     
 
-    RES_MIENTRAS     = "mientras";
+    RES_MIENTRAS     = "mientras" ;
 	RES_HACER        = "hacer" ;
+	RES_REPETIR		 = "repetir";
+	RES_HASTA        = "hasta";
 	RES_FIN_MIENTRAS = "fin_mientras" ;
 	RES_SI           = "si" ;
 	RES_ENTONCES     = "entonces" ;
 	RES_SI_NO        = "si_no" ;
 	RES_FIN_SI       = "fin_si" ;
 	RES_PARA         = "para" ;
+	RES_PASO		 = "paso" ;
 	RES_DESDE        = "desde" ;
-	RES_HASTA        = "hasta" ;
 	RES_FIN_PARA     = "fin_para" ;
 	RES_INICIO       = "inicio" ;
 	RES_FINAL        = "final" ;
@@ -231,7 +233,7 @@ BARRA_VERT : '|'
 OP_IGUAL : "==" 
 	 ;
 
-OP_DISTINTO : "!=" 
+OP_DISTINTO : "<>" 
 	    ;
 
 OP_ASIG : ":=" 
@@ -268,10 +270,8 @@ OP_DIVISION : '/'
 
 LIT_NUMERO : 
 	     // Se usa un predicado sintáctico para comprobar si el número es real
-	     (( DIGITO )+ '.' ) => ( DIGITO )+ '.' ( DIGITO )*   { $setType (LIT_REAL); }
-	
-	     // Número entero
-	   | ( DIGITO )+ 	{ $setType (LIT_ENTERO); }
+	     ( DIGITO )+ ('.' ( DIGITO )*)?  
+		
 	   ;
 
 
