@@ -13,6 +13,7 @@ public class Board {
 	
 	//private ArrayList <Character> [][] boardMatrix;	
 	private ArrayList<String> [][] boardMatrix;
+	private boolean[][] boardMatrixVisited;
 	private Size boardSize;
 	
 	public Mecca mecca = new Mecca();
@@ -29,8 +30,7 @@ public class Board {
 	
 	public Board(){
 		boardSize = new Size(); //(0,0) by default
-		this.restartBoard();		//Con respecto a lo de arriba, mi idea es hacer un inicializador de matrices
-		//que "bebiendo" de todos los datos de los atributos de Board lo cree.	 
+		this.restartBoard(); 
 		
 		wumpusPos = new Position();  //(-1,-1) by default
 		startPos = new Position();
@@ -49,11 +49,14 @@ public class Board {
 	@SuppressWarnings("unchecked")
 	public void restartBoard(){
 		boardMatrix = new ArrayList [getSize().getWidth()][getSize().getHeight()];
+		boardMatrixVisited = new boolean [getSize().getWidth()][getSize().getHeight()];
 		
 		for(int x=0 ; x<getSize().getWidth() ; x++) {
 			for(int y=0; y<getSize().getHeight() ; y++){
 				boardMatrix[x][y] = new ArrayList<String>();
 				boardMatrix[x][y].add(new String(EMPTY));
+				
+				boardMatrixVisited[x][y] = false;
 			}
 		}
 	}
@@ -129,6 +132,14 @@ public class Board {
 		}
 		
 		return remove;
+	}
+	
+	private boolean readFromBoardVisited(Position pos) {
+		return boardMatrixVisited[pos.getX()][pos.getY()];
+	}
+	
+	private void writeOnBoardVisited(Position pos, boolean element) {
+		boardMatrixVisited[pos.getX()][pos.getY()] = element;
 	}
 	
 	public Size getSize(){
@@ -482,19 +493,35 @@ public class Board {
 	}
 	
 	public void meccaGoUp() {
-		meccaGoPosition(new Position(getMeccaPos().getX(), getMeccaPos().getY()+1));
+		Position pos = new Position(getMeccaPos().getX(), getMeccaPos().getY()+1);
+		
+		if(meccaGoPosition(pos)) {
+			writeOnBoardVisited(pos, true);
+		}
 	}
 	
 	public void meccaGoDown() {
-		meccaGoPosition(new Position(getMeccaPos().getX(), getMeccaPos().getY()-1));
+		Position pos = new Position(getMeccaPos().getX(), getMeccaPos().getY()-1);
+		
+		if(meccaGoPosition(pos)) {
+			writeOnBoardVisited(pos, true);			
+		}
 	}
 	
 	public void meccaGoLeft() {
-		meccaGoPosition(new Position(getMeccaPos().getX()-1, getMeccaPos().getY()));
+		Position pos = new Position(getMeccaPos().getX()-1, getMeccaPos().getY());
+		
+		if(meccaGoPosition(pos)) {
+			writeOnBoardVisited(pos, true);
+		}
 	}
 	
 	public void meccaGoRight() {
-		meccaGoPosition(new Position(getMeccaPos().getX()+1, getMeccaPos().getY()));
+		Position pos = new  Position(getMeccaPos().getX()+1, getMeccaPos().getY());
+		
+		if(meccaGoPosition(pos)) {
+			writeOnBoardVisited(pos, true);
+		}
 	}
 	
 	public boolean meccaShoot(int direction){ //1 UP 2 RIGHT 3 LEFT 4 DOWN
@@ -543,11 +570,17 @@ public class Board {
 		return shoot;
 	}
 	
-	private void meccaGoPosition(Position position) {
+	private boolean meccaGoPosition(Position position) {
+		boolean success = false;
+		
 		if(checkMovement(position)) {
 			getMeccaPos().setX(position.getX());
 			getMeccaPos().setY(position.getY());
+			
+			success = true;
 		}
+		
+		return success;
 	}
 	
 	private boolean checkMovement(Position position) {
@@ -608,12 +641,7 @@ public class Board {
 	
 	public String toString(){
 		String returnString = new String();
-		/*returnString+="Board information\n";
-		returnString+="=================\n";
-		returnString+=boardSize.toString();
-		returnString+="\nWumpus "+wumpusPos.toString();
-		returnString+="\nStart "+startPos.toString();
-		returnString+="\nEnd "+exitPos.toString();*/
+		
 		if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
 			for(int i=getBoardSize().getHeight()-1; i>=0; i--) {
 				returnString += "\n";
@@ -696,6 +724,8 @@ public class Board {
 				// Set Mecca initial position
 				getMeccaPos().setX(getStartPos().getX());
 				getMeccaPos().setY(getStartPos().getY());
+				
+				writeOnBoardVisited(getStartPos(), true);
 			}
 		}
 		
@@ -738,6 +768,69 @@ public class Board {
 		}
 		
 		return wumpus;
+	}
+	
+	public void showAdventureState() {
+		String returnString = new String();
+		
+		if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
+			for(int i=getBoardSize().getHeight()-1; i>=0; i--) {
+				returnString += "\n";
+				for(int j=0; j<getBoardSize().getWidth(); j++) {
+					ArrayList<String> square = readFromBoard(new Position(j, i));
+					
+					returnString += "\t";
+					
+					if(getMeccaPos().getX() == j && getMeccaPos().getY() == i) {
+						returnString += "M";
+					} else {
+						String element = new String("");
+						
+						if(readFromBoardVisited(new Position(j, i))) {
+							if(square.contains(WUMPUS)) {
+								element = "W";
+							} else if(square.contains(HOLE)) {
+								element = "H";
+							} else if(square.contains(TREASURE)) {
+								element = "T";
+							} else if(square.contains(START)) {
+								element = "+";
+							} else if(square.contains(EXIT)) {
+								element = "X";
+							} else if(square.contains(BREEZE) && !square.contains(HOLE) && !square.contains(WUMPUS)
+									&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
+								element = "~";
+							} else if(square.contains(SMELL) && !square.contains(HOLE) && !square.contains(WUMPUS)
+									&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
+								element = "=";
+							} else {
+								element = "-";
+							}
+						} else {
+							element = "?";
+						}
+						
+						returnString += element;
+					}
+				}
+			}
+			
+
+			returnString += "\n\nArrows: " + getMeccaNArrows();
+			returnString += "\nWumpus: ";
+			
+			if(isWumpusAlive()) {
+				returnString += "Alive";
+			} else {
+				returnString += "Dead";
+			}
+			
+			returnString += "\nTreasures remaining: " + getTotalTreasures();
+		} else {
+			returnString += "There is no board";
+		}
+		
+		System.out.println(returnString);
 	}
 
 }

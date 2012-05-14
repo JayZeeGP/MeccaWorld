@@ -113,6 +113,15 @@ String info;}
 								System.out.println("This instruction has to be called in Configuration Mode");
 							}
 			}
+			
+		| FUNC_SHOWADVENTURESTATE PARENT_IZ PARENT_DE PUNTO_COMA 
+			{
+							if(mode == ADVENTURE_MODE) {
+								board.showAdventureState();
+							} else {
+								System.out.println("This instruction has to be called in Configuration Mode");
+							}
+			}
 					
 		| FUNC_SETBOARDSIZE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 			{
@@ -511,8 +520,8 @@ String info;}
                
 asignation
 	// Variable local
-	{float e;}
-	: i:IDENT OP_ASIG e=expression PUNTO_COMA  //Añadido por mí el ;
+	{float e; String e2;}
+	: TIPO_NUMERO i:IDENT OP_ASIG e=expression PUNTO_COMA  //Añadido por mí el ;
 	 	{
 			// Se toma el nombre del identificador
 			String nombre = i.getText();
@@ -522,6 +531,21 @@ asignation
 
 			// Se inserta en la tabla de Símbolos
 			insertarIdentificador(nombre,"float",valorCadena);
+	
+			// Se muestra por pantalla: depuración
+			// System.out.println(" Asignación => " + nombre + " := " + e);
+		}
+		
+		| TIPO_CADENA i2:IDENT OP_ASIG e2=expression_string PUNTO_COMA
+	 	{
+			// Se toma el nombre del identificador
+			String nombre = i2.getText();
+
+			// El número se convierte en cadena
+			String valorCadena = String.valueOf(e2);
+
+			// Se inserta en la tabla de Símbolos
+			insertarIdentificador(nombre,"string",valorCadena);
 	
 			// Se muestra por pantalla: depuración
 			// System.out.println(" Asignación => " + nombre + " := " + e);
@@ -579,6 +603,31 @@ expression
  			System.out.println("Traza: expression");
 			mostrarExcepcion(re);
 		 }
+		
+expression_string 
+	// Valor que devuelve
+	returns [String result = new String();]
+	// Variables locales
+	{String e1,e2;} 
+	:
+	 	e1=factor_string {result = e1;} 
+		(
+			// Suma
+			(
+			 OP_MAS e2 = factor_string
+				{
+				 result = result + e2;
+				}
+			)
+		)*
+		|
+
+	;
+	exception
+ 		catch [RecognitionException re] {
+ 			System.out.println("Traza: expression");
+			mostrarExcepcion(re);
+		 }
 
 addend 
 	// Valor que devuelve
@@ -611,7 +660,6 @@ addend
 			mostrarExcepcion(re);
 		 }
 
-
 factor 
 	// Valor que devuelve
 	returns [float result = (float) 0.0;] 
@@ -641,6 +689,42 @@ factor
 			{result = new Float(n.getText()).floatValue();}
 
 	| PARENTESIS_IZ e=expression PARENTESIS_DE
+			{result = e;}
+	;
+	exception
+ 		catch [RecognitionException re] {
+			mostrarExcepcion(re);
+		 }
+		
+factor_string
+	// Valor que devuelve
+	returns [String result = new String();] 
+
+	// Variables locales
+	{String e;} 
+	:
+	  i:IDENT 
+		{
+			// Busca el identificador en la tabla de símbolos
+			int indice = symbolsTable.existeSimbolo(i.getText());
+
+			// Si encuentra el identificador, devuelve su valor
+			if (indice >= 0)
+			{
+				// Se recupera el valor almacenado como cadena
+				String valorCadena = symbolsTable.getSimbolo(indice).getValor();
+
+				// La cadena se convierte a número real
+				result = valorCadena;
+			}
+			else
+				System.err.println("Error: el identificador " + i.getText() + " está indefinido");
+		}
+
+	| n:LIT_CADENA  //Ponía número aquí
+			{result = n.getText();}
+
+	| PARENTESIS_IZ e=expression_string PARENTESIS_DE
 			{result = e;}
 	;
 	exception
