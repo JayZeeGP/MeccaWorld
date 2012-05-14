@@ -49,5 +49,11 @@ public interface MeccasintTokenTypes {
 	int FUNC_GOUP = 47;
 	int FUNC_GODOWN = 48;
 	int OP_ASIG = 49;
-	int LIT_ENTERO = 50;
+	int OP_MAS = 50;
+	int OP_MENOS = 51;
+	int OP_PRODUCTO = 52;
+	int OP_DIVISION = 53;
+	int LIT_ENTERO = 54;
+	int PARENTESIS_IZ = 55;
+	int PARENTESIS_DE = 56;
 }

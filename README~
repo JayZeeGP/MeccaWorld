@@ -74,6 +74,7 @@ que contiene algún elemento.
 + Problema detectado con los números negativos. Ejemplo: setArrows(-19);
 - Realizada un poco de refactorización de código
 
+
 *********** JayZee a.k.a No style <> 10/05/2012 ***********
 - Se pueden crear variables ("var:=45"); de tipo entero
 - Se puede acceder a ellas usando leer(var);
