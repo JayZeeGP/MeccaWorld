@@ -15,7 +15,7 @@ que contiene algún elemento.
 - Ya pueden crearse variables de tipo Cadena (ahora hay que incluir los tipos antes del identificador)
 
 *********** JayZee a.k.a No style <> 14/05/2012 ***********
-- Todos los bucles menos el "for"
+- Todos los bucles incluido el "for"!!!
 - Las variables pueden crearse en cualquier parte y usarse! :)
 - Ahora pueden hacerse operaciones aritméticas (setBoardSize(a*2+3,b*2));
 - De momento todo tienen que ser enteros
