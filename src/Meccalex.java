@@ -40,71 +40,71 @@ public Meccalex(LexerSharedInputState state) {
 	caseSensitiveLiterals = false;
 	setCaseSensitive(false);
 	literals = new Hashtable();
-	literals.put(new ANTLRHashString("showTreasures", this), new Integer(21));
-	literals.put(new ANTLRHashString("goRight", this), new Integer(45));
+	literals.put(new ANTLRHashString("showTreasures", this), new Integer(22));
+	literals.put(new ANTLRHashString("goRight", this), new Integer(46));
 	literals.put(new ANTLRHashString("endConfigurationMode", this), new Integer(5));
-	literals.put(new ANTLRHashString("decArrows", this), new Integer(38));
-	literals.put(new ANTLRHashString("getBoardColumns", this), new Integer(16));
-	literals.put(new ANTLRHashString("getBoardRows", this), new Integer(15));
+	literals.put(new ANTLRHashString("decArrows", this), new Integer(39));
+	literals.put(new ANTLRHashString("getBoardColumns", this), new Integer(17));
+	literals.put(new ANTLRHashString("getBoardRows", this), new Integer(16));
 	literals.put(new ANTLRHashString("ConfigurationMode", this), new Integer(4));
-	literals.put(new ANTLRHashString("Entero", this), new Integer(50));
-	literals.put(new ANTLRHashString("getBoardSize", this), new Integer(17));
-	literals.put(new ANTLRHashString("removeHole", this), new Integer(24));
-	literals.put(new ANTLRHashString("tab", this), new Integer(57));
-	literals.put(new ANTLRHashString("getMecca", this), new Integer(34));
-	literals.put(new ANTLRHashString("getHole", this), new Integer(26));
-	literals.put(new ANTLRHashString("showBoard", this), new Integer(12));
-	literals.put(new ANTLRHashString("cierto", this), new Integer(54));
-	literals.put(new ANTLRHashString("getTotalTreasures", this), new Integer(20));
-	literals.put(new ANTLRHashString("si", this), new Integer(62));
-	literals.put(new ANTLRHashString("para", this), new Integer(66));
-	literals.put(new ANTLRHashString("and", this), new Integer(72));
-	literals.put(new ANTLRHashString("not", this), new Integer(74));
-	literals.put(new ANTLRHashString("desde", this), new Integer(67));
-	literals.put(new ANTLRHashString("getExit", this), new Integer(33));
-	literals.put(new ANTLRHashString("setTreasure", this), new Integer(18));
-	literals.put(new ANTLRHashString("shootUp", this), new Integer(42));
-	literals.put(new ANTLRHashString("Real", this), new Integer(51));
-	literals.put(new ANTLRHashString("Logico", this), new Integer(52));
-	literals.put(new ANTLRHashString("goUp", this), new Integer(46));
-	literals.put(new ANTLRHashString("fin_si", this), new Integer(65));
-	literals.put(new ANTLRHashString("hacer", this), new Integer(60));
+	literals.put(new ANTLRHashString("Entero", this), new Integer(57));
+	literals.put(new ANTLRHashString("getBoardSize", this), new Integer(18));
+	literals.put(new ANTLRHashString("removeHole", this), new Integer(25));
+	literals.put(new ANTLRHashString("tab", this), new Integer(64));
+	literals.put(new ANTLRHashString("getMecca", this), new Integer(35));
+	literals.put(new ANTLRHashString("getHole", this), new Integer(27));
+	literals.put(new ANTLRHashString("showBoard", this), new Integer(13));
+	literals.put(new ANTLRHashString("cierto", this), new Integer(61));
+	literals.put(new ANTLRHashString("getTotalTreasures", this), new Integer(21));
+	literals.put(new ANTLRHashString("si", this), new Integer(69));
+	literals.put(new ANTLRHashString("para", this), new Integer(73));
+	literals.put(new ANTLRHashString("and", this), new Integer(79));
+	literals.put(new ANTLRHashString("not", this), new Integer(81));
+	literals.put(new ANTLRHashString("desde", this), new Integer(74));
+	literals.put(new ANTLRHashString("getExit", this), new Integer(34));
+	literals.put(new ANTLRHashString("setTreasure", this), new Integer(19));
+	literals.put(new ANTLRHashString("shootUp", this), new Integer(43));
+	literals.put(new ANTLRHashString("Real", this), new Integer(58));
+	literals.put(new ANTLRHashString("Logico", this), new Integer(59));
+	literals.put(new ANTLRHashString("goUp", this), new Integer(47));
+	literals.put(new ANTLRHashString("fin_si", this), new Integer(72));
+	literals.put(new ANTLRHashString("hacer", this), new Integer(67));
 	literals.put(new ANTLRHashString("endAdventureMode", this), new Integer(7));
-	literals.put(new ANTLRHashString("getNumberOfHoles", this), new Integer(25));
-	literals.put(new ANTLRHashString("getWumpus", this), new Integer(29));
-	literals.put(new ANTLRHashString("com", this), new Integer(58));
-	literals.put(new ANTLRHashString("incArrows", this), new Integer(37));
-	literals.put(new ANTLRHashString("Cadena", this), new Integer(53));
+	literals.put(new ANTLRHashString("getNumberOfHoles", this), new Integer(26));
+	literals.put(new ANTLRHashString("getWumpus", this), new Integer(30));
+	literals.put(new ANTLRHashString("com", this), new Integer(65));
+	literals.put(new ANTLRHashString("incArrows", this), new Integer(38));
+	literals.put(new ANTLRHashString("Cadena", this), new Integer(60));
 	literals.put(new ANTLRHashString("leer", this), new Integer(8));
-	literals.put(new ANTLRHashString("getArrows", this), new Integer(36));
-	literals.put(new ANTLRHashString("showHoles", this), new Integer(27));
-	literals.put(new ANTLRHashString("inicio", this), new Integer(70));
-	literals.put(new ANTLRHashString("final", this), new Integer(71));
-	literals.put(new ANTLRHashString("nl", this), new Integer(56));
-	literals.put(new ANTLRHashString("getTreasure", this), new Integer(22));
-	literals.put(new ANTLRHashString("or", this), new Integer(73));
-	literals.put(new ANTLRHashString("goLeft", this), new Integer(44));
-	literals.put(new ANTLRHashString("hasta", this), new Integer(68));
-	literals.put(new ANTLRHashString("fin_para", this), new Integer(69));
-	literals.put(new ANTLRHashString("setWumpus", this), new Integer(28));
-	literals.put(new ANTLRHashString("shootRighT", this), new Integer(41));
-	literals.put(new ANTLRHashString("fin_mientras", this), new Integer(61));
-	literals.put(new ANTLRHashString("getRemainingTreasures", this), new Integer(39));
-	literals.put(new ANTLRHashString("setArrows", this), new Integer(35));
-	literals.put(new ANTLRHashString("setBoardSize", this), new Integer(13));
-	literals.put(new ANTLRHashString("shootLeft", this), new Integer(40));
-	literals.put(new ANTLRHashString("removeTreasure", this), new Integer(19));
-	literals.put(new ANTLRHashString("setHole", this), new Integer(23));
-	literals.put(new ANTLRHashString("mientras", this), new Integer(59));
-	literals.put(new ANTLRHashString("setStart", this), new Integer(30));
-	literals.put(new ANTLRHashString("si_no", this), new Integer(64));
-	literals.put(new ANTLRHashString("goDown", this), new Integer(47));
-	literals.put(new ANTLRHashString("setExit", this), new Integer(32));
-	literals.put(new ANTLRHashString("getStart", this), new Integer(31));
-	literals.put(new ANTLRHashString("falso", this), new Integer(55));
-	literals.put(new ANTLRHashString("shootDown", this), new Integer(43));
+	literals.put(new ANTLRHashString("getArrows", this), new Integer(37));
+	literals.put(new ANTLRHashString("showHoles", this), new Integer(28));
+	literals.put(new ANTLRHashString("inicio", this), new Integer(77));
+	literals.put(new ANTLRHashString("final", this), new Integer(78));
+	literals.put(new ANTLRHashString("nl", this), new Integer(63));
+	literals.put(new ANTLRHashString("getTreasure", this), new Integer(23));
+	literals.put(new ANTLRHashString("or", this), new Integer(80));
+	literals.put(new ANTLRHashString("goLeft", this), new Integer(45));
+	literals.put(new ANTLRHashString("hasta", this), new Integer(75));
+	literals.put(new ANTLRHashString("fin_para", this), new Integer(76));
+	literals.put(new ANTLRHashString("setWumpus", this), new Integer(29));
+	literals.put(new ANTLRHashString("shootRighT", this), new Integer(42));
+	literals.put(new ANTLRHashString("fin_mientras", this), new Integer(68));
+	literals.put(new ANTLRHashString("getRemainingTreasures", this), new Integer(40));
+	literals.put(new ANTLRHashString("setArrows", this), new Integer(36));
+	literals.put(new ANTLRHashString("setBoardSize", this), new Integer(14));
+	literals.put(new ANTLRHashString("shootLeft", this), new Integer(41));
+	literals.put(new ANTLRHashString("removeTreasure", this), new Integer(20));
+	literals.put(new ANTLRHashString("setHole", this), new Integer(24));
+	literals.put(new ANTLRHashString("mientras", this), new Integer(66));
+	literals.put(new ANTLRHashString("setStart", this), new Integer(31));
+	literals.put(new ANTLRHashString("si_no", this), new Integer(71));
+	literals.put(new ANTLRHashString("goDown", this), new Integer(48));
+	literals.put(new ANTLRHashString("setExit", this), new Integer(33));
+	literals.put(new ANTLRHashString("getStart", this), new Integer(32));
+	literals.put(new ANTLRHashString("falso", this), new Integer(62));
+	literals.put(new ANTLRHashString("shootDown", this), new Integer(44));
 	literals.put(new ANTLRHashString("AdventureMode", this), new Integer(6));
-	literals.put(new ANTLRHashString("entonces", this), new Integer(63));
+	literals.put(new ANTLRHashString("entonces", this), new Integer(70));
 }
 
 public Token nextToken() throws TokenStreamException {
@@ -183,9 +183,21 @@ tryAgain:
 					theRetToken=_returnToken;
 					break;
 				}
+				case '=':
+				{
+					mOP_IGUAL(true);
+					theRetToken=_returnToken;
+					break;
+				}
 				case '!':
 				{
 					mOP_DISTINTO(true);
+					theRetToken=_returnToken;
+					break;
+				}
+				case ':':
+				{
+					mOP_ASIG(true);
 					theRetToken=_returnToken;
 					break;
 				}
@@ -240,20 +252,12 @@ tryAgain:
 					break;
 				}
 				default:
-					if ((LA(1)=='=') && (LA(2)=='=')) {
-						mOP_IGUAL(true);
-						theRetToken=_returnToken;
-					}
-					else if ((LA(1)=='<') && (LA(2)=='=')) {
+					if ((LA(1)=='<') && (LA(2)=='=')) {
 						mOP_MENOR_IGUAL(true);
 						theRetToken=_returnToken;
 					}
 					else if ((LA(1)=='>') && (LA(2)=='=')) {
 						mOP_MAYOR_IGUAL(true);
-						theRetToken=_returnToken;
-					}
-					else if ((LA(1)=='=') && (true)) {
-						mOP_ASIG(true);
 						theRetToken=_returnToken;
 					}
 					else if ((LA(1)=='<') && (true)) {
@@ -295,10 +299,10 @@ tryAgain:
 		int _saveIndex;
 		
 		{
-		boolean synPredMatched19 = false;
+		boolean synPredMatched103 = false;
 		if (((LA(1)=='\r') && (LA(2)=='\n'))) {
-			int _m19 = mark();
-			synPredMatched19 = true;
+			int _m103 = mark();
+			synPredMatched103 = true;
 			inputState.guessing++;
 			try {
 				{
@@ -306,12 +310,12 @@ tryAgain:
 				}
 			}
 			catch (RecognitionException pe) {
-				synPredMatched19 = false;
+				synPredMatched103 = false;
 			}
-			rewind(_m19);
+			rewind(_m103);
 inputState.guessing--;
 		}
-		if ( synPredMatched19 ) {
+		if ( synPredMatched103 ) {
 			match("\r\n");
 		}
 		else if ((LA(1)=='\n')) {
@@ -429,7 +433,7 @@ inputState.guessing--;
 		}
 		}
 		{
-		_loop28:
+		_loop112:
 		do {
 			switch ( LA(1)) {
 			case 'a':  case 'b':  case 'c':  case 'd':
@@ -483,7 +487,7 @@ inputState.guessing--;
 			}
 			default:
 			{
-				break _loop28;
+				break _loop112;
 			}
 			}
 		} while (true);
@@ -631,7 +635,7 @@ inputState.guessing--;
 		_ttype = OP_ASIG;
 		int _saveIndex;
 		
-		match('=');
+		match(":=");
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
 			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
@@ -748,60 +752,60 @@ inputState.guessing--;
 		_ttype = LIT_NUMERO;
 		int _saveIndex;
 		
-		boolean synPredMatched52 = false;
+		boolean synPredMatched136 = false;
 		if ((((LA(1) >= '0' && LA(1) <= '9')) && (_tokenSet_0.member(LA(2))))) {
-			int _m52 = mark();
-			synPredMatched52 = true;
+			int _m136 = mark();
+			synPredMatched136 = true;
 			inputState.guessing++;
 			try {
 				{
 				{
-				int _cnt51=0;
-				_loop51:
+				int _cnt135=0;
+				_loop135:
 				do {
 					if (((LA(1) >= '0' && LA(1) <= '9'))) {
 						mDIGITO(false);
 					}
 					else {
-						if ( _cnt51>=1 ) { break _loop51; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+						if ( _cnt135>=1 ) { break _loop135; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 					}
 					
-					_cnt51++;
+					_cnt135++;
 				} while (true);
 				}
 				match('.');
 				}
 			}
 			catch (RecognitionException pe) {
-				synPredMatched52 = false;
+				synPredMatched136 = false;
 			}
-			rewind(_m52);
+			rewind(_m136);
 inputState.guessing--;
 		}
-		if ( synPredMatched52 ) {
+		if ( synPredMatched136 ) {
 			{
-			int _cnt54=0;
-			_loop54:
+			int _cnt138=0;
+			_loop138:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					if ( _cnt54>=1 ) { break _loop54; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+					if ( _cnt138>=1 ) { break _loop138; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 				}
 				
-				_cnt54++;
+				_cnt138++;
 			} while (true);
 			}
 			match('.');
 			{
-			_loop56:
+			_loop140:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					break _loop56;
+					break _loop140;
 				}
 				
 			} while (true);
@@ -812,17 +816,17 @@ inputState.guessing--;
 		}
 		else if (((LA(1) >= '0' && LA(1) <= '9')) && (true)) {
 			{
-			int _cnt58=0;
-			_loop58:
+			int _cnt142=0;
+			_loop142:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					if ( _cnt58>=1 ) { break _loop58; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+					if ( _cnt142>=1 ) { break _loop142; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 				}
 				
-				_cnt58++;
+				_cnt142++;
 			} while (true);
 			}
 			if ( inputState.guessing==0 ) {
@@ -847,7 +851,7 @@ inputState.guessing--;
 		
 		match("#");
 		{
-		_loop62:
+		_loop146:
 		do {
 			if ((_tokenSet_1.member(LA(1)))) {
 				{
@@ -855,7 +859,7 @@ inputState.guessing--;
 				}
 			}
 			else {
-				break _loop62;
+				break _loop146;
 			}
 			
 		} while (true);
@@ -874,15 +878,15 @@ inputState.guessing--;
 		
 		match("{");
 		{
-		_loop65:
+		_loop149:
 		do {
 			// nongreedy exit test
-			if ((LA(1)=='}') && (true)) break _loop65;
+			if ((LA(1)=='}') && (true)) break _loop149;
 			if (((LA(1) >= '\u0003' && LA(1) <= '\u00ff')) && ((LA(2) >= '\u0003' && LA(2) <= '\u00ff'))) {
 				matchNot(EOF_CHAR);
 			}
 			else {
-				break _loop65;
+				break _loop149;
 			}
 			
 		} while (true);
@@ -937,10 +941,10 @@ inputState.guessing--;
 		match('"');
 		text.setLength(_saveIndex);
 		{
-		_loop71:
+		_loop155:
 		do {
 			// nongreedy exit test
-			if ((LA(1)=='"') && (true)) break _loop71;
+			if ((LA(1)=='"') && (true)) break _loop155;
 			if ((_tokenSet_2.member(LA(1))) && ((LA(2) >= '\u0003' && LA(2) <= '\u00ff'))) {
 				{
 				match(_tokenSet_2);
@@ -950,7 +954,7 @@ inputState.guessing--;
 				match("\\\"");
 			}
 			else {
-				break _loop71;
+				break _loop155;
 			}
 			
 		} while (true);
@@ -974,7 +978,7 @@ inputState.guessing--;
 		match('\'');
 		text.setLength(_saveIndex);
 		{
-		_loop75:
+		_loop159:
 		do {
 			if ((_tokenSet_3.member(LA(1)))) {
 				{
@@ -982,7 +986,7 @@ inputState.guessing--;
 				}
 			}
 			else {
-				break _loop75;
+				break _loop159;
 			}
 			
 		} while (true);
