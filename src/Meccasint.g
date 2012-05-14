@@ -515,7 +515,15 @@ String info;}
 				}
 			}
 				
-		| asignation				
+		| asignation	
+		
+		| conditional_sentence			
+		
+		| while_loop
+		
+		| do_until_loop
+		
+		| for_loop
         ;
                
 asignation
@@ -685,7 +693,7 @@ factor
 				System.err.println("Error: el identificador " + i.getText() + " está indefinido");
 		}
 
-	| n:LIT_ENTERO  //Ponía número aquí
+	| n:LIT_NUMERO  //Ponía número aquí
 			{result = new Float(n.getText()).floatValue();}
 
 	| PARENTESIS_IZ e=expression PARENTESIS_DE
@@ -743,7 +751,183 @@ negative
 	:  OP_MENOS e = factor {result = -e;}
         ;
 		    
-		      
+conditional_sentence
+	// Variable local
+	 {boolean valor;}
+	 : RES_SI valor=condition  
+	   RES_ENTONCES 
+		(
+		 // Si la condición es verdadera, se ejecuta el consecuente
+		 {valor==true}? (instruction)+
+
+		 // Si hay parte alternativa, se omite
+			(
+			  RES_SI_NO
+				 (options {greedy=false;}:.)+
+			)?
+		|
+		 // Si la condición es false, se omite el consecuente
+  		  {valor==false}? (options {greedy=false;}:.)+
+
+		 // Si hay parte alternativa, se ejecuta
+			(
+			 RES_SI_NO
+				(instruction)+
+			)?
+			
+		)
+		RES_FIN_SI
+	;
+	exception
+ 		catch [RecognitionException re] {
+			mostrarExcepcion(re);
+		 }
+
+condition
+	// Valor que devuelve
+	returns [boolean ressult = false]
+
+	// Variables locales
+	{float e1, e2;}
+	: e1=expression
+		// Comienzo de las alternativas
+		(
+		 OP_IGUAL e2=expression
+			{
+				if (e1 == e2)
+					ressult = true;
+				else 
+					ressult = false;
+			}
+        	 | OP_DISTINTO e2=expression
+			{
+				if (e1 != e2)
+					ressult = true;
+				else 
+					ressult = false;
+			}
+        	 | OP_MENOR e2=expression
+			{
+				if (e1 < e2)
+					ressult = true;
+				else 
+					ressult = false;
+			}
+        	 | OP_MENOR_IGUAL e2=expression
+			{
+				if (e1 <= e2)
+					ressult = true;
+				else 
+					ressult = false;
+			}
+        	 | OP_MAYOR_IGUAL e2=expression
+			{
+			if (e1 >= e2)
+				ressult = true;
+			else 
+				ressult = false;
+			}
+        	 | OP_MAYOR e2=expression
+			{
+			if (e1 > e2)
+				ressult = true;
+			else 
+				ressult = false;
+			}
+		) // Fin de las alternativas
+	;
+	exception
+ 		catch [RecognitionException re] {
+			mostrarExcepcion(re);
+		 }
+
+while_loop
+		// Variables locales
+		{boolean valor; int marca=-1;}
+		:
+		 // Se establece una marca para indicar el punto de inicio del bucle
+		{marca = mark();}
+		 RES_MIENTRAS valor=condition  
+		 RES_HACER
+
+			( // Comienzo de las alternativas
+
+			  // Si la condición es falsa, se omite el cuerpo del bucle
+			 {valor == false}? (options {greedy=false;}:.)*  RES_FIN_MIENTRAS PUNTO_COMA
+
+			  // Si la condición es verdadera, se ejecutan las instrucciones del bucle
+			| {valor == true}? (instruction)+  RES_FIN_MIENTRAS PUNTO_COMA
+				// Se indica que se repita la ejecución del bucle_mientras
+				{
+				rewind(marca); 
+				this.while_loop();
+				}
+			) // Fin de las alternativas	
+		;
+			   
+do_until_loop
+		// Variables locales, valor es true para que entre la primera vez
+		{boolean valor=false; int marca=-1;}
+		:
+		 // Se establece una marca para indicar el punto de inicio del bucle
+		{marca = mark();}
+		 RES_REPETIR 			( // Comienzo de las alternativas
+
+			  // Si la condición es falsa, se omite el cuerpo del bucle
+			 {valor == true}? (options {greedy=false;}:.)*  RES_HASTA valor=condition PUNTO_COMA	
+
+			  // Si la condición es verdadera, se ejecutan las instrucciones del bucle
+			| {valor == false}? (instruction)+  RES_HASTA valor=condition PUNTO_COMA	
+				// Se indica que se repita la ejecución del bucle_mientras
+				{
+					if(valor==false){
+						rewind(marca); 
+						this.do_until_loop();
+					}
+				}
+			) // Fin de las alternativas
+		;
+		
+for_loop
+		// Variables locales
+		{boolean valor; int marca=-1;float valorInicial=-1, valorFinal=-1, inc=-1, aux=0; String id;}
+		:
+		 // Se establece una marca para indicar el punto de inicio del bucle
+		{marca = mark();}
+		 RES_PARA i:IDENT  RES_DESDE valorInicial=expression RES_HASTA valorFinal=expression
+		 RES_PASO inc=expression RES_HACER
+		 {
+			// Se toma el nombre del identificador
+			String nombre = i.getText();
+
+			// El número se convierte en cadena
+			String valorCadena = String.valueOf(valorInicial);
+
+			// Se inserta en la tabla de Símbolos
+			insertarIdentificador(nombre,"float",valorCadena);
+	
+			// Se muestra por pantalla: depuración
+			// System.out.println(" Asignación => " + nombre + " := " + e);
+			
+			//Preparar las variables auxiliares
+			aux=valorInicial;
+		}
+
+			( // Comienzo de las alternativas
+
+			  // Si la condición es falsa, se omite el cuerpo del bucle
+			 {aux >= valorFinal}? (options {greedy=false;}:.)*  RES_FIN_PARA PUNTO_COMA
+
+			  // Si la condición es verdadera, se ejecutan las instrucciones del bucle
+			| {aux < valorFinal}? (instruction)+ {aux+=inc;} RES_FIN_PARA PUNTO_COMA
+				// Se indica que se repita la ejecución del bucle_mientras
+				{
+				rewind(marca); 
+				this.for_loop();
+				}
+			) // Fin de las alternativas	
+		;
+		   
 parametros: valorparametro (parametros_prima)*;
 
 parametros_prima: COMA valorparametro;
