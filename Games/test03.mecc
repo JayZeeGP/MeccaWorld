@@ -1,0 +1,32 @@
+{ Test file number 03
+We will show how to use conditional schemes }
+
+#Variables can be declared outside the modes
+number jordan:=23;
+number magic:=32;
+number bird:=33;
+
+if jordan > magic then
+	string print:=jordan+" is bigger than "+magic;
+else
+	string print:=jordan+" is not bigger than "+magic;
+end_if;
+
+leer(print);
+
+if jordan < magic then
+	if jordan < bird then
+		string print2:=jordan+" is smaller than "+magic+" and "+bird;
+	end_if;
+end_if;
+
+leer(print2);
+
+#You can also do it like this
+
+if (jordan < magic _and jordan < bird) then
+	string print2:=jordan+" is smaller than "+magic+" and "+bird + " second way ";
+end_if;
+
+leer(print2);
+

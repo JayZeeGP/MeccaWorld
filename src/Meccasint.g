@@ -767,7 +767,7 @@ conditional_sentence
 			(
 			  RES_SI_NO
 				 (options {greedy=false;}:.)+
-			)?
+			)?RES_FIN_SI PUNTO_COMA
 		|
 		 // Si la condición es false, se omite el consecuente
   		  {valor==false}? (options {greedy=false;}:.)+
@@ -776,10 +776,10 @@ conditional_sentence
 			(
 			 RES_SI_NO
 				(instruction)+
-			)?
+			)?RES_FIN_SI PUNTO_COMA
 			
 		)
-		RES_FIN_SI
+		
 	;
 	exception
  		catch [RecognitionException re] {
