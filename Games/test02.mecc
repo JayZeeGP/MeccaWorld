@@ -5,10 +5,11 @@ We will show how to declare and use variables }
 number jordan:=23;
 number magic:=32;
 number bird:=33;
-string player_presentation:=" number is ";
 string jor:="Jordan";
 string mag:="Magic";
 string bir:="Bird";
+string player_presentation:=" number is ";
+
 
 #Now we are going to print them
 string printout := jor+player_presentation+jordan;

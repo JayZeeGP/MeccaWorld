@@ -81,9 +81,9 @@ LIT_FALSO="falso"=81
 LIT_NL="nl"=82
 LIT_TAB="tab"=83
 LIT_COM="com"=84
-OP_Y="and"=85
-OP_O="or"=86
-OP_NO="not"=87
+OP_Y="_and"=85
+OP_O="_or"=86
+OP_NO="_not"=87
 LIT_REAL=88
 LIT_ENTERO=89
 NL=90

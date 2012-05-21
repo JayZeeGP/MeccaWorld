@@ -54,13 +54,12 @@ public Meccalex(LexerSharedInputState state) {
 	literals.put(new ANTLRHashString("tab", this), new Integer(83));
 	literals.put(new ANTLRHashString("getMecca", this), new Integer(36));
 	literals.put(new ANTLRHashString("getHole", this), new Integer(28));
+	literals.put(new ANTLRHashString("_or", this), new Integer(86));
 	literals.put(new ANTLRHashString("showBoard", this), new Integer(13));
 	literals.put(new ANTLRHashString("then", this), new Integer(62));
 	literals.put(new ANTLRHashString("end_for", this), new Integer(79));
 	literals.put(new ANTLRHashString("until", this), new Integer(75));
 	literals.put(new ANTLRHashString("getTotalTreasures", this), new Integer(22));
-	literals.put(new ANTLRHashString("and", this), new Integer(85));
-	literals.put(new ANTLRHashString("not", this), new Integer(87));
 	literals.put(new ANTLRHashString("getExit", this), new Integer(35));
 	literals.put(new ANTLRHashString("setTreasure", this), new Integer(20));
 	literals.put(new ANTLRHashString("end_while", this), new Integer(73));
@@ -80,7 +79,6 @@ public Meccalex(LexerSharedInputState state) {
 	literals.put(new ANTLRHashString("getArrows", this), new Integer(38));
 	literals.put(new ANTLRHashString("showHoles", this), new Integer(29));
 	literals.put(new ANTLRHashString("nl", this), new Integer(82));
-	literals.put(new ANTLRHashString("or", this), new Integer(86));
 	literals.put(new ANTLRHashString("getTreasure", this), new Integer(24));
 	literals.put(new ANTLRHashString("if", this), new Integer(61));
 	literals.put(new ANTLRHashString("goLeft", this), new Integer(46));
@@ -95,6 +93,8 @@ public Meccalex(LexerSharedInputState state) {
 	literals.put(new ANTLRHashString("setHole", this), new Integer(25));
 	literals.put(new ANTLRHashString("setStart", this), new Integer(32));
 	literals.put(new ANTLRHashString("goDown", this), new Integer(49));
+	literals.put(new ANTLRHashString("_and", this), new Integer(85));
+	literals.put(new ANTLRHashString("_not", this), new Integer(87));
 	literals.put(new ANTLRHashString("setExit", this), new Integer(34));
 	literals.put(new ANTLRHashString("getStart", this), new Integer(33));
 	literals.put(new ANTLRHashString("else", this), new Integer(63));
@@ -296,10 +296,10 @@ tryAgain:
 		int _saveIndex;
 		
 		{
-		boolean synPredMatched420 = false;
+		boolean synPredMatched4 = false;
 		if (((LA(1)=='\r') && (LA(2)=='\n'))) {
-			int _m420 = mark();
-			synPredMatched420 = true;
+			int _m4 = mark();
+			synPredMatched4 = true;
 			inputState.guessing++;
 			try {
 				{
@@ -307,12 +307,12 @@ tryAgain:
 				}
 			}
 			catch (RecognitionException pe) {
-				synPredMatched420 = false;
+				synPredMatched4 = false;
 			}
-			rewind(_m420);
+			rewind(_m4);
 inputState.guessing--;
 		}
-		if ( synPredMatched420 ) {
+		if ( synPredMatched4 ) {
 			match("\r\n");
 		}
 		else if ((LA(1)=='\n')) {
@@ -409,7 +409,7 @@ inputState.guessing--;
 		mLETRA(false);
 		}
 		{
-		_loop429:
+		_loop13:
 		do {
 			switch ( LA(1)) {
 			case 'a':  case 'b':  case 'c':  case 'd':
@@ -463,7 +463,7 @@ inputState.guessing--;
 			}
 			default:
 			{
-				break _loop429;
+				break _loop13;
 			}
 			}
 		} while (true);
@@ -729,30 +729,30 @@ inputState.guessing--;
 		int _saveIndex;
 		
 		{
-		int _cnt451=0;
-		_loop451:
+		int _cnt35=0;
+		_loop35:
 		do {
 			if (((LA(1) >= '0' && LA(1) <= '9'))) {
 				mDIGITO(false);
 			}
 			else {
-				if ( _cnt451>=1 ) { break _loop451; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt35>=1 ) { break _loop35; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			
-			_cnt451++;
+			_cnt35++;
 		} while (true);
 		}
 		{
 		if ((LA(1)=='.')) {
 			match('.');
 			{
-			_loop454:
+			_loop38:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					break _loop454;
+					break _loop38;
 				}
 				
 			} while (true);
@@ -790,17 +790,17 @@ inputState.guessing--;
 			}
 			}
 			{
-			int _cnt458=0;
-			_loop458:
+			int _cnt42=0;
+			_loop42:
 			do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					mDIGITO(false);
 				}
 				else {
-					if ( _cnt458>=1 ) { break _loop458; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+					if ( _cnt42>=1 ) { break _loop42; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 				}
 				
-				_cnt458++;
+				_cnt42++;
 			} while (true);
 			}
 		}
@@ -822,7 +822,7 @@ inputState.guessing--;
 		
 		match("#");
 		{
-		_loop462:
+		_loop46:
 		do {
 			if ((_tokenSet_0.member(LA(1)))) {
 				{
@@ -830,7 +830,7 @@ inputState.guessing--;
 				}
 			}
 			else {
-				break _loop462;
+				break _loop46;
 			}
 			
 		} while (true);
@@ -849,15 +849,15 @@ inputState.guessing--;
 		
 		match("{");
 		{
-		_loop465:
+		_loop49:
 		do {
 			// nongreedy exit test
-			if ((LA(1)=='}') && (true)) break _loop465;
+			if ((LA(1)=='}') && (true)) break _loop49;
 			if (((LA(1) >= '\u0003' && LA(1) <= '\u00ff')) && ((LA(2) >= '\u0003' && LA(2) <= '\u00ff'))) {
 				matchNot(EOF_CHAR);
 			}
 			else {
-				break _loop465;
+				break _loop49;
 			}
 			
 		} while (true);
@@ -912,10 +912,10 @@ inputState.guessing--;
 		match('"');
 		text.setLength(_saveIndex);
 		{
-		_loop471:
+		_loop55:
 		do {
 			// nongreedy exit test
-			if ((LA(1)=='"') && (true)) break _loop471;
+			if ((LA(1)=='"') && (true)) break _loop55;
 			if ((_tokenSet_1.member(LA(1))) && ((LA(2) >= '\u0003' && LA(2) <= '\u00ff'))) {
 				{
 				match(_tokenSet_1);
@@ -925,7 +925,7 @@ inputState.guessing--;
 				match("\\\"");
 			}
 			else {
-				break _loop471;
+				break _loop55;
 			}
 			
 		} while (true);
@@ -949,7 +949,7 @@ inputState.guessing--;
 		match('\'');
 		text.setLength(_saveIndex);
 		{
-		_loop475:
+		_loop59:
 		do {
 			if ((_tokenSet_2.member(LA(1)))) {
 				{
@@ -957,7 +957,7 @@ inputState.guessing--;
 				}
 			}
 			else {
-				break _loop475;
+				break _loop59;
 			}
 			
 		} while (true);
