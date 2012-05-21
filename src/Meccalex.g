@@ -84,16 +84,13 @@ tokens
     FUNC_GOUP = "goUp";
     FUNC_GODOWN = "goDown";
     
-    //FIN HECHO POR TEAM MECCA
-	TIPO_ENTERO   = "Entero";
-	TIPO_REAL     = "Real";
-	TIPO_BOOLEANO = "Logico";
-	TIPO_CADENA   = "Cadena";
-	TIPO_NUMERO = "Numero";
+    
+	TIPO_CADENA   = "String";
+	TIPO_NUMERO = "Number";
     
     
 	// Literales lógicos
-	LIT_CIERTO = "cierto" ; 
+	LIT_CIERTO = "true" ; 
 	LIT_FALSO = "falso" ;
     
 	// Literales cadena
@@ -102,21 +99,20 @@ tokens
 	LIT_COM = "com" ;
     
 
-    RES_MIENTRAS     = "mientras" ;
-	RES_HACER        = "hacer" ;
-	RES_REPETIR		 = "repetir";
-	RES_HASTA        = "hasta";
-	RES_FIN_MIENTRAS = "fin_mientras" ;
-	RES_SI           = "si" ;
-	RES_ENTONCES     = "entonces" ;
-	RES_SI_NO        = "si_no" ;
-	RES_FIN_SI       = "fin_si" ;
-	RES_PARA         = "para" ;
-	RES_PASO		 = "paso" ;
-	RES_DESDE        = "desde" ;
-	RES_FIN_PARA     = "fin_para" ;
-	RES_INICIO       = "inicio" ;
-	RES_FINAL        = "final" ;
+    RES_MIENTRAS     = "while" ;
+	RES_HACER        = "do" ;
+	RES_REPETIR		 = "repeat";
+	RES_HASTA        = "until";
+	RES_FIN_MIENTRAS = "end_while" ;
+	RES_SI           = "if" ;
+	RES_ENTONCES     = "then" ;
+	RES_SI_NO        = "else" ;
+	RES_FIN_SI       = "end_if" ;
+	RES_PARA         = "for" ;
+	RES_PASO		 = "step" ;
+	RES_DESDE        = "from" ;
+	RES_FIN_PARA     = "end_for" ;
+
 
     //ENGLISHFICADO POR TEAM MECCA
 	// Operadores que empiezan con letras;
@@ -204,7 +200,7 @@ protected DIGITO : '0'..'9';
 IDENT
 	// Se indica que se comprueben las palabras reservadas
 	options {testLiterals=true;} 
-	: (LETRA|'_') (LETRA|DIGITO|'_'(LETRA|DIGITO))*
+	: (LETRA) (LETRA|DIGITO|'_'(LETRA|DIGITO))*
 	;
 
 // Separadores 
@@ -272,8 +268,7 @@ OP_DIVISION : '/'
 
 LIT_NUMERO : 
 	     // Se usa un predicado sintáctico para comprobar si el número es real
-	     ( DIGITO )+ ('.' ( DIGITO )*)?  
-		
+		( DIGITO )+ ('.' ( DIGITO )*)? ('e' (OP_MENOS | OP_MAS)? (DIGITO)+)?
 	   ;
 
 

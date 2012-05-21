@@ -8,14 +8,23 @@ That's for sure
 - Varios mensajes distintos que se muestren aleatoriamente cuando Mecca se mueve a una casilla
 que contiene algún elemento.
 - Casilla del borde al azar (o siempre la primera) que si Mecca se choca muestra un mensaje tipo (Creadores del juego...)
+- Declaraciones del tipo: number a, b, c;
+- Implementar los operadores lógicos
 ##################################################
 
-*********** JeTBLaCK- <> 14/05/2012 ***********
+*********** JeTBLaCK- <> 21/05/2012 ***********
+- Al crear una cadena, permite incluir comillas en el texto escribiendo \" y detecta sólo las comillas (como en Java)
+
+*********** JayZee a.k.a Mr. style <> 21/05/2012 ***********
+- Ya está modificado el léxico para aceptar bien los IDENT
+- Realizado otro ejemplo en test02
+
+*********** JeTBLaCK- <> 14/05/2012 *****(modified by JayZee)******
 - Creada la función que muestra el estado del modo adventure (showAdventureState)
-- Ya pueden crearse variables de tipo Cadena (ahora hay que incluir los tipos antes del identificador)
+- Ya pueden crearse variables de tipo Cadena (ahora hay que incluir los tipos antes del identificador al crearlos)
 
 *********** JayZee a.k.a No style <> 14/05/2012 ***********
-- Todos los bucles menos el "for"
+- Todos los bucles incluido el "for"!!!
 - Las variables pueden crearse en cualquier parte y usarse! :)
 - Ahora pueden hacerse operaciones aritméticas (setBoardSize(a*2+3,b*2));
 - De momento todo tienen que ser enteros

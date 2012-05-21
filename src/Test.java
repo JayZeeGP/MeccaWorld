@@ -35,6 +35,7 @@ public class Test {
 	// Se crea el analizador sintáctico a partir de los componentes léxicos
 	Meccasint parser = new Meccasint(lexer);
 
+	String cadena = "0.0";
 	/*Token tok = lexer.nextToken();
 	
 	while(tok.getType() != Token.EOF_TYPE)

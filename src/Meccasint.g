@@ -32,6 +32,9 @@ options
 	String mode = new String(NO_MODE);
  	TablaSimbolos symbolsTable = new TablaSimbolos(); 
  	
+ 	//Para los bucles for. DESEO BORRARLA
+ 	boolean firstTime = true;
+ 	
  	/* Método para acceder a la tabla de símbolos desde fuera de la clase */
 	public TablaSimbolos getTablaSimbolos()
 	{
@@ -523,7 +526,7 @@ String info;}
 		
 		| do_until_loop
 		
-		| for_loop
+		| for_loop {firstTime=true;}
         ;
                
 asignation
@@ -889,36 +892,44 @@ do_until_loop
 		
 for_loop
 		// Variables locales
-		{boolean valor; int marca=-1;float valorInicial=-1, valorFinal=-1, inc=-1, aux=0; String id;}
+		{int marca=-1;float initValue=-1, endValue=-1, inc=-1; int index=-1; String id; boolean firstTimeTest=true;}
 		:
-		 // Se establece una marca para indicar el punto de inicio del bucle
+		// Se establece una marca para indicar el punto de inicio del bucle
 		{marca = mark();}
-		 RES_PARA i:IDENT  RES_DESDE valorInicial=expression RES_HASTA valorFinal=expression
+		
+		 RES_PARA i:IDENT  RES_DESDE initValue=expression RES_HASTA endValue=expression
 		 RES_PASO inc=expression RES_HACER
-		 {
-			// Se toma el nombre del identificador
-			String nombre = i.getText();
-
-			// El número se convierte en cadena
-			String valorCadena = String.valueOf(valorInicial);
-
-			// Se inserta en la tabla de Símbolos
-			insertarIdentificador(nombre,"float",valorCadena);
+		 
+		 {		 	
+		 	// Se toma el nombre del identificador
+			String name = i.getText();
+		 	
+		 	if(firstTimeTest) {
 	
+				// El número se convierte en cadena
+				String stringValue = String.valueOf(initValue);
+			
+				// Se inserta en la tabla de Símbolos
+				insertarIdentificador(name,"float",stringValue);
+		 	}
+			//Para tener el índice
+			index=symbolsTable.existeSimbolo(name);
 			// Se muestra por pantalla: depuración
 			// System.out.println(" Asignación => " + nombre + " := " + e);
-			
 			//Preparar las variables auxiliares
-			aux=valorInicial;
+							
+			firstTimeTest=false;
+		 	
 		}
+		
 
 			( // Comienzo de las alternativas
 
 			  // Si la condición es falsa, se omite el cuerpo del bucle
-			 {aux >= valorFinal}? (options {greedy=false;}:.)*  RES_FIN_PARA PUNTO_COMA
+			 {Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) >= endValue}? (options {greedy=false;}:.)*  RES_FIN_PARA PUNTO_COMA
 
 			  // Si la condición es verdadera, se ejecutan las instrucciones del bucle
-			| {aux < valorFinal}? (instruction)+ {aux+=inc;} RES_FIN_PARA PUNTO_COMA
+			| {Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) < endValue}? (instruction)+ {symbolsTable.getSimbolo(index).setValor(String.valueOf(Float.parseFloat(symbolsTable.getSimbolo(index).getValor())+inc));} RES_FIN_PARA PUNTO_COMA
 				// Se indica que se repita la ejecución del bucle_mientras
 				{
 				rewind(marca); 
