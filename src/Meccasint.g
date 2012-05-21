@@ -549,8 +549,7 @@ asignation
 			// Se toma el nombre del identificador
 			String nombre = i2.getText();
 
-			// El número se convierte en cadena
-			String valorCadena = String.valueOf(e2);
+			String valorCadena = String.valueOf(e2.replace("\\\"", "\""));
 
 			// Se inserta en la tabla de Símbolos
 			insertarIdentificador(nombre,"string",valorCadena);
