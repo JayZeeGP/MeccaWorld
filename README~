@@ -2,44 +2,30 @@ MECCA TEAM GONNA WIN
 ====================
 That's for sure
 
-/********************/
--Posible problema de precedencias en las reglas léxicas
--Probado en otro ejemplo y la cosa va funcionando
--Añadido aquí, el BEGIN_CONF ya lo pilla, luego hay problema con las reglas de abajo, pero algo es algo.
--La Y son las filas y las X las columnas
--En mi humilde opinión hay que poner algo para borrar tesoros o algo así,
-por si te equivocas al meter uno :)
--Podría ser interesante, de cara al futuro que las funciones devolvieran
-un string diciendo si se pudo meter el tesoro en tal casilla o algo así.
--Al final lo que he hecho con Mecca es que esté dentro del tablero y llamas
-al tablero para que le modifique.
-La otra opción es que además de estar en el tablero, haya una referencia a él
-en Meccasint, las dos formas me parecen buenas y malas, si quieres cambiarlo
-o decirme algo, guay.
--Por ahora Mecca puede tener flechas negativas, es una chorrada pero 
-me duele la espalda, así que voy a parar un rato.
--RemoveHoles y setWumpusAlive
 
-configurationMode
-setWumpus(3,3);
-That position is out of the board
-Wumpus set on column -1 row -1
-
-Idea de usar el primer elemento del arraylist en las cosas que no se pueden solapar
-	-Empty
-	-Wumpus
-	-Hole
-	-Etc.
-Dejar el y sucesivos, para las cosas que se solapan, la peste, la brisa, el brillo
-
-
--Aún no tengo en cuenta que luego hay que borrar las cosass, es decir, si pongo wumpus en 2,2 
-y luego lo cambio a 3,3. hay que quitarlo del 2, 2
 
 ################# TO DO ##########################
 - Varios mensajes distintos que se muestren aleatoriamente cuando Mecca se mueve a una casilla
 que contiene algún elemento.
+- Casilla del borde al azar (o siempre la primera) que si Mecca se choca muestra un mensaje tipo (Creadores del juego...)
 ##################################################
+
+*********** JayZee a.k.a Mr. style <> 21/05/2012 ***********
+- Ya está modificado el léxico para aceptar bien los IDENT
+las flores son amarillas
+el cielo es azul
+de todos los programas
+el que me gusta eres tú
+
+*********** JeTBLaCK- <> 14/05/2012 *****(modified by JayZee)******
+- Creada la función que muestra el estado del modo adventure (showAdventureState)
+- Ya pueden crearse variables de tipo Cadena (ahora hay que incluir los tipos antes del identificador al crearlos)
+
+*********** JayZee a.k.a No style <> 14/05/2012 ***********
+- Todos los bucles incluido el "for"!!!
+- Las variables pueden crearse en cualquier parte y usarse! :)
+- Ahora pueden hacerse operaciones aritméticas (setBoardSize(a*2+3,b*2));
+- De momento todo tienen que ser enteros
 
 *********** JeTBLaCK- <> 12/05/2012 ***********
 - Añadida la funcionalidad de los tesoros a la partida
@@ -56,13 +42,19 @@ que contiene algún elemento.
 *********** JayZee a.k.a No style <> 10/05/2012 ***********
 - Añadidos showHoles y showTreasures
 
-*********** JeTBLaCK- a.k.a Mr Complainer<> 07/05/2012 ***********
+*********** JayZee a.k.a No style <> 10/05/2012 ***********
+- Se pueden crear variables ("var:=45"); de tipo entero
+- Se puede acceder a ellas usando leer(var);
+- Añadida una tabla de símbolos y la clase variable
+- Añadido el a.k.a de JeTBLaCK
+
+*********** JeTBLaCK- a.k.a Mr Complainer <> 07/05/2012 ***********
 - Implementadas las funciones para eliminar elementos de las casillas:
 	removeHole(number), removeTreasure(number)
 - Modificadas las funciones para mover los elementos que deben existir en una partida:
 	setWumpusPos(), setStartPos(), setExitPos()
 
-*********** JeTBLaCK- a.k.a Mr Complainer<> 06/05/2012 ***********
+*********** JeTBLaCK- a.k.a Mr Complainer <> 06/05/2012 ***********
 - Mecca ya no puede tener flechas negativas
 - Al situar a Wumpus, se crea también su hedor alrededor
 - Ya sólo puede haber un único Wumpus en el tablero
@@ -73,10 +65,3 @@ que contiene algún elemento.
 - La función isEmpty() ahora busca EMPTY en cualquier posición del array de elementos
 + Problema detectado con los números negativos. Ejemplo: setArrows(-19);
 - Realizada un poco de refactorización de código
-
-
-*********** JayZee a.k.a No style <> 10/05/2012 ***********
-- Se pueden crear variables ("var:=45"); de tipo entero
-- Se puede acceder a ellas usando leer(var);
-- Añadida una tabla de símbolos y la clase variable
-- Añadido el a.k.a de JeTBLaCK

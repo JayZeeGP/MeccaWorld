@@ -1,0 +1,26 @@
+{ Test file number 02
+We will show how to declare and use variables }
+
+#Variables can be declared outside the modes
+number jordan:=23;
+number magic:=32;
+number bird:=33;
+string player_presentation:=" number is ";
+string jor:="Jordan";
+string mag:="Magic";
+string bir:="Bird";
+
+#Now we are going to print them
+string printout := jor+player_presentation+jordan;
+leer(printout);
+
+string printout := mag+player_presentation+magic;
+leer(printout);
+
+string printout := bir+player_presentation+bird;
+leer(printout);
+
+#Let's do a mathematical operation
+number result:=jordan*magic*bird;
+leer(result);
+

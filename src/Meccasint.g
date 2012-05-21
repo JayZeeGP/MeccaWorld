@@ -893,7 +893,7 @@ do_until_loop
 		
 for_loop
 		// Variables locales
-		{int marca=-1;float initValue=-1, endValue=-1, inc=-1; int index=-1; String id;}
+		{int marca=-1;float initValue=-1, endValue=-1, inc=-1; int index=-1; String id; boolean firstTimeTest=true;}
 		:
 		// Se establece una marca para indicar el punto de inicio del bucle
 		{marca = mark();}
@@ -905,7 +905,7 @@ for_loop
 		 	// Se toma el nombre del identificador
 			String name = i.getText();
 		 	
-		 	if(firstTime) {
+		 	if(firstTimeTest) {
 	
 				// El número se convierte en cadena
 				String stringValue = String.valueOf(initValue);
@@ -919,9 +919,10 @@ for_loop
 			// System.out.println(" Asignación => " + nombre + " := " + e);
 			//Preparar las variables auxiliares
 							
-			firstTime=false;
+			firstTimeTest=false;
 		 	
 		}
+		
 
 			( // Comienzo de las alternativas
 
