@@ -122,39 +122,39 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			_loop22017:
+			_loop22169:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop22017;
+					break _loop22169;
 				}
 				
 			} while (true);
 			}
 			configuration();
 			{
-			_loop22019:
+			_loop22171:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop22019;
+					break _loop22171;
 				}
 				
 			} while (true);
 			}
 			adventure();
 			{
-			_loop22021:
+			_loop22173:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop22021;
+					break _loop22173;
 				}
 				
 			} while (true);
@@ -950,17 +950,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			int _cnt22024=0;
-			_loop22024:
+			int _cnt22176=0;
+			_loop22176:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt22024>=1 ) { break _loop22024; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt22176>=1 ) { break _loop22176; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt22024++;
+				_cnt22176++;
 			} while (true);
 			}
 			match(END_CONF);
@@ -978,17 +978,17 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			int _cnt22027=0;
-			_loop22027:
+			int _cnt22179=0;
+			_loop22179:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					if ( _cnt22027>=1 ) { break _loop22027; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt22179>=1 ) { break _loop22179; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt22027++;
+				_cnt22179++;
 			} while (true);
 			}
 			match(END_ADV);
@@ -1014,7 +1014,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=addend();
 				result = e1;
 				{
-				_loop22036:
+				_loop22188:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1025,7 +1025,9 @@ public Meccasint(ParserSharedInputState state) {
 						
 											if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
 										 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) + Float.parseFloat(e2.getValor())));
-											} else if(e2.getTipo().equals("string") && result.getTipo().equals("string")) {
+											} else if(e2.getTipo().equals("string") && result.getTipo().equals("string") ||
+												e2.getTipo().equals("number") && result.getTipo().equals("string") ||
+												e2.getTipo().equals("string") && result.getTipo().equals("number")) {
 												result = new Variable("", "string", result.getValor() + e2.getValor());
 											}
 										
@@ -1047,7 +1049,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop22036;
+						break _loop22188;
 					}
 					}
 				} while (true);
@@ -1059,7 +1061,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=negative();
 				result = e1;
 				{
-				_loop22040:
+				_loop22192:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1090,7 +1092,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop22040;
+						break _loop22192;
 					}
 					}
 				} while (true);
@@ -1248,17 +1250,17 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==true)) {
 				{
-				int _cnt22051=0;
-				_loop22051:
+				int _cnt22203=0;
+				_loop22203:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt22051>=1 ) { break _loop22051; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt22203>=1 ) { break _loop22203; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt22051++;
+					_cnt22203++;
 				} while (true);
 				}
 				{
@@ -1267,19 +1269,19 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt22054=0;
-					_loop22054:
+					int _cnt22206=0;
+					_loop22206:
 					do {
 						// nongreedy exit test
-						if ( _cnt22054>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop22054;
+						if ( _cnt22206>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop22206;
 						if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 							matchNot(EOF);
 						}
 						else {
-							if ( _cnt22054>=1 ) { break _loop22054; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt22206>=1 ) { break _loop22206; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt22054++;
+						_cnt22206++;
 					} while (true);
 					}
 					break;
@@ -1299,19 +1301,19 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==false)) {
 				{
-				int _cnt22056=0;
-				_loop22056:
+				int _cnt22208=0;
+				_loop22208:
 				do {
 					// nongreedy exit test
-					if ( _cnt22056>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop22056;
+					if ( _cnt22208>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop22208;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						if ( _cnt22056>=1 ) { break _loop22056; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt22208>=1 ) { break _loop22208; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt22056++;
+					_cnt22208++;
 				} while (true);
 				}
 				{
@@ -1320,17 +1322,17 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt22059=0;
-					_loop22059:
+					int _cnt22211=0;
+					_loop22211:
 					do {
 						if ((_tokenSet_0.member(LA(1)))) {
 							instruction();
 						}
 						else {
-							if ( _cnt22059>=1 ) { break _loop22059; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt22211>=1 ) { break _loop22211; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt22059++;
+						_cnt22211++;
 					} while (true);
 					}
 					break;
@@ -1373,15 +1375,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				_loop22065:
+				_loop22217:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop22065;
+					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop22217;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop22065;
+						break _loop22217;
 					}
 					
 				} while (true);
@@ -1391,17 +1393,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				int _cnt22067=0;
-				_loop22067:
+				int _cnt22219=0;
+				_loop22219:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt22067>=1 ) { break _loop22067; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt22219>=1 ) { break _loop22219; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt22067++;
+					_cnt22219++;
 				} while (true);
 				}
 				match(RES_FIN_MIENTRAS);
@@ -1433,15 +1435,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				_loop22071:
+				_loop22223:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop22071;
+					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop22223;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop22071;
+						break _loop22223;
 					}
 					
 				} while (true);
@@ -1452,17 +1454,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				int _cnt22073=0;
-				_loop22073:
+				int _cnt22225=0;
+				_loop22225:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt22073>=1 ) { break _loop22073; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt22225>=1 ) { break _loop22225; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt22073++;
+					_cnt22225++;
 				} while (true);
 				}
 				match(RES_HASTA);
@@ -1528,15 +1530,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) >= Float.parseFloat(endValue.getValor()))) {
 				{
-				_loop22077:
+				_loop22229:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop22077;
+					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop22229;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop22077;
+						break _loop22229;
 					}
 					
 				} while (true);
@@ -1546,17 +1548,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) < Float.parseFloat(endValue.getValor()))) {
 				{
-				int _cnt22079=0;
-				_loop22079:
+				int _cnt22231=0;
+				_loop22231:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt22079>=1 ) { break _loop22079; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt22231>=1 ) { break _loop22231; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt22079++;
+					_cnt22231++;
 				} while (true);
 				}
 				symbolsTable.getSimbolo(index).setValor(String.valueOf(Float.parseFloat(symbolsTable.getSimbolo(index).getValor())+Float.parseFloat(inc.getValor())));
@@ -1586,13 +1588,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop22085:
+			_loop22237:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima_string();
 				}
 				else {
-					break _loop22085;
+					break _loop22237;
 				}
 				
 			} while (true);
@@ -1615,13 +1617,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop22082:
+			_loop22234:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima_string();
 				}
 				else {
-					break _loop22082;
+					break _loop22234;
 				}
 				
 			} while (true);
@@ -1646,7 +1648,7 @@ public Meccasint(ParserSharedInputState state) {
 			e1=factor();
 			result = e1;
 			{
-			_loop22045:
+			_loop22197:
 			do {
 				switch ( LA(1)) {
 				case OP_PRODUCTO:
@@ -1677,7 +1679,7 @@ public Meccasint(ParserSharedInputState state) {
 				}
 				default:
 				{
-					break _loop22045;
+					break _loop22197;
 				}
 				}
 			} while (true);

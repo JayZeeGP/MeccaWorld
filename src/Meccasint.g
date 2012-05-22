@@ -689,7 +689,9 @@ expression
 				{
 					if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
 				 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) + Float.parseFloat(e2.getValor())));
-					} else if(e2.getTipo().equals("string") && result.getTipo().equals("string")) {
+					} else if(e2.getTipo().equals("string") && result.getTipo().equals("string") ||
+						e2.getTipo().equals("number") && result.getTipo().equals("string") ||
+						e2.getTipo().equals("string") && result.getTipo().equals("number")) {
 						result = new Variable("", "string", result.getValor() + e2.getValor());
 					}
 				}
