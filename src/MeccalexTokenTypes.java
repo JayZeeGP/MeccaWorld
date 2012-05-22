@@ -57,9 +57,9 @@ public interface MeccalexTokenTypes {
 	int OP_PRODUCTO = 55;
 	int OP_DIVISION = 56;
 	int LIT_NUMERO = 57;
-	int PARENTESIS_IZ = 58;
-	int PARENTESIS_DE = 59;
-	int LIT_CADENA = 60;
+	int LIT_CADENA = 58;
+	int PARENTESIS_IZ = 59;
+	int PARENTESIS_DE = 60;
 	int RES_SI = 61;
 	int RES_ENTONCES = 62;
 	int RES_SI_NO = 63;

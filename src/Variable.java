@@ -41,7 +41,7 @@ public class Variable
 	{
 		_nombre = nombre;
 		_tipo = tipo;
-		_valor = valor;
+		setValor(valor);
 	}
 	
 	// Métodos de modificación
@@ -78,7 +78,11 @@ public class Variable
 	public void setValor(String valor)
 	{
 		// Se asigna el valor de la variable.
-		_valor = valor;
+		if(getTipo().equals("string")) {
+			_valor = valor.replace("\\\"", "\"");
+		} else {
+			_valor = valor;
+		}
 	}
 	
 	// Métodos de consulta
@@ -130,6 +134,22 @@ public class Variable
 	public void escribirVariable ()
 	{
 		System.out.println("Identificador: "+ getNombre()+ "\t Tipo: " + getTipo()+"\t Valor: "+ getValor());
+	}
+	
+	public boolean isNumber() {
+		if(getTipo().equals("number")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean isString() {
+		if(getTipo().equals("string")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 
