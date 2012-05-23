@@ -11,7 +11,7 @@ que contiene algún elemento.
 - Implementar los operadores lógicos
 ##################################################
 
-*********** JeTBLaCK- <> 21/05/2012 ***********
+*********** JeTBLaCK- <> 22/05/2012 ***********
 - Al insertar un identificador de tipo "number" en la tabla de símbolos, el parámetro "tipo" que
 se le pasa a la función ahora es "number", no "float"
 - IMPORTANTE: ahora el analizador sintáctico trabajo con tipos de dato "Variable", no "float" así que he cambiado
