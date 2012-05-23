@@ -108,9 +108,9 @@ tokens
 
     //ENGLISHFICADO POR TEAM MECCA
 	// Operadores que empiezan con letras;
-	OP_Y  = "_and" ;
-	OP_O  = "_or" ;
-	OP_NO = "_not" ;
+	OP_Y  = "and" ;
+	OP_O  = "or" ;
+	OP_NO = "not" ;
     //FIN ENGLISHFICADO POR TEAM MECCA
 
 	// Declaración de componentes léxicos "virtuales" 

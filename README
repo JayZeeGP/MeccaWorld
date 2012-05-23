@@ -8,10 +8,12 @@ That's for sure
 - Varios mensajes distintos que se muestren aleatoriamente cuando Mecca se mueve a una casilla
 que contiene algún elemento.
 - Casilla del borde al azar (o siempre la primera) que si Mecca se choca muestra un mensaje tipo (Creadores del juego...)
-- Implementar los operadores lógicos
 ##################################################
 
-*********** JeTBLaCK- <> 22/05/2012 ***********
+*********** JayZee <> 23/05/2012 ***********
+- Implementar los operadores lógicos ya no es una tarea a realizar
+
+*********** JeTBLaCK- a.k.a. A la feria <> 22/05/2012 ***********
 - Al insertar un identificador de tipo "number" en la tabla de símbolos, el parámetro "tipo" que
 se le pasa a la función ahora es "number", no "float"
 - IMPORTANTE: ahora el analizador sintáctico trabajo con tipos de dato "Variable", no "float" así que he cambiado

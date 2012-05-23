@@ -816,7 +816,7 @@ conditional_sentence
 		boolean valor;
 	}
 	:
-		RES_SI valor=condition  
+		RES_SI valor=logical_condition  
 	  	RES_ENTONCES 
 		(
 			// Si la condición es verdadera, se ejecuta el consecuente
@@ -845,6 +845,48 @@ conditional_sentence
 			mostrarExcepcion(re);
 		}
 
+logical_condition
+	// Valor que devuelve
+	returns [boolean result = false]
+
+	// Variables locales
+	{
+		boolean e1=false, e2=false;
+	}
+	:
+	(i1:OP_NO)?
+	e1=condition
+	{
+		if(i1!=null)
+			result = !e1;
+		else
+			result = e1;
+	}
+	// Comienzo de las alternativas
+		(
+			OP_Y (i2:OP_NO)?e2=condition
+			{
+				if(i2!=null)
+					e2 = !e2;
+
+				if(e1 == true && e2 == true)
+					result = true;
+			}
+		
+		|
+		
+			OP_O (i3:OP_NO)?e2=condition
+			{
+				if(i3!=null)
+					e2 = !e2;
+					
+				if(e1 == true || e2 == true)
+					result = true;
+			}
+
+		)*
+	;
+			
 condition
 	// Valor que devuelve
 	returns [boolean result = false]
@@ -852,6 +894,7 @@ condition
 	// Variables locales
 	{
 		Variable e1, e2;
+		boolean not=false;
 	}
 	:
 		e1=expression
