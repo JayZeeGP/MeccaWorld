@@ -1,13 +1,3 @@
-/*
-  Ejemplo 11
-            
-	Reconoce los mismos componentes léxicos que los ejemplos 9 y 10
-
- 	Este ejemplo muestra cómo se puede modificar el tipo de token utilizado por el analizador léxico
-
-	Se ha creado un NuevoToken que incorpora un nuevo atributo: nombreFichero
-*/
-    
 // CLASE QUE PERMITIRÁ CREA EL ANALIZADOR LÉXICO
 
 class Meccalex extends Lexer;
@@ -38,11 +28,13 @@ options{
 tokens
 {
 	//HECHO POR TEAM MECCA - THIS WORKS
+	
 	// Tipos basicos
 	BEGIN_CONF       = "ConfigurationMode";
 	END_CONF         = "endConfigurationMode";
     BEGIN_ADV        = "AdventureMode";
     END_ADV          = "endAdventureMode";
+    
     //Funciones
     FUNC_LEER = "leer";
     FUNC_SHOWBOARD = "showBoard";
@@ -84,7 +76,7 @@ tokens
     FUNC_GOUP = "goUp";
     FUNC_GODOWN = "goDown";
     
-    
+    // Tipos de variables
 	TIPO_CADENA   = "String";
 	TIPO_NUMERO = "Number";
     
@@ -131,12 +123,8 @@ tokens
 
 
 /////////////////////////////////////////////////////////////////////////////
-
 // En este lugar se puede incluir código auxiliar escrito en Java (opcional)
-
-
 ////////////////////////////////////////////////////////////////////////////
-
 
 // ZONA DE REGLAS
 // Tipos de retorno de carro o salto de línea
@@ -320,6 +308,4 @@ LIT_CARACTER : '\''!
 		'\''!
 	     ;
 	     
-	     
-
 // FIN DE LA ZONA DE REGLAS LÉXICAS
