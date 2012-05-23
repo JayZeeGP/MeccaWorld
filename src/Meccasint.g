@@ -43,8 +43,9 @@ options
 
 
 	/* Método para insertar un identificador en la tabla de símbolos con un valor */
-	private void insertarIdentificador(String nombre, String tipo, String valorCadena)
+	private int insertarIdentificador(String nombre, String tipo, String valorCadena)
 		{
+			int insertado = 1;
 			
 			// Busca el identificador en la tabla de símbolos
 			int indice = symbolsTable.existeSimbolo(nombre);
@@ -52,17 +53,36 @@ options
 			// Si encuentra el identificador, le modifica su valor
 			if (indice >= 0)
 			{
-				symbolsTable.getSimbolo(indice).setValor(valorCadena);
+				if(symbolsTable.getSimbolo(indice).getTipo().equals("number")) {
+					try {
+						Float.parseFloat(valorCadena);
+						symbolsTable.getSimbolo(indice).setValor(valorCadena);
+						insertado = 1;
+					} catch(NumberFormatException e) {
+						insertado = -2;
+					}
+				} else {
+					symbolsTable.getSimbolo(indice).setValor(valorCadena);
+					insertado = 1;
+				}
 			}
 			// Si no lo encuentra, lo inserta en la tabla de símbolos
 			else
 			{
-				// Se crea la variable
-				Variable v = new Variable (nombre,"float",valorCadena);
-
-				// Se inserta la variable en la tabla de símbolos
-				symbolsTable.insertarSimbolo(v);
+				if(!tipo.equals("null")) {
+				
+					// Se crea la variable
+					Variable v = new Variable (nombre,tipo,valorCadena);
+	
+					// Se inserta la variable en la tabla de símbolos
+					symbolsTable.insertarSimbolo(v);
+					insertado = 1;
+				} else {
+					insertado = -1;	
+				}
 			}
+			
+			return insertado;
 		}
 
 	// Función para mostrar un mensaje de error
@@ -93,7 +113,7 @@ configuration:  BEGIN_CONF {mode = CONFIGURATION_MODE;}(instruction)+ END_CONF;
 adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)+ END_ADV;
 
 instruction
-{float param1, param2;
+{Variable param1, param2;
 String info;}
 	: 
 	
@@ -129,9 +149,13 @@ String info;}
 		| FUNC_SETBOARDSIZE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					Size newSize = new Size((int)param1,(int)param2);
-					board.setSize(newSize);
-					System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
+					if(param1.isNumber()) {
+						Size newSize = new Size(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+						board.setSize(newSize);
+						System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
+					} else {
+						System.out.println("Parameters must be numbers");
+					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
 				}
@@ -167,13 +191,17 @@ String info;}
 		| FUNC_SETTREASURE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					Position newTreasure = new Position((int)param1,(int)param2);
-					int position = board.setTreasurePos(newTreasure);
-					
-					if(position != -1) {
-						System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+					if(param1.isNumber() && param2.isNumber()) {
+						Position newTreasure = new Position(Integer.parseInt(param1.getValor()), Integer.parseInt(param2.getValor()));
+						int position = board.setTreasurePos(newTreasure);
+						
+						if(position != -1) {
+							System.out.println("Treasure "+(position+1)+" set on column "+board.getTreasurePos(position).getX()+" row "+board.getTreasurePos(position).getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					} else {
-						System.out.println("The given board position is not empty or not exists");
+						System.out.println("Parameters must be numbers");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -182,11 +210,19 @@ String info;}
 			
 		| FUNC_REMOVETREASURE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
 			{						
-				if(board.removeTreasure((int)param1)) {
-					System.out.println("Treasure " + param1 + " has been removed");
+				if(mode == CONFIGURATION_MODE) {
+					if(param1.isNumber()) {
+						if(board.removeTreasure(Integer.parseInt(param1.getValor()))) {
+							System.out.println("Treasure " + param1 + " has been removed");
+						} else {
+							System.out.println("Treasure " + param1 + " does not exist");
+						}
+					} else {
+						System.out.println("Parameter must be number");	
+					}
 				} else {
-					System.out.println("Treasure " + param1 + " does not exist");
-				}	
+					System.out.println("This instruction has to be called in Configuration Mode");
+				}
 			}					
 				
 		| FUNC_GETTOTALTREASURES PARENT_IZ PARENT_DE PUNTO_COMA 
@@ -205,12 +241,16 @@ String info;}
 					
 		| FUNC_GETTREASURE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 			{
-				if(mode == CONFIGURATION_MODE) {						
-					//Check if that treasure exists
-					if(board.getTotalTreasures()>=param1&&param1>0) {
-						System.out.println("Treasure "+((int)param1)+" set on column "+board.getTreasurePos((int)param1-1).getX()+" row "+board.getTreasurePos((int)param1-1).getY());
+				if(mode == CONFIGURATION_MODE) {
+					if(param1.isNumber()) {					
+						//Check if that treasure exists
+						if(board.getTotalTreasures() >= Integer.parseInt(param1.getValor()) && Integer.parseInt(param1.getValor()) > 0) {
+							System.out.println("Treasure "+ Integer.parseInt(param1.getValor()) +" set on column "+board.getTreasurePos(Integer.parseInt(param1.getValor())-1).getX()+" row "+board.getTreasurePos(Integer.parseInt(param1.getValor())-1).getY());
+						} else {
+							System.out.println("There is no treasure with that number");
+						}
 					} else {
-						System.out.println("There is no treasure with that number");
+						System.out.println("Parameter must be number");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -220,13 +260,17 @@ String info;}
 		| FUNC_SETHOLE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					Position newHole = new Position((int)param1,(int)param2);
-					int position = board.setHolePos(newHole);
-					
-					if(position != -1) {
-						System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+					if(param1.isNumber() && param2.isNumber()) {
+						Position newHole = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+						int position = board.setHolePos(newHole);
+						
+						if(position != -1) {
+							System.out.println("Hole "+(position+1)+" set on column "+board.getHolePos(position).getX()+" row "+board.getHolePos(position).getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					} else {
-						System.out.println("The given board position is not empty or not exists");
+						System.out.println("Parameter must be number");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -234,12 +278,20 @@ String info;}
 			}
 		
 		| FUNC_REMOVEHOLE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
-			{						
-				if(board.removeHole((int)param1)) {
-					System.out.println("Hole " + param1 + " has been removed");
+			{
+				if(mode == CONFIGURATION_MODE) {
+					if(param1.isNumber()) {
+						if(board.removeHole(Integer.parseInt(param1.getValor()))) {
+							System.out.println("Hole " + param1 + " has been removed");
+						} else {
+							System.out.println("Hole " + param1 + " does not exist");
+						}
+					} else {
+						System.out.println("Parameter must be number");	
+					}
 				} else {
-					System.out.println("Hole " + param1 + " does not exist");
-				}	
+					System.out.println("This instruction has to be called in Configuration Mode");							
+				}
 			}
 			
 		| FUNC_GETNUMBEROFHOLES PARENT_IZ PARENT_DE PUNTO_COMA 
@@ -254,11 +306,15 @@ String info;}
 		| FUNC_GETHOLE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					//Check if that hole exists
-					if(board.getNumberOfHoles()>=param1&&param1>0) {
-						System.out.println("Hole "+(param1)+" set on column "+board.getHolePos((int)param1-1).getX()+" row "+board.getHolePos((int)param1-1).getY());
+					if(param1.isNumber()) {
+						//Check if that hole exists
+						if(board.getNumberOfHoles() >= Integer.parseInt(param1.getValor()) && Integer.parseInt(param1.getValor()) > 0) {
+							System.out.println("Hole "+(param1)+" set on column "+board.getHolePos(Integer.parseInt(param1.getValor())-1).getX()+" row "+board.getHolePos(Integer.parseInt(param1.getValor())-1).getY());
+						} else {
+							System.out.println("There is no hole with that number");
+						}
 					} else {
-						System.out.println("There is no hole with that number");
+						System.out.println("Parameter must be number");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");							
@@ -277,10 +333,14 @@ String info;}
 		| FUNC_SETWUMPUS PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					Position newWumpus = new Position((int)param1,(int)param2);
-					
-					if(board.setWumpusPos(newWumpus)) {
-						System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+					if(param1.isNumber() && param2.isNumber()) {
+						Position newWumpus = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+						
+						if(board.setWumpusPos(newWumpus)) {
+							System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
+						}
+					} else {
+						System.out.println("Parameters must be numbers");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -299,12 +359,16 @@ String info;}
 		| FUNC_SETSTART PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					Position newStart = new Position((int)param1,(int)param2);
-					
-					if(board.setStartPos(newStart)) {
-						System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+					if(param1.isNumber() && param2.isNumber()) {
+						Position newStart = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+						
+						if(board.setStartPos(newStart)) {
+							System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					} else {
-						System.out.println("The given board position is not empty or not exists");
+						System.out.println("Parameters must be numbers");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -323,12 +387,16 @@ String info;}
 		| FUNC_SETEXIT PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					Position newExit = new Position((int)param1,(int)param2);
-					
-					if(board.setExitPos(newExit)) {
-						System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+					if(param1.isNumber() && param2.isNumber()) {
+						Position newExit = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+						
+						if(board.setExitPos(newExit)) {
+							System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
+						} else {
+							System.out.println("The given board position is not empty or not exists");
+						}
 					} else {
-						System.out.println("The given board position is not empty or not exists");
+						System.out.println("Parameters must be numbers");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -357,8 +425,12 @@ String info;}
 		| FUNC_SETARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					board.setMeccaNArrows((int)param1);
-					System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows");
+					if(param1.isNumber()) {
+						board.setMeccaNArrows(Integer.parseInt(param1.getValor()));
+						System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows");
+					} else {
+						System.out.println("Parameter must be number");	
+					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
 				} 				
@@ -376,11 +448,15 @@ String info;}
 		| FUNC_INCARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 			{
 				if(mode == CONFIGURATION_MODE) {
-					if(param1>=0) {
-						board.incMeccaNArrows((int)param1);
-						System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+					if(param1.isNumber()) {
+						if(Integer.parseInt(param1.getValor()) >= 0) {
+							board.incMeccaNArrows(Integer.parseInt(param1.getValor()));
+							System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+						} else {
+							System.out.println("You have to enter an integer bigger than 0");
+						}
 					} else {
-						System.out.println("You have to enter an integer bigger than 0");
+						System.out.println("Parameter must be number");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -389,12 +465,16 @@ String info;}
 					
 		| FUNC_DECARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 			{
-				if(mode == CONFIGURATION_MODE) {						
-					if(param1>=0) {
-						board.decMeccaNArrows((int)param1);
-						System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+				if(mode == CONFIGURATION_MODE) {
+					if(param1.isNumber()) {						
+						if(Integer.parseInt(param1.getValor()) >= 0) {
+							board.decMeccaNArrows(Integer.parseInt(param1.getValor()));
+							System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+						} else {
+							System.out.println("The number of arrows has to be positive");
+						}
 					} else {
-						System.out.println("The number of arrows has to be positive");
+						System.out.println("Parameter must be number");	
 					}
 				} else {
 					System.out.println("This instruction has to be called in Configuration Mode");
@@ -531,34 +611,63 @@ String info;}
                
 asignation
 	// Variable local
-	{float e; String e2;}
-	: TIPO_NUMERO i:IDENT OP_ASIG e=expression PUNTO_COMA  //Añadido por mí el ;
-	 	{
-			// Se toma el nombre del identificador
-			String nombre = i.getText();
-
-			// El número se convierte en cadena
-			String valorCadena = String.valueOf(e);
-
-			// Se inserta en la tabla de Símbolos
-			insertarIdentificador(nombre,"float",valorCadena);
+	{Variable e = null;}
+	:   TIPO_NUMERO (i:IDENT OP_ASIG e=expression | parametros_number) PUNTO_COMA  //Añadido por mí el ;
+		{
+			if(i != null) {
+				// Se toma el nombre del identificador
+				String nombre = i.getText();
 	
+				// El número se convierte en cadena
+				String valorCadena = e.getValor();
+	
+				// Se inserta en la tabla de Símbolos
+				insertarIdentificador(nombre,"number",valorCadena);
+			}
+		
+				// Se muestra por pantalla: depuración
+				// System.out.println(" Asignación => " + nombre + " := " + e);
+		}
+		
+		| TIPO_CADENA (i2:IDENT OP_ASIG e=expression | parametros_string) PUNTO_COMA
+	 	{
+			if(i2 != null && e != null) {
+				// Se toma el nombre del identificador
+				String nombre = i2.getText();
+				
+				String valorCadena = e.getValor();
+				
+				// Se inserta en la tabla de Símbolos
+				insertarIdentificador(nombre,"string",valorCadena);		
+			}
 			// Se muestra por pantalla: depuración
 			// System.out.println(" Asignación => " + nombre + " := " + e);
 		}
 		
-		| TIPO_CADENA i2:IDENT OP_ASIG e2=expression_string PUNTO_COMA
-	 	{
+		| i3:IDENT OP_ASIG e=expression PUNTO_COMA
+		{
 			// Se toma el nombre del identificador
-			String nombre = i2.getText();
-
-			String valorCadena = String.valueOf(e2.replace("\\\"", "\""));
-
-			// Se inserta en la tabla de Símbolos
-			insertarIdentificador(nombre,"string",valorCadena);
-	
-			// Se muestra por pantalla: depuración
-			// System.out.println(" Asignación => " + nombre + " := " + e);
+			String nombre = i3.getText();
+			
+			int indice = symbolsTable.existeSimbolo(nombre);
+			
+			if(indice >= 0) {
+				Variable simbolo = symbolsTable.getSimbolo(indice);
+				
+				if(simbolo.getTipo().equals("number")) {
+					try {
+						Float value = Float.parseFloat(e.getValor());
+						simbolo.setValor(String.valueOf(value));
+						
+					} catch(NumberFormatException err) {
+						System.err.println("Error: la variable \"" + nombre + "\" es de tipo \"number\"");
+					}
+				} else {
+					simbolo.setValor(e.getValor());
+				}
+			} else {
+				System.err.println("Error: la variable \"" + nombre + "\" no ha sido declarada");
+			}		
 		}
  	 ;
   	exception
@@ -568,9 +677,9 @@ asignation
 
 expression 
 	// Valor que devuelve
-	returns [float result = (float) 0.0;]
+	returns [Variable result = new Variable("","","");]
 	// Variables locales
-	{float e1,e2;} 
+	{Variable e1,e2;} 
 	:
 	 	e1=addend {result = e1;} 
 		(
@@ -578,14 +687,22 @@ expression
 			(
 			 OP_MAS e2 = addend
 				{
-				 result = result + e2;
+					if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
+				 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) + Float.parseFloat(e2.getValor())));
+					} else if(e2.getTipo().equals("string") && result.getTipo().equals("string") ||
+						e2.getTipo().equals("number") && result.getTipo().equals("string") ||
+						e2.getTipo().equals("string") && result.getTipo().equals("number")) {
+						result = new Variable("", "string", result.getValor() + e2.getValor());
+					}
 				}
 			)
 			 // Resta
 			| (
 			 OP_MENOS e2 = addend
 				{
-				 result = result - e2;
+					if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
+				 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) - Float.parseFloat(e2.getValor())));
+					}
 				}
 			 )
 		)*
@@ -595,42 +712,21 @@ expression
 			(
 			 OP_MAS e2 = addend
 				{
-				 result = result + e2;
+				 	if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
+				 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) + Float.parseFloat(e2.getValor())));
+					}
 				}
 			)
 			 // Resta
 			| (
 			 OP_MENOS e2 = addend
 				{
-				 result = result - e2;
+				 	if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
+				 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) - Float.parseFloat(e2.getValor())));
+					}
 				}
 			 )
 		)*
-
-	;
-	exception
- 		catch [RecognitionException re] {
- 			System.out.println("Traza: expression");
-			mostrarExcepcion(re);
-		 }
-		
-expression_string 
-	// Valor que devuelve
-	returns [String result = new String();]
-	// Variables locales
-	{String e1,e2;} 
-	:
-	 	e1=factor_string {result = e1;} 
-		(
-			// Suma
-			(
-			 OP_MAS e2 = factor_string
-				{
-				 result = result + e2;
-				}
-			)
-		)*
-		|
 
 	;
 	exception
@@ -641,10 +737,10 @@ expression_string
 
 addend 
 	// Valor que devuelve
-	returns [float result = (float) 0.0;]
+	returns [Variable result = new Variable("","","");]
 
 	// Variables locales
-	{float e1,e2;} 
+	{Variable e1,e2;} 
 	:
 		e1=factor {result = e1;} 
 		(
@@ -652,7 +748,9 @@ addend
 			(
 			 OP_PRODUCTO e2=factor
 				{
-					result = result * e2;
+					if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
+						result = new Variable("","number",String.valueOf(Float.parseFloat(result.getValor()) * Float.parseFloat(e2.getValor())));
+					}
 				}
 			)
 		
@@ -660,7 +758,9 @@ addend
 			| (
 			 OP_DIVISION e2=factor
 				{
-					result = result / e2;
+					if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
+						result = new Variable("","number",String.valueOf(Float.parseFloat(result.getValor()) / Float.parseFloat(e2.getValor())));
+					}
 				}
 			 )
 		)*
@@ -672,10 +772,10 @@ addend
 
 factor 
 	// Valor que devuelve
-	returns [float result = (float) 0.0;] 
+	returns [Variable result = new Variable("","","");] 
 
 	// Variables locales
-	{float e;} 
+	{Variable e;} 
 	:
 	  i:IDENT 
 		{
@@ -686,17 +786,21 @@ factor
 			if (indice >= 0)
 			{
 				// Se recupera el valor almacenado como cadena
-				String valorCadena = symbolsTable.getSimbolo(indice).getValor();
+				//String valorCadena = symbolsTable.getSimbolo(indice).getValor();
 
 				// La cadena se convierte a número real
-				result = Float.parseFloat(valorCadena);
+				
+				result = symbolsTable.getSimbolo(indice);
 			}
 			else
 				System.err.println("Error: el identificador " + i.getText() + " está indefinido");
 		}
 
 	| n:LIT_NUMERO  //Ponía número aquí
-			{result = new Float(n.getText()).floatValue();}
+			{result = new Variable("","number",n.getText());}
+			
+	| n2:LIT_CADENA  
+			{result = new Variable("","string",n2.getText());}
 
 	| PARENTESIS_IZ e=expression PARENTESIS_DE
 			{result = e;}
@@ -705,52 +809,19 @@ factor
  		catch [RecognitionException re] {
 			mostrarExcepcion(re);
 		 }
-		
-factor_string
-	// Valor que devuelve
-	returns [String result = new String();] 
-
-	// Variables locales
-	{String e;} 
-	:
-	  i:IDENT 
-		{
-			// Busca el identificador en la tabla de símbolos
-			int indice = symbolsTable.existeSimbolo(i.getText());
-
-			// Si encuentra el identificador, devuelve su valor
-			if (indice >= 0)
-			{
-				// Se recupera el valor almacenado como cadena
-				String valorCadena = symbolsTable.getSimbolo(indice).getValor();
-
-				// La cadena se convierte a número real
-				result = valorCadena;
-			}
-			else
-				System.err.println("Error: el identificador " + i.getText() + " está indefinido");
-		}
-
-	| n:LIT_CADENA  //Ponía número aquí
-			{result = n.getText();}
-
-	| PARENTESIS_IZ e=expression_string PARENTESIS_DE
-			{result = e;}
-	;
-	exception
- 		catch [RecognitionException re] {
-			mostrarExcepcion(re);
-		 }
-
 	    
 // Expresiones que empiezan por el signo menos
 negative
 	// Valor que devuelve
-	returns [float result = (float) 0.0;] 
+	returns [Variable result = new Variable("","","");] 
 
 	// Variables locales
-	{float e;} 
-	:  OP_MENOS e = factor {result = -e;}
+	{Variable e;} 
+	:  OP_MENOS e = factor {
+								if(e.getTipo().equals("number")) {
+									result = new Variable("","number",String.valueOf(Float.parseFloat(e.getValor()) * -1));
+								}
+							}
         ;
 		    
 conditional_sentence
@@ -790,51 +861,81 @@ condition
 	returns [boolean ressult = false]
 
 	// Variables locales
-	{float e1, e2;}
+	{Variable e1, e2;}
 	: e1=expression
 		// Comienzo de las alternativas
 		(
 		 OP_IGUAL e2=expression
 			{
-				if (e1 == e2)
-					ressult = true;
-				else 
-					ressult = false;
+				if(e1.getTipo().equals("number") && e2.getTipo().equals("number")) {
+					if (Float.parseFloat(e1.getValor()) == Float.parseFloat(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				} else if(e1.getTipo().equals("string") && e2.getTipo().equals("string")) {
+					if (e1.getValor().equals(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				}
 			}
         	 | OP_DISTINTO e2=expression
 			{
-				if (e1 != e2)
-					ressult = true;
-				else 
-					ressult = false;
+				if(e1.getTipo().equals("number") && e2.getTipo().equals("number")) {
+					if (Float.parseFloat(e1.getValor()) != Float.parseFloat(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				} else if(e1.getTipo().equals("string") && e2.getTipo().equals("string")) {
+					if (!e1.getValor().equals(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				}
 			}
         	 | OP_MENOR e2=expression
 			{
-				if (e1 < e2)
-					ressult = true;
-				else 
+				if(e1.getTipo().equals("number") && e2.getTipo().equals("number")) {
+					if (Float.parseFloat(e1.getValor()) < Float.parseFloat(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				} else if(e1.getTipo().equals("string") && e2.getTipo().equals("string")) {
 					ressult = false;
+				}
 			}
         	 | OP_MENOR_IGUAL e2=expression
 			{
-				if (e1 <= e2)
-					ressult = true;
-				else 
+				if(e1.getTipo().equals("number") && e2.getTipo().equals("number")) {
+					if (Float.parseFloat(e1.getValor()) <= Float.parseFloat(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				} else if(e1.getTipo().equals("string") && e2.getTipo().equals("string")) {
 					ressult = false;
+				}
 			}
         	 | OP_MAYOR_IGUAL e2=expression
 			{
-			if (e1 >= e2)
-				ressult = true;
-			else 
-				ressult = false;
+				if(e1.getTipo().equals("number") && e2.getTipo().equals("number")) {
+					if (Float.parseFloat(e1.getValor()) >= Float.parseFloat(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				} else if(e1.getTipo().equals("string") && e2.getTipo().equals("string")) {
+					ressult = false;
+				}
 			}
         	 | OP_MAYOR e2=expression
 			{
-			if (e1 > e2)
-				ressult = true;
-			else 
-				ressult = false;
+				if(e1.getTipo().equals("number") && e2.getTipo().equals("number")) {
+					if (Float.parseFloat(e1.getValor()) > Float.parseFloat(e2.getValor()))
+						ressult = true;
+					else 
+						ressult = false;
+				} else if(e1.getTipo().equals("string") && e2.getTipo().equals("string")) {
+					ressult = false;
+				}
 			}
 		) // Fin de las alternativas
 	;
@@ -892,7 +993,7 @@ do_until_loop
 		
 for_loop
 		// Variables locales
-		{int marca=-1;float initValue=-1, endValue=-1, inc=-1; int index=-1; String id; boolean firstTimeTest=true;}
+		{int marca=-1;Variable initValue=new Variable("","number","-1"), endValue=new Variable("","number","-1"), inc=new Variable("","number","-1"); int index=-1; String id; boolean firstTimeTest=true;}
 		:
 		// Se establece una marca para indicar el punto de inicio del bucle
 		{marca = mark();}
@@ -907,10 +1008,10 @@ for_loop
 		 	if(firstTimeTest) {
 	
 				// El número se convierte en cadena
-				String stringValue = String.valueOf(initValue);
+				String stringValue = initValue.getValor();
 			
 				// Se inserta en la tabla de Símbolos
-				insertarIdentificador(name,"float",stringValue);
+				insertarIdentificador(name,"number",stringValue);
 		 	}
 			//Para tener el índice
 			index=symbolsTable.existeSimbolo(name);
@@ -926,10 +1027,10 @@ for_loop
 			( // Comienzo de las alternativas
 
 			  // Si la condición es falsa, se omite el cuerpo del bucle
-			 {Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) >= endValue}? (options {greedy=false;}:.)*  RES_FIN_PARA PUNTO_COMA
+			 {Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) >= Float.parseFloat(endValue.getValor())}? (options {greedy=false;}:.)*  RES_FIN_PARA PUNTO_COMA
 
 			  // Si la condición es verdadera, se ejecutan las instrucciones del bucle
-			| {Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) < endValue}? (instruction)+ {symbolsTable.getSimbolo(index).setValor(String.valueOf(Float.parseFloat(symbolsTable.getSimbolo(index).getValor())+inc));} RES_FIN_PARA PUNTO_COMA
+			| {Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) < Float.parseFloat(endValue.getValor())}? (instruction)+ {symbolsTable.getSimbolo(index).setValor(String.valueOf(Float.parseFloat(symbolsTable.getSimbolo(index).getValor())+Float.parseFloat(inc.getValor())));} RES_FIN_PARA PUNTO_COMA
 				// Se indica que se repita la ejecución del bucle_mientras
 				{
 				rewind(marca); 
@@ -938,13 +1039,46 @@ for_loop
 			) // Fin de las alternativas	
 		;
 		   
-parametros: valorparametro (parametros_prima)*;
+parametros_string
+		{ String param1 = null; }
+		: param1=valorparametro (parametros_prima_string)*
+		{
+			// Se inserta en la tabla de Símbolos
+			insertarIdentificador(param1,"string","");	
+		};
+		
+parametros_number
+		{ String param1 = null; }
+		: param1=valorparametro (parametros_prima_string)*
+		{
+			// Se inserta en la tabla de Símbolos
+			insertarIdentificador(param1,"number","");	
+		};
 
-parametros_prima: COMA valorparametro;
+parametros_prima_string
+		 { String value = null; }
+		: COMA value = valorparametro
+		{
+			// Se inserta en la tabla de Símbolos
+			insertarIdentificador(value,"string","");
+		};
+
+parametros_prima_number
+		 { String value = null; }
+		: COMA value = valorparametro
+		{
+			// Se inserta en la tabla de Símbolos
+			insertarIdentificador(value,"number","");
+		};
 
 nombrefuncion: IDENT;
 
-valorparametro: IDENT;
+valorparametro
+		returns [String result = new String();]
+		: i:IDENT
+		{	
+			result = i.getText();
+		};
 
 variable: IDENT;
 

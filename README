@@ -8,9 +8,18 @@ That's for sure
 - Varios mensajes distintos que se muestren aleatoriamente cuando Mecca se mueve a una casilla
 que contiene algún elemento.
 - Casilla del borde al azar (o siempre la primera) que si Mecca se choca muestra un mensaje tipo (Creadores del juego...)
-- Declaraciones del tipo: number a, b, c;
 - Implementar los operadores lógicos
 ##################################################
+
+*********** JeTBLaCK- <> 21/05/2012 ***********
+- Al insertar un identificador de tipo "number" en la tabla de símbolos, el parámetro "tipo" que
+se le pasa a la función ahora es "number", no "float"
+- IMPORTANTE: ahora el analizador sintáctico trabajo con tipos de dato "Variable", no "float" así que he cambiado
+todos los sitios donde se recogían valores devueltos para que funcione
+- Añadidos los métodos isString() y isNumber() en la clase Variable
+- Modificadas funciones del juego que no obligaban a estar en el "configuration mode" y sí deberían
+- Ya se permiten declaraciones del tipo: number a, b, c;
+- Ya se pueden inicializar variables declaradas previamente: a := 3
 
 *********** JeTBLaCK- <> 21/05/2012 ***********
 - Al crear una cadena, permite incluir comillas en el texto escribiendo \" y detecta sólo las comillas (como en Java)
