@@ -331,7 +331,7 @@
     RES_SI_NO        = "else" ;
     RES_FIN_SI       = "end_if" ;
     RES_PARA         = "for" ;
-    RES_PASO		 = "step" ;
+    RES_PASO	     = "step" ;
     RES_DESDE        = "from" ;
     RES_FIN_PARA     = "end_for" ;
   \end{lstlisting}

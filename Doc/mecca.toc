@@ -26,11 +26,10 @@
 \contentsline {section}{\numberline {4.3}An\IeC {\'a}lisis sem\IeC {\'a}ntico}{13}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}Atributos: heredados y sintetizados}{13}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Funciones auxiliares}{13}{subsection.4.3.2}
-\contentsline {subsubsection}{Clase Board}{13}{section*.8}
-\contentsline {subsubsection}{Clase Position}{13}{section*.9}
-\contentsline {subsubsection}{Clase Size}{14}{section*.10}
-\contentsline {subsubsection}{Clase Mecca}{15}{section*.11}
-\contentsline {subsubsection}{Clase Board}{16}{section*.12}
+\contentsline {subsubsection}{Clase Position}{13}{section*.8}
+\contentsline {subsubsection}{Clase Size}{14}{section*.9}
+\contentsline {subsubsection}{Clase Mecca}{15}{section*.10}
+\contentsline {subsubsection}{Clase Board}{16}{section*.11}
 \contentsline {section}{\numberline {4.4}Tabla de s\IeC {\'\i }mbolos}{22}{section.4.4}
 \contentsline {subsection}{\numberline {4.4.1}Clase Variable}{23}{subsection.4.4.1}
 \contentsline {subsection}{\numberline {4.4.2}Clase TablaSimbolos}{24}{subsection.4.4.2}
