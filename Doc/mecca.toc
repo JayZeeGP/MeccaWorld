@@ -43,6 +43,6 @@
 \contentsline {chapter}{\numberline {7}Ejemplos}{29}{chapter.7}
 \contentsline {section}{\numberline {7.1}Ejemplo 1: Juego B\IeC {\'a}sico}{29}{section.7.1}
 \contentsline {section}{\numberline {7.2}Ejemplo 2: Variables (declaraci\IeC {\'o}n y uso)}{31}{section.7.2}
-\contentsline {section}{\numberline {7.3}Ejemplo 3: Uso de los esquemas condicionales}{33}{section.7.3}
+\contentsline {section}{\numberline {7.3}Ejemplo 3: Uso de los esquemas condicionales}{32}{section.7.3}
 \contentsline {section}{\numberline {7.4}Ejemplo 4: Juego Avanzado}{34}{section.7.4}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{37}{lstnumber.-12.58}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{36}{lstnumber.-12.58}

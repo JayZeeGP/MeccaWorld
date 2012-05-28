@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2012.2.20)  28 MAY 2012 18:23
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2012.2.20)  28 MAY 2012 19:01
 entering extended mode
  %&-line parsing enabled.
 **mecca.tex
@@ -965,76 +965,12 @@ Cap\'{\i }tulo 6.
 ]
 Cap\'{\i }tulo 7.
 [29]
-Overfull \hbox (40.04926pt too wide) in paragraph at lines 711--712
+Overfull \hbox (98.79865pt too wide) in paragraph at lines 713--714
 [][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[30]
-Overfull \hbox (47.09924pt too wide) in paragraph at lines 744--745
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[31]
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[32]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 819.
-
- (/usr/share/texmf/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 819.
-
-Overfull \hbox (4.79932pt too wide) in paragraph at lines 820--821
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (32.99927pt too wide) in paragraph at lines 822--823
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[33]
-Overfull \hbox (166.94904pt too wide) in paragraph at lines 829--830
-[][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (230.39893pt too wide) in paragraph at lines 838--839
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[34]
-Overfull \hbox (11.8493pt too wide) in paragraph at lines 891--892
+Overfull \hbox (42.39874pt too wide) in paragraph at lines 714--715
 [][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
@@ -1044,8 +980,118 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
+[30]
+Overfull \hbox (105.84863pt too wide) in paragraph at lines 746--747
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (4.3721pt too wide) in paragraph at lines 756--757
+[]\OT1/cmr/m/n/12 Declaraci^^Son, con asig-na-ci^^Son de va-lor, de tres va-ria
+-bles num^^Seri-
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[31]
+Overfull \hbox (28.29877pt too wide) in paragraph at lines 770--772
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (7.1488pt too wide) in paragraph at lines 772--773
+[][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (49.44873pt too wide) in paragraph at lines 783--784
+[][][][][][][][][][][][][][][][] 
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[32]
+Overfull \hbox (11.61523pt too wide) in paragraph at lines 803--805
+[]\OT1/cmr/m/n/12 Esquema con-di-cio-nal en el que se com-pa-ran dos va-lo-res 
+num^^Seri-
+ []
+
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 821.
+
+(/usr/share/texmf/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 821.
+
+Overfull \hbox (63.5487pt too wide) in paragraph at lines 822--823
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (91.74866pt too wide) in paragraph at lines 824--825
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (225.69843pt too wide) in paragraph at lines 831--832
+[][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (289.14832pt too wide) in paragraph at lines 840--841
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[33]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[34]
+Overfull \hbox (14.19879pt too wide) in paragraph at lines 891--893
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (70.5987pt too wide) in paragraph at lines 893--894
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (56.49872pt too wide) in paragraph at lines 897--898
+[][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (42.39874pt too wide) in paragraph at lines 900--901
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
 [35]
-Overfull \hbox (25.94928pt too wide) in paragraph at lines 931--932
+Overfull \hbox (84.69867pt too wide) in paragraph at lines 933--934
 [][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
@@ -1056,63 +1102,71 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [36]
+Underfull \hbox (badness 10000) in paragraph at lines 984--985
+[]\OT1/cmr/m/n/12 Stephen Bartlett. Lec-tu-re 5 on Quan-tum Com-pu-
+ []
 
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
 
-[37] [38
+Underfull \hbox (badness 10000) in paragraph at lines 984--985
+\OT1/cmr/m/n/12 ting. NITP Sum-mer School, Ade-lai-de, Aus-tra-lia.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 984--985
+\OT1/cmr/m/n/12 A~no: 2003. Di-rec-ci^^Son web: [][]$\OT1/cmtt/m/n/12 http : / 
+/ www . cs . duke .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 984--985
+\OT1/cmtt/m/n/12 edu / []reif / courses / complectures / AltModelsComp /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 984--985
+\OT1/cmtt/m/n/12 QuantCrypt / QuantCryptOverview / Bartlett /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 984--985
+\OT1/cmtt/m/n/12 QuantCryptOverviewBartlett . pdf$[][]\OT1/cmr/m/n/12 . Fe-cha 
+de ^^Sulti-ma
+ []
+
+
+Underfull \hbox (badness 3364) in paragraph at lines 985--986
+[]\OT1/cmr/m/n/12 Charles H. Ben-nett, Gi-lles Bras Sard and Ar-tur K.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 986--987
+\OT1/cmr/m/n/12 web: [][]$\OT1/cmtt/m/n/12 http : / / oa . upm . es / 1298 / 1 
+/ PFC _ JESUS _ MARTINEZ _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 987--988
+\OT1/cmtt/m/n/12 fi . upm . es / ?id = tablon&acciongt = consulta1&idet = 1068$
+[][]\OT1/cmr/m/n/12 .
+ []
+
+[37
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 982--983
-[]\OT1/cmr/m/n/12 Stephen Bartlett. Lec-tu-re 5 on Quan-tum Com-pu-ting. NITP
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 982--983
-\OT1/cmr/m/n/12 Sum-mer School, Ade-lai-de, Aus-tra-lia. A~no: 2003. Di-rec-ci^
-^Son
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 982--983
-\OT1/cmr/m/n/12 web: [][]$\OT1/cmtt/m/n/12 http : / / www . cs . duke . edu / [
-]reif / courses / complectures /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 982--983
-\OT1/cmtt/m/n/12 AltModelsComp / QuantCrypt / QuantCryptOverview / Bartlett /
- []
-
-
-Underfull \hbox (badness 3428) in paragraph at lines 982--983
-\OT1/cmtt/m/n/12 QuantCryptOverviewBartlett . pdf$[][]\OT1/cmr/m/n/12 . Fe-cha 
-de ^^Sulti-ma con-sul-ta: 13
- []
-
-
-Underfull \hbox (badness 1648) in paragraph at lines 985--986
-[]\OT1/cmr/m/n/12 Nuevo im-pul-so a la crip-to-graf^^S^^Pa cu^^Santi-ca. Uni-ve
-r-si-dad Po-lit^^Secni-ca
- []
-
-[39]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 15.71667pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[40] (./mecca.aux)
+[38] (./mecca.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 7718 strings out of 256216
- 103226 string characters out of 1917072
+ 7716 strings out of 256216
+ 103212 string characters out of 1917072
  183534 words of memory out of 1500000
  10514 multiletter control sequences out of 10000+200000
  14144 words of font info for 54 fonts, out of 1200000 for 2000
@@ -1124,9 +1178,9 @@ ype1/bluesky/cm/cmbx8.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmcsc10.pfb>
 e1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr17.pfb></us
 r/share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/b
 luesky/cm/cmti12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmtt12.pfb>
-Output written on mecca.pdf (49 pages, 203145 bytes).
+Output written on mecca.pdf (47 pages, 202617 bytes).
 PDF statistics:
- 794 PDF objects out of 1000 (max. 8388607)
- 350 named destinations out of 1000 (max. 131072)
+ 786 PDF objects out of 1000 (max. 8388607)
+ 348 named destinations out of 1000 (max. 131072)
  329 words of extra memory for PDF output out of 10000 (max. 10000000)
 

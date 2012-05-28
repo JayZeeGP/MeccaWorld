@@ -402,9 +402,6 @@
     \subsection{Atributos: heredados y sintetizados}
     
     \subsection{Funciones auxiliares}
-    
-      \subsubsection{Clase Board}
-      
       \subsubsection{Clase Position}
       Se trata de una clase simple cuyo cometido es el de almacenar una posición en el tablero.
       Los atributos con los que cuenta son los siguientes:
@@ -656,7 +653,9 @@
   \section{Modo de generación de intérprete}
   
 \chapter{Modo de ejecución del intérprete}
-
+  En ambos casos, se proporciona un fichero ``.jar'' cuyo nombre es ``MeccaWorld.jar'' que puede ser ejecutado desde la 
+  consola utilizando el comando: 
+  \quote{java -jar MeccaWorld.jar}
   \section{Interactiva}
   
   \section{A partir de un fichero}

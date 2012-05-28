@@ -272,6 +272,7 @@
    \begin{lstlisting}
     //Funciones
     FUNC_LEER = "read";
+    FUNC_ESCRIBIR = "write";
     FUNC_SHOWBOARD = "showBoard";
     FUNC_SHOWADVENTURESTATE = "showAdventureState";
     FUNC_SETBOARDSIZE = "setBoardSize";
@@ -330,7 +331,7 @@
     RES_SI_NO        = "else" ;
     RES_FIN_SI       = "end_if" ;
     RES_PARA         = "for" ;
-    RES_PASO		 = "step" ;
+    RES_PASO	     = "step" ;
     RES_DESDE        = "from" ;
     RES_FIN_PARA     = "end_for" ;
   \end{lstlisting}
@@ -401,9 +402,6 @@
     \subsection{Atributos: heredados y sintetizados}
     
     \subsection{Funciones auxiliares}
-    
-      \subsubsection{Clase Board}
-      
       \subsubsection{Clase Position}
       Se trata de una clase simple cuyo cometido es el de almacenar una posición en el tablero.
       Los atributos con los que cuenta son los siguientes:
@@ -655,7 +653,9 @@
   \section{Modo de generación de intérprete}
   
 \chapter{Modo de ejecución del intérprete}
-
+  En ambos casos, se proporciona un fichero ``.jar'' cuyo nombre es ``MeccaWorld.jar'' que puede ser ejecutado desde la 
+  consola utilizando el comando: 
+  \quote{java -jar MeccaWorld.jar}
   \section{Interactiva}
   
   \section{A partir de un fichero}
@@ -878,52 +878,72 @@
       \item Llegada de Mecca a la casilla del tesoro
       \item Llegada de Mecca a la casilla de salida
       \end{itemize}
-      \item 
+      \item Creación de dos variables de tipo cadena para mostrar un mensaje de despedida
+      \item Impresión en consola de las dos cadenas recién creadas usando \emph{read}
+      \item Utilización de \emph{read} para imprimir por pantalla una cadena directamente insertada por el usuario
       \end{itemize}
    \end{itemize}
   
   Código del ejemplo:
   \begin{lstlisting}
-    { Test file number 01
-    We will show how to create a MeccaBoard 
-    and play one game}
+{ Test file number 04
+We will show how to create a MeccaBoard 
+and play one game while we use all kind of loops}
 
-    ConfigurationMode   #This is the mode to create the board
-    setBoardSize(5,5);  #Size of 5 rows and 5 columns
-    getBoardRows();     #Yeah, it works!
-    getBoardColumns();  #Again!
-    setStart(0,0);      #Down left corner
-    setExit(4,4);	    #Up right corner
-    setHole(1,1);	    
-    setHole(2,2);
-    setHole(0,1);
-    showHoles();
-    setArrows(3);
-    setTreasure(4,3);
-    showTreasures();
-    setWumpus(4,0);
-    endConfigurationMode
-    {
-    This is what the level should look like
+ConfigurationMode   #This is the mode to create the board
+number rows, cols;
+rows:=5;
+cols:=rows;
+setBoardSize(rows,cols);  #Size of 5 rows and 5 columns
+getBoardRows();     #Yeah, it works!
+getBoardColumns();  #Again!
+setStart(cols-rows,rows-cols);      #Down left corner
+setExit(cols-1,rows-1);	    #Up right corner
+if cols == rows then    #Conditional
+setHole(1,1);	    
+setHole(2,2);
+setHole(0,1);
+else
+setHole(1,1);
+end_if;
+showHoles();
+while rows > 2 do    #While Loop
+incArrows(1);
+rows:=rows-1;
+end_while;
+setTreasure(4,3);
+showTreasures();
+setWumpus(4,0);
+endConfigurationMode
+{
+This is what the level should look like
 
-	    -	-	-	-	X
-	    -	~	~	~	T
-	    ~	~	H	~	-
-	    H	H	~	~	=
-	    +	~	~	=	W
+	-	-	-	-	X
+	-	~	~	~	T
+	~	~	H	~	-
+	H	H	~	~	=
+	+	~	~	=	W
 
-    }
-    #Let's start the adventure!!!
-    AdventureMode
-    goRight();
-    goRight();
-    goRight();	#It should smell bad right now
-    goUp();		#Let's avoid the Wumpus
-    goRight();
-    goUp();
-    goUp();		#You should have found a treasure here
-    goUp();		#Winner
-    endAdventureMode
+}
+#Let's start the adventure!!!
+AdventureMode
+for i from 0 until 3 step 1
+do
+goRight();
+end_for;	#We are using a for loop for moving 3 times
+goUp();		
+goRight();
+number limit:=0;
+repeat         #Repeat-until loop
+goUp();
+limit:=limit+1;
+until limit==3;
+string final:= "/************************/";
+string final2:= "/*****see you soon!******/";
+write(final);
+write(final2);
+write("/************************/");
+endAdventureMode
   \end{lstlisting}
 
 
