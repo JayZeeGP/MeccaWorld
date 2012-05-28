@@ -1,5 +1,6 @@
 { Test file number 01
-We will show how to create a MeccaBoard }
+We will show how to create a MeccaBoard 
+and play one game}
 
 ConfigurationMode   #This is the mode to create the board
 setBoardSize(5,5);  #Size of 5 rows and 5 columns

@@ -13,15 +13,15 @@ string player_presentation:=" number is ";
 
 #Now we are going to print them
 string printout := jor+player_presentation+jordan;
-leer(printout);
+read(printout);
 
-string printout := mag+player_presentation+magic;
-leer(printout);
+printout := mag+player_presentation+magic;
+read(printout);
 
-string printout := bir+player_presentation+bird;
-leer(printout);
+printout := bir+player_presentation+bird;
+read(printout);
 
 #Let's do a mathematical operation
 number result:=jordan*magic*bird;
-leer(result);
+read(result);
 

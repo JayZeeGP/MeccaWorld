@@ -8,11 +8,12 @@ options
 	exportVocab = Meccasint;
 }
 
-// Nuevos atributos de la clase Anasint
+// Nuevos atributos de la clase Meccasint
 {
 	public static final String NO_MODE = "NoMode";
 	public static final String CONFIGURATION_MODE = "ConfigurationMode";
 	public static final String ADVENTURE_MODE = "AdventureMode";
+	
 	public static final String NUMBER = "number";
 	public static final String STRING = "string";
 	
@@ -63,18 +64,17 @@ options
 }
 
 
-//HECHO POR TEAM MECCA
+//Símbolos no terminales
 
 mecca: (instruction)* configuration (instruction)* adventure (instruction)*;
 
-configuration:  BEGIN_CONF {mode = CONFIGURATION_MODE;} (instruction)+ END_CONF;
+configuration:  BEGIN_CONF {mode = CONFIGURATION_MODE;} (instruction)* END_CONF;
 
-adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)+ END_ADV;
+adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)* END_ADV;
 
 instruction
 	{
 		Variable param1, param2;
-		String info;
 	}
 	: 
 	
@@ -83,10 +83,25 @@ instruction
 			//It searches the identifier in the symbols table
 			int index = symbolsTable.existeSimbolo(i2.getText());
 					
-			if( index >= 0) {
-				String stringValue = symbolsTable.getSimbolo(index).getValor();
-				System.out.println(stringValue);
-			}					
+			if(index >= 0) {
+				Variable variable = symbolsTable.getSimbolo(index);
+				
+				String read = board.read();
+				
+				if(variable.getTipo().equals("number")) {
+					float valor = Float.parseFloat(read);
+					variable.setValor(String.valueOf(valor));
+				} else {
+					variable.setValor(read);
+				}
+			} else {
+				System.out.println("Variable " + i2.getText() + " is not declared");	
+			}
+		}
+		
+		| FUNC_ESCRIBIR PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
+		{
+			System.out.println(param1.getValor());
 		}
 				
 		| FUNC_SHOWBOARD PARENT_IZ PARENT_DE PUNTO_COMA 

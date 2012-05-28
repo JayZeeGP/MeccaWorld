@@ -26,17 +26,16 @@ options{
 // DECLARACIÓN DE TOKENS PREDEFINIDOS
 
 tokens
-{
-	//HECHO POR TEAM MECCA - THIS WORKS
-	
-	// Tipos basicos
+{	
+	// Modos de utilización del intérprete
 	BEGIN_CONF       = "ConfigurationMode";
 	END_CONF         = "endConfigurationMode";
     BEGIN_ADV        = "AdventureMode";
     END_ADV          = "endAdventureMode";
     
     //Funciones
-    FUNC_LEER = "leer";
+    FUNC_LEER = "read";
+    FUNC_ESCRIBIR = "write";
     FUNC_SHOWBOARD = "showBoard";
     FUNC_SHOWADVENTURESTATE = "showAdventureState";
     FUNC_SETBOARDSIZE = "setBoardSize";
@@ -61,8 +60,6 @@ tokens
     FUNC_GETEXIT = "getExit";
     FUNC_GETMECCA = "getMecca";
     FUNC_GETREMAININGTREASURES = "getRemainingTreasures";
-    
-    //MECCA
     FUNC_SETARROWS = "setArrows";
     FUNC_GETARROWS = "getArrows";
     FUNC_INCARROWS = "incArrows";
@@ -80,17 +77,7 @@ tokens
 	TIPO_CADENA   = "String";
 	TIPO_NUMERO = "Number";
     
-    
-	// Literales lógicos
-	LIT_CIERTO = "true" ; 
-	LIT_FALSO = "falso" ;
-    
-	// Literales cadena
-	LIT_NL  = "nl" ; 
-	LIT_TAB = "tab" ; 
-	LIT_COM = "com" ;
-    
-
+	//Palabras reservadas para bucles y esquemas condicionales
     RES_MIENTRAS     = "while" ;
 	RES_HACER        = "do" ;
 	RES_REPETIR		 = "repeat";
@@ -105,12 +92,17 @@ tokens
 	RES_DESDE        = "from" ;
 	RES_FIN_PARA     = "end_for" ;
 
-
-    //ENGLISHFICADO POR TEAM MECCA
-	// Operadores que empiezan con letras;
+	// Operadores lógicos;
 	OP_Y  = "and" ;
 	OP_O  = "or" ;
 	OP_NO = "not" ;
+	
+	// Literales cadena
+	LIT_NL  = "nl" ; 
+	LIT_TAB = "tab" ; 
+	LIT_COM = "com" ;
+	
+
     //FIN ENGLISHFICADO POR TEAM MECCA
 
 	// Declaración de componentes léxicos "virtuales" 
@@ -204,10 +196,6 @@ CORCHETE_IZ : '['
 	    ;
 CORCHETE_DE : ']' 
 	    ;
-//LLAVE_IZ : '{' 
-//	 ;
-//LLAVE_DE : '}' 
-//	 ;
 PUNTO : '.' 
       ;
 BARRA_VERT : '|' 
