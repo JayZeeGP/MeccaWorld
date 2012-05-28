@@ -8,11 +8,6 @@ That's for sure
 - Varios mensajes distintos que se muestren aleatoriamente cuando Mecca se mueve a una casilla
 que contiene algún elemento.
 - Casilla del borde al azar (o siempre la primera) que si Mecca se choca muestra un mensaje tipo (Creadores del juego...)
-
-JayZee:
-  - ¿Deberíamos poner (instruction)* en vez de (instruction)+ en el conf mode?
-  - ¿Qué pasa con los treasures won de Mecca? Borrarlo? Usarlo?
-  - getTreasurePos debería comprobar si el número está dentro del rango
 ##################################################
 
 *********** JayZee <> 23/05/2012 ***********
