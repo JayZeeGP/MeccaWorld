@@ -97,39 +97,39 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			_loop3665:
+			_loop227:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop3665;
+					break _loop227;
 				}
 				
 			} while (true);
 			}
 			configuration();
 			{
-			_loop3667:
+			_loop229:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop3667;
+					break _loop229;
 				}
 				
 			} while (true);
 			}
 			adventure();
 			{
-			_loop3669:
+			_loop231:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop3669;
+					break _loop231;
 				}
 				
 			} while (true);
@@ -233,7 +233,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {
-									Size newSize = new Size(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+									Size newSize = new Size((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 									board.setSize(newSize);
 									System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
 								} else {
@@ -302,7 +302,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber() && param2.isNumber()) {
-									Position newTreasure = new Position(Integer.parseInt(param1.getValor()), Integer.parseInt(param2.getValor()));
+									Position newTreasure = new Position((int)Float.parseFloat(param1.getValor()), (int)Float.parseFloat(param2.getValor()));
 									int position = board.setTreasurePos(newTreasure);
 									
 									if(position != -1) {
@@ -329,7 +329,7 @@ public Meccasint(ParserSharedInputState state) {
 										
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {
-									if(board.removeTreasure(Integer.parseInt(param1.getValor()))) {
+									if(board.removeTreasure((int)Float.parseFloat(param1.getValor()))) {
 										System.out.println("Treasure " + param1 + " has been removed");
 									} else {
 										System.out.println("Treasure " + param1 + " does not exist");
@@ -380,8 +380,10 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {					
 									//Check if that treasure exists
-									if(board.getTotalTreasures() >= Integer.parseInt(param1.getValor()) && Integer.parseInt(param1.getValor()) > 0) {
-										System.out.println("Treasure "+ Integer.parseInt(param1.getValor()) +" set on column "+board.getTreasurePos(Integer.parseInt(param1.getValor())-1).getX()+" row "+board.getTreasurePos(Integer.parseInt(param1.getValor())-1).getY());
+									if(board.getTotalTreasures() >= (int)Float.parseFloat(param1.getValor()) && (int)Float.parseFloat(param1.getValor()) > 0) {
+										System.out.println("Treasure "+ (int)Float.parseFloat(param1.getValor()) +
+												" set on column "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getX()+
+												" row "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getY());
 									} else {
 										System.out.println("There is no treasure with that number");
 									}
@@ -406,7 +408,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber() && param2.isNumber()) {
-									Position newHole = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+									Position newHole = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 									int position = board.setHolePos(newHole);
 									
 									if(position != -1) {
@@ -433,7 +435,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {
-									if(board.removeHole(Integer.parseInt(param1.getValor()))) {
+									if(board.removeHole((int)Float.parseFloat(param1.getValor()))) {
 										System.out.println("Hole " + param1 + " has been removed");
 									} else {
 										System.out.println("Hole " + param1 + " does not exist");
@@ -473,8 +475,8 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {
 									//Check if that hole exists
-									if(board.getNumberOfHoles() >= Integer.parseInt(param1.getValor()) && Integer.parseInt(param1.getValor()) > 0) {
-										System.out.println("Hole "+(param1)+" set on column "+board.getHolePos(Integer.parseInt(param1.getValor())-1).getX()+" row "+board.getHolePos(Integer.parseInt(param1.getValor())-1).getY());
+									if(board.getNumberOfHoles() >= (int)Float.parseFloat(param1.getValor()) && (int)Float.parseFloat(param1.getValor()) > 0) {
+										System.out.println("Hole "+(param1)+" set on column "+board.getHolePos((int)Float.parseFloat(param1.getValor())-1).getX()+" row "+board.getHolePos((int)Float.parseFloat(param1.getValor())-1).getY());
 									} else {
 										System.out.println("There is no hole with that number");
 									}
@@ -514,7 +516,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber() && param2.isNumber()) {
-									Position newWumpus = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+									Position newWumpus = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 									
 									if(board.setWumpusPos(newWumpus)) {
 										System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
@@ -555,7 +557,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber() && param2.isNumber()) {
-									Position newStart = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+									Position newStart = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 									
 									if(board.setStartPos(newStart)) {
 										System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
@@ -598,7 +600,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber() && param2.isNumber()) {
-									Position newExit = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+									Position newExit = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 									
 									if(board.setExitPos(newExit)) {
 										System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
@@ -654,7 +656,7 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {
-									board.setMeccaNArrows(Integer.parseInt(param1.getValor()));
+									board.setMeccaNArrows((int)Float.parseFloat(param1.getValor()));
 									System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows");
 								} else {
 									System.out.println("Parameter must be number");	
@@ -690,9 +692,9 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {
-									if(Integer.parseInt(param1.getValor()) >= 0) {
-										board.incMeccaNArrows(Integer.parseInt(param1.getValor()));
-										System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+									if((int)Float.parseFloat(param1.getValor()) >= 0) {
+										board.incMeccaNArrows((int)Float.parseFloat(param1.getValor()));
+										System.out.println("Arrows incremented in "+param1.getValor()+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
 									} else {
 										System.out.println("You have to enter an integer bigger than 0");
 									}
@@ -715,9 +717,9 @@ public Meccasint(ParserSharedInputState state) {
 				
 							if(mode == CONFIGURATION_MODE) {
 								if(param1.isNumber()) {						
-									if(Integer.parseInt(param1.getValor()) >= 0) {
-										board.decMeccaNArrows(Integer.parseInt(param1.getValor()));
-										System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+									if((int)Float.parseFloat(param1.getValor()) >= 0) {
+										board.decMeccaNArrows((int)Float.parseFloat(param1.getValor()));
+										System.out.println("Arrows decremented in "+param1.getValor()+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
 									} else {
 										System.out.println("The number of arrows has to be positive");
 									}
@@ -948,13 +950,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			_loop3672:
+			_loop234:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop3672;
+					break _loop234;
 				}
 				
 			} while (true);
@@ -974,13 +976,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			_loop3675:
+			_loop237:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop3675;
+					break _loop237;
 				}
 				
 			} while (true);
@@ -1010,7 +1012,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=addend();
 				result = e1;
 				{
-				_loop3684:
+				_loop246:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1019,6 +1021,7 @@ public Meccasint(ParserSharedInputState state) {
 						match(OP_MAS);
 						e2=addend();
 						
+											
 											if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
 										 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) + Float.parseFloat(e2.getValor())));
 											} else if(e2.getTipo().equals("string") && result.getTipo().equals("string") ||
@@ -1035,7 +1038,7 @@ public Meccasint(ParserSharedInputState state) {
 						{
 						match(OP_MENOS);
 						e2=addend();
-						
+							
 											if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
 										 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) - Float.parseFloat(e2.getValor())));
 											}
@@ -1045,7 +1048,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop3684;
+						break _loop246;
 					}
 					}
 				} while (true);
@@ -1057,7 +1060,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=negative();
 				result = e1;
 				{
-				_loop3688:
+				_loop250:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1088,7 +1091,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop3688;
+						break _loop250;
 					}
 					}
 				} while (true);
@@ -1145,7 +1148,7 @@ public Meccasint(ParserSharedInputState state) {
 								String nombre = i.getText();
 					
 								// El número se convierte en cadena
-								String valorCadena = e.getValor();
+								String valorCadena = e.getValor().toString();
 					
 								// Se inserta en la tabla de Símbolos
 								if(!insertarIdentificador(nombre,"number",valorCadena)) {
@@ -1212,14 +1215,14 @@ public Meccasint(ParserSharedInputState state) {
 								
 								if(simbolo.getTipo().equals("number")) {
 									try {
-										Float value = Float.parseFloat(e.getValor());
+										Float value = Float.parseFloat(e.getValor().toString());
 										simbolo.setValor(String.valueOf(value));
 										
 									} catch(NumberFormatException err) {
 										System.err.println("Error: la variable \"" + nombre + "\" es de tipo \"number\"");
 									}
 								} else {
-									simbolo.setValor(e.getValor());
+									simbolo.setValor(e.getValor().toString());
 								}
 							} else {
 								System.err.println("Error: la variable \"" + nombre + "\" no ha sido declarada");
@@ -1253,17 +1256,17 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==true)) {
 				{
-				int _cnt3699=0;
-				_loop3699:
+				int _cnt261=0;
+				_loop261:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt3699>=1 ) { break _loop3699; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt261>=1 ) { break _loop261; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt3699++;
+					_cnt261++;
 				} while (true);
 				}
 				{
@@ -1272,19 +1275,19 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt3702=0;
-					_loop3702:
+					int _cnt264=0;
+					_loop264:
 					do {
 						// nongreedy exit test
-						if ( _cnt3702>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop3702;
+						if ( _cnt264>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop264;
 						if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 							matchNot(EOF);
 						}
 						else {
-							if ( _cnt3702>=1 ) { break _loop3702; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt264>=1 ) { break _loop264; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt3702++;
+						_cnt264++;
 					} while (true);
 					}
 					break;
@@ -1304,19 +1307,19 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==false)) {
 				{
-				int _cnt3704=0;
-				_loop3704:
+				int _cnt266=0;
+				_loop266:
 				do {
 					// nongreedy exit test
-					if ( _cnt3704>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop3704;
+					if ( _cnt266>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop266;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						if ( _cnt3704>=1 ) { break _loop3704; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt266>=1 ) { break _loop266; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt3704++;
+					_cnt266++;
 				} while (true);
 				}
 				{
@@ -1325,17 +1328,17 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt3707=0;
-					_loop3707:
+					int _cnt269=0;
+					_loop269:
 					do {
 						if ((_tokenSet_0.member(LA(1)))) {
 							instruction();
 						}
 						else {
-							if ( _cnt3707>=1 ) { break _loop3707; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt269>=1 ) { break _loop269; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt3707++;
+						_cnt269++;
 					} while (true);
 					}
 					break;
@@ -1380,15 +1383,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				_loop3719:
+				_loop281:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop3719;
+					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop281;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop3719;
+						break _loop281;
 					}
 					
 				} while (true);
@@ -1398,17 +1401,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				int _cnt3721=0;
-				_loop3721:
+				int _cnt283=0;
+				_loop283:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt3721>=1 ) { break _loop3721; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt283>=1 ) { break _loop283; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt3721++;
+					_cnt283++;
 				} while (true);
 				}
 				match(RES_FIN_MIENTRAS);
@@ -1442,15 +1445,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				_loop3725:
+				_loop287:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop3725;
+					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop287;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop3725;
+						break _loop287;
 					}
 					
 				} while (true);
@@ -1461,17 +1464,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				int _cnt3727=0;
-				_loop3727:
+				int _cnt289=0;
+				_loop289:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt3727>=1 ) { break _loop3727; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt289>=1 ) { break _loop289; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt3727++;
+					_cnt289++;
 				} while (true);
 				}
 				match(RES_HASTA);
@@ -1544,15 +1547,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) >= Float.parseFloat(endValue.getValor()))) {
 				{
-				_loop3731:
+				_loop293:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop3731;
+					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop293;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop3731;
+						break _loop293;
 					}
 					
 				} while (true);
@@ -1562,17 +1565,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) < Float.parseFloat(endValue.getValor()))) {
 				{
-				int _cnt3733=0;
-				_loop3733:
+				int _cnt295=0;
+				_loop295:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt3733>=1 ) { break _loop3733; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt295>=1 ) { break _loop295; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt3733++;
+					_cnt295++;
 				} while (true);
 				}
 				symbolsTable.getSimbolo(index).setValor(String.valueOf(Float.parseFloat(symbolsTable.getSimbolo(index).getValor())+Float.parseFloat(inc.getValor())));
@@ -1604,13 +1607,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop3739:
+			_loop301:
 			do {
 				if ((LA(1)==COMA)) {
-					parametros_prima_string();
+					parametros_prima_number();
 				}
 				else {
-					break _loop3739;
+					break _loop301;
 				}
 				
 			} while (true);
@@ -1635,13 +1638,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop3736:
+			_loop298:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima_string();
 				}
 				else {
-					break _loop3736;
+					break _loop298;
 				}
 				
 			} while (true);
@@ -1668,7 +1671,7 @@ public Meccasint(ParserSharedInputState state) {
 			e1=factor();
 			result = e1;
 			{
-			_loop3693:
+			_loop255:
 			do {
 				switch ( LA(1)) {
 				case OP_PRODUCTO:
@@ -1699,7 +1702,7 @@ public Meccasint(ParserSharedInputState state) {
 				}
 				default:
 				{
-					break _loop3693;
+					break _loop255;
 				}
 				}
 			} while (true);
@@ -1852,7 +1855,7 @@ public Meccasint(ParserSharedInputState state) {
 						result = e1;
 				
 			{
-			_loop3713:
+			_loop275:
 			do {
 				switch ( LA(1)) {
 				case OP_Y:
@@ -1927,7 +1930,7 @@ public Meccasint(ParserSharedInputState state) {
 				}
 				default:
 				{
-					break _loop3713;
+					break _loop275;
 				}
 				}
 			} while (true);
@@ -2104,7 +2107,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_11);
+			recover(ex,_tokenSet_10);
 		}
 	}
 	
@@ -2124,7 +2127,7 @@ public Meccasint(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_1);
+			recover(ex,_tokenSet_10);
 		}
 	}
 	
@@ -2291,14 +2294,9 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_9 = new BitSet(mk_tokenSet_9());
 	private static final long[] mk_tokenSet_10() {
-		long[] data = { 135170L, 0L};
-		return data;
-	}
-	public static final BitSet _tokenSet_10 = new BitSet(mk_tokenSet_10());
-	private static final long[] mk_tokenSet_11() {
 		long[] data = { 135168L, 0L};
 		return data;
 	}
-	public static final BitSet _tokenSet_11 = new BitSet(mk_tokenSet_11());
+	public static final BitSet _tokenSet_10 = new BitSet(mk_tokenSet_10());
 	
 	}

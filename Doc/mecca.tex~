@@ -1,0 +1,992 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                           %
+%  Nombre: Plantilla maestra de documento (informe, memoria, trabajo, etc)  %
+%  Autor: Daikrieg ( http://puedescorrer.es)                                %
+%  Fecha: 2008                                                              %
+%  Licencia: Creative Commons Atribución 3.0                                %
+%                                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Clase report, es decir, documento largo con capítulos, y por las dos caras
+\documentclass[a4paper,12pt,twoside,openright]{report} 
+
+\usepackage{listings}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel} %Localización: Español
+
+\usepackage{array} %Paquete útil para trabajar con tablas
+\usepackage{rotating} %Tablas giradas
+
+\usepackage{url} %Formateo e hiperenlaces
+%Para que los hipervínculos no aparezcan cajeados
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=black]{hyperref} 
+
+\usepackage{amssymb} %Diversos símbolos
+\usepackage{eurosym} %Saca el símbolo del euro escribiendo \officialeuro{}
+\usepackage{verbatim} %Para meter código fuente
+\usepackage{fancyhdr}
+\usepackage{amsmath} %Paquete matemáticos
+\usepackage{graphicx} %Manejo de imágenes
+\usepackage{pdfpages} %Inclusión de pdfs a página completa, para incrustados usar figure
+\usepackage{float}
+
+%\usepackage{times} %Fuente alternativa a la Computer modern.
+\usepackage{wrapfig} %Paquete para girar imagenes
+
+\usepackage{caption3} 
+\DeclareCaptionOption{parskip}[]{} 
+\usepackage[small]{caption}  %Pies de foto en letra más pequeña
+
+
+\title {Memoria de Trabajo de Prácticas\\ Mundo Wumpus}
+\author{Procesadores del Lenguaje \\ Primer curso del Segundo Ciclo de Ingeniería Informática (2011-2012)\\Escuela Politécnica Superior de Córdoba\\ Universidad de Córdoba \\ Rubén Salado Cid \\José Carlos Garrido Pérez}
+\date{\today}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%  Fin del preámbulo  %
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%Primeras consideraciones
+\renewcommand{\tablename}{Tabla} %Las tablas no se llaman cuadros
+\renewcommand{\listtablename}{Índice de tablas} 
+\renewcommand{\sin}{sen} %Los senos se llaman sen
+
+
+\maketitle %Genera la clásica página de título
+
+\addtolength{\parskip}{\baselineskip} %Líneas más separadas, después del título
+
+%Las presentaciones y disclaimers no llevan numeración
+\pagestyle{empty}
+
+\newpage
+
+
+% Limpia el encabezado en las páginas impares vacías
+\makeatletter \def\cleardoublepage{
+\clearpage\if@twoside \ifodd\c@page\else%
+\hbox{}%
+\thispagestyle{empty}% Aquí elimina el estilo del encabezado
+\newpage%
+\if@twocolumn\hbox{}\newpage\fi\fi\fi} \makeatother
+
+
+%Numeración del índice en romanos
+\pagenumbering{roman}
+\setcounter{page}{1} 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO]{\leftmark} % En las páginas impares, parte izquierda del encabezado, aparecerá el nombre de capítulo
+\fancyhead[RE]{\rightmark} % En las páginas pares, parte derecha del encabezado, aparecerá el nombre de sección
+\fancyhead[RO,LE]{\thepage} % Números de página en las esquinas de los encabezados
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. #1}{}} % Formato para el capítulo: N. Nombre
+\renewcommand{\sectionmark}[1]{\markright{\thesection. #1}} % Formato para la sección: N.M. Nombre
+%Fin configuración de la numeración del índice
+
+
+\tableofcontents %Añade el índice general...
+
+\addcontentsline{toc}{chapter}{Índice de tablas} %... el índice de tablas
+\listoftables
+
+\addcontentsline{toc}{chapter}{Índice de figuras} %... y el de imágenes
+\listoffigures
+
+
+\newpage
+
+
+%Numeración del cuerpo del documento en arábigos
+\pagenumbering{arabic}
+\setcounter{page}{0} 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO]{\leftmark} % En las páginas impares, parte izquierda del encabezado, aparecerá el nombre de capítulo
+\fancyhead[RE]{\rightmark} % En las páginas pares, parte derecha del encabezado, aparecerá el nombre de sección
+\fancyhead[RO,LE]{\thepage} % Números de página en las esquinas de los encabezados
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. #1}{}} % Formato para el capítulo: N. Nombre
+\renewcommand{\sectionmark}[1]{\markright{\thesection. #1}} % Formato para la sección: N.M. Nombre
+%Fin configuración de la numeración del cuerpo
+
+\newpage
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Ahora toca empezar a escribir, lo más difícil             % 
+%  Puedes hacerlo directamente aquí como ya hemos empezado,  %
+%  o puedes incluir archivos externos con el comando input,  %
+%  como en los anexos listados más abajo.                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introducción \label{intro}}
+  \section{Descripción del entorno a simular}
+  En la presente memoria de prácticas va a comentarse cuáles han sido los pasos realizados para acometer el desarrollo de un 
+  intérprete que acepte y ejecute las sentencias necesarias para poder, en dos modos de ejecución distintos, crear niveles del 
+  juego ``Mundo Wumpus'' y también para que el usuario pueda jugar los niveles creados, moviendo al personaje por el mapa 
+  creado.
+  Este entorno deberá, además, permitir la declaración de variables, el uso de esquemas propios de la programación como los 
+  esquemas condicionales, bucles de diverso tipo, operaciones lógicas y aritméticas, etc. En la medida de lo posible, deberá 
+  recuperarse de los errores e informar al usuario del problema acontecido, así como de las posibles soluciones por las que 
+  puede optarse.
+
+  A grandes rasgos, el entorno que se va a simular con el intérprete cuenta con los dos modos siguientes:
+  \begin{itemize}
+  \item \textbf{Modo de configuración}: denominado \emph{configurationMode}, es el modo en el que se podrán crear y editar los 
+  niveles, con total libertad, configurando aspectos tales como el tamaño del tablero, las posiciones de los hoyos, tesoros, 
+  Wumpus, etc. También podrá configurarse el número de flechas que se desea que tenga el jugador a su disposición y las 
+  posiciones de comienzo y fin del nivel.
+  \item \textbf{Modo de aventura}: denominado \emph{adventureMode}, en el cual, el usuario solamente podrá realizar las 
+  acciones que están permitidas a un jugador del juego Mundo Wumpus, esto es, mover al 
+  aventurero (al que se le ha dado el nombre ficticio de \emph{Mecca}) por el mapa, 
+  disparar para intentar matar al Wumpus, saber cuántos tesoros quedan, etc. En este 
+  modo, el jugador recibirá además información por parte del intérprete de los elementos 
+  que hay en el mapa, dependiendo de la casilla en el que se encuentre y de los 
+  resultados de sus movimientos o disparos. Por ejemplo, si se encuentra cerca del Wumpus 
+  se le informará de que existe un hedor, para que sepa que está en una casilla cercana. 
+  También se informará, en caso de que el juego llegue a su fin, de que ha logrado escapar 
+  del nivel con todos los tesoros existentes o, por el contrario, de que ha muerto.
+  \end{itemize}
+
+\section{Fases del proceso de generación del intéprete}
+  El proceso de generación de este intérprete ha contado con las siguientes fases:
+  \begin{enumerate}
+   \item Elección del entorno
+   \item Diseño del lenguaje
+   \item Desarrollo del análisis léxico
+   \item Desarrollo del análisis sintáctico
+   \item Atributos y funciones auxiliares
+   \item Elegir modo de ejecución
+  \end{enumerate}
+
+\chapter{Definición del lenguaje diseñado \label{defleng}}
+  \section{Sentencias o instrucciones para simular el entorno elegido}
+  Como hay dos modos de ejecución, se van a comentar primero las funciones que son comunes a ambos modos:
+  \begin{itemize}
+   \item getArrows(): debe devolver el número de flechas que tiene el aventurero.
+   \item getMecca(): debe devolver la posición de Mecca en el mapa.
+   \item getTotalTreasures(): debe devolver el número total de tesoros.
+  \end{itemize}
+  Las funciones que pueden ser llamadas sólo desde el modo de configuración son:
+  \begin{itemize}
+   \item setBoardSize(rows, cols): debe hacer que el tamaño del tablero sea el que recibe como parámetro.
+   \item setTreasure(row, col): ha de permitir insertar un tesoro, en caso de que sea posible, en la posición que recibe como 
+   parámetro.
+   \item getTreasure(number): debe devolver la posición del tesoro cuyo número se le pasa como parámetro.
+   \item setHole(row, col): debe permitir insertar un hoyo, en caso de que sea posible, en la posición que recibe como 
+   parámetro.
+   \item getNumberOfHoles(): devolverá el número de hoyos existentes en el mapa.
+   \item getHole(number): ha de devolver la posición del hoyo cuyo número se le pasa como parámetro.
+   \item setWumpus(row, col): ha de permitir colocar el Wumpus en la posición que se le pasa como parámetro.
+   \item getWumpus(): deovlverá la posición del Wumpus.
+   \item setStart(row, col): deberá permitir colocar la casilla de comienzo en la posición que se le pasa como parámetro.
+   \item getStart(): debe devolver la posición de comienzo del mapa.
+   \item setExit(row, col): deberá permitir colocar la casilla de salida en la posición que se le pasa como parámetro.
+   \item getExit(): debe devolver la posición de salida del mapa.
+   \item incArrows(number): incrementa el número de flechas de Mecca en una cantidad igual a la que reciba como parámetro.
+   \item decArrows(number): decrementa el número de flechas de Mecca en una cantidad igual a la que reciba como parámetro.
+  \end{itemize}
+  Desde el modo aventura pueden llamarse las siguientes funciones:
+  \begin{itemize}
+   \item Funciones que se usan para el movimiento del aventurero Mecca:
+   \begin{itemize}
+    \item goUp(): moverá a Mecca una casilla hacia arriba.
+    \item goRight(): moverá a Mecca una casilla hacia la derecha.
+    \item goLeft(): moverá a Mecca una casilla hacia la izquierda.
+    \item goDown(): moverá a Mecca una casilla hacia abajo.
+   \end{itemize}
+  \item Funciones que se usan para que Mecca dispare:
+  \begin{itemize}
+   \item shootUp(): permitirá disparar hacia arriba.
+   \item shootRight(): permitirá disparar hacia la derecha.
+   \item shootLeft(): permitirá disparar hacia la izquierda.
+   \item shootUp(): permitirá disparar hacia abajo.
+  \end{itemize}
+
+  \end{itemize}
+
+
+  
+  \section{Sentencias del lenguaje de programación de pseudocódigo}
+  Las sentencias del lenguaje de programación serán:
+  \begin{itemize}
+   \item Sentencia condicional simple
+   \item Sentencia condicional compuesta
+   \item Bucle ``mientras''
+   \item Bucle ``repetir''
+   \item Bucle ``para''
+  \end{itemize}
+  Dado que las otras órdenes serán en inglés, se ha decidido, para mantener una cierta homogeneidad en este aspecto, que 
+  estas sentencias también usen ese idioma.
+    \subsection{Sentencia condicional simple}
+    \textbf{if} condicion \textbf{then}\\
+      sentencias\\
+    \textbf{end\_if;}
+    \subsection{Sentencia condicional compuesta}
+    \textbf{if} condicion \textbf{then}\\
+      sentencias\\
+    \textbf{else}\\
+      sentencias\\
+    \textbf{end\_if};
+    \subsection{Bucle ``mientras''}
+    \textbf{while} condicion \textbf{do}\\
+      sentencias\\
+    \textbf{end\_while;}\\
+    \subsection{Bucle ``repetir''}
+    \textbf{repeat}\\ 
+    sentencias\\
+    \textbf{until} condicion\textbf{;}\\
+    
+    \subsection{Bucle ``para''}
+    \textbf{for} identificador\\
+      \textbf{from} expresión numérica 1\\
+      \textbf{until} expresión numérica 2\\
+      \textbf{step} expresión numérica 3\\
+    \textbf{do}\\
+      sentencias\\
+    \textbf{end\_for;}\\
+  
+  
+  \chapter{Descripción de la gramática asociada al lenguaje definido \label{defgra}}
+
+\chapter{Descripción del intérprete ANTLR construido para la gramática \label{defantlr}}
+  \section{Analizador léxico: componentes léxicos}
+  El analizador léxico se ha codificado en el fichero \emph{Meccalex.g} y cuenta con la definición de los siguientes \emph{tokens}:
+  \begin{itemize}
+   \item Modos de utilización del intérprete
+   \begin{lstlisting}
+    // Modos de utilización del intérprete
+    BEGIN_CONF       = "ConfigurationMode";
+    END_CONF         = "endConfigurationMode";
+    BEGIN_ADV        = "AdventureMode";
+    END_ADV          = "endAdventureMode";
+   \end{lstlisting}
+   
+   \item Funciones que pueden realizarse
+   \begin{lstlisting}
+    //Funciones
+    FUNC_LEER = "read";
+    FUNC_ESCRIBIR = "write";
+    FUNC_SHOWBOARD = "showBoard";
+    FUNC_SHOWADVENTURESTATE = "showAdventureState";
+    FUNC_SETBOARDSIZE = "setBoardSize";
+    FUNC_GETBOARDROWS = "getBoardRows";
+    FUNC_GETBOARDCOLUMNS = "getBoardColumns";
+    FUNC_GETBOARDSIZE = "getBoardSize";
+    FUNC_SETTREASURE = "setTreasure";
+    FUNC_GETTOTALTREASURES = "getTotalTreasures";
+    FUNC_GETTREASURE = "getTreasure";
+    FUNC_SHOWTREASURES = "showTreasures";    
+    FUNC_REMOVETREASURE = "removeTreasure";
+    FUNC_SETHOLE = "setHole";
+    FUNC_REMOVEHOLE = "removeHole";
+    FUNC_GETNUMBEROFHOLES = "getNumberOfHoles";
+    FUNC_GETHOLE = "getHole";
+    FUNC_SHOWHOLES = "showHoles";
+    FUNC_SETWUMPUS = "setWumpus";
+    FUNC_GETWUMPUS = "getWumpus";
+    FUNC_SETSTART = "setStart";
+    FUNC_GETSTART = "getStart";
+    FUNC_SETEXIT = "setExit";
+    FUNC_GETEXIT = "getExit";
+    FUNC_GETMECCA = "getMecca";
+    FUNC_GETREMAININGTREASURES = "getRemainingTreasures";
+    FUNC_SETARROWS = "setArrows";
+    FUNC_GETARROWS = "getArrows";
+    FUNC_INCARROWS = "incArrows";
+    FUNC_DECARROWS = "decArrows";
+    FUNC_SHOOTLEFT = "shootLeft";
+    FUNC_SHOOTRIGHT = "shootRighT";
+    FUNC_SHOOTUP = "shootUp";
+    FUNC_SHOOTDOWN = "shootDown";
+    FUNC_GOLEFT = "goLeft";
+    FUNC_GORIGHT = "goRight";
+    FUNC_GOUP = "goUp";
+    FUNC_GODOWN = "goDown";
+    \end{lstlisting}
+    
+  \item Palabras reservadas para los tipos de variables
+  \begin{lstlisting}
+    // Tipos de variables
+    TIPO_CADENA   = "String";
+    TIPO_NUMERO = "Number";
+  \end{lstlisting}
+  
+  \item Palabras reservadas para bucles y esquemas condicionales
+  \begin{lstlisting}
+    //Palabras reservadas para bucles y esquemas condicionales
+    RES_MIENTRAS     = "while" ;
+    RES_HACER        = "do" ;
+    RES_REPETIR		 = "repeat";
+    RES_HASTA        = "until";
+    RES_FIN_MIENTRAS = "end_while" ;
+    RES_SI           = "if" ;
+    RES_ENTONCES     = "then" ;
+    RES_SI_NO        = "else" ;
+    RES_FIN_SI       = "end_if" ;
+    RES_PARA         = "for" ;
+    RES_PASO	     = "step" ;
+    RES_DESDE        = "from" ;
+    RES_FIN_PARA     = "end_for" ;
+  \end{lstlisting}
+
+
+  \end{itemize}
+
+  \section{Analizador sintáctico}
+  El analizador sintáctico está codificado en el fichero \emph{Meccasint.g} y está dividido en las siguientes partes.
+    \subsection{Atributos de la clase Meccasint.g} %Hecho por mí
+    
+    La variable de tipo cadena \emph{mode} es muy importante, ya que es la encargada de controlar en qué modo estamos 
+    dentro del intérprete. Los valores que puede contener están definidos en las tres cadenas de tipo estático del 
+    comienzo del código mostrado:
+    \begin{itemize}
+     \item NO\_MODE: será el valor de la cadena \emph{mode} cuando la ejecución no se encuentre en ninguno de los 
+     dos modos
+     \item CONFIGURATION\_MODE: será el valor de la cadena \emph{mode} cuando la ejecución se encuentre en el modo de 
+     configuración
+     \item ADVENTURE\_MODE: será el valor de la cadena \emph{mode} cuando la ejecución se encuentre en el modo de 
+     aventura
+    \end{itemize}
+    Más tarde, a la hora de llamar a las funciones dentro de las reglas sintácticas, se comprobará el modo en el que se encuentra 
+    la ejecución y se realizarán las acciones pertinentes o se mostrará un mensaje de error en caso de que esa acción no pueda 
+    realizarse en ese modo.
+    
+    La variable de tipo \emph{Board} almacena una instancia de esa clase. El cometido de esta clase es el de almacenar toda 
+    la información relativa al tablero y realizar las operaciones y movimientos que sean necesarios en él.
+    
+    La variable de tipo \emph{TablaSimbolos} almacena una instancia de esa clase. Su objetivo es el de almacenar la tabla de 
+    símbolos, con el uso de instancias de la clase \emph{Variable} guardando el nombre del símbolo, el tipo (que puede ser 
+    \emph{string} o \emph{number}), y el valor asociado a este símbolo.
+
+    
+    \subsection{Símbolos no terminales}
+      \subsubsection{Símbolo mecca}
+      El símbolo inicial de la gramática es denominado \emph{mecca} y su regla es la siguiente:
+      \begin{lstlisting}
+      mecca: (instruction)* configuration (instruction)* adventure (instruction)*;
+      \end{lstlisting}
+      
+      Se pueden utilizar tantas instrucciones como se desee dentro y fuera de los métodos (el caso de que puedan o no 
+      ejecutarse será controlado por la variable de tipo cadena \emph{mode} como se ha comentado previamente).
+
+      \subsubsection{Símbolo configuration}
+      Este símbolo sirve para incluir todas las instrucciones realizadas en el modo de configuración, está delimitado por 
+      los símbolos no terminales BEGIN\_CONF y END\_CONF.
+      \begin{lstlisting}
+      configuration:  BEGIN_CONF {mode = CONFIGURATION_MODE;} (instruction)+ END_CONF;
+      \end{lstlisting}
+      
+      \subsubsection{Símbolo adventure}
+      Este símbolo sirve para incluir todas las instrucciones realizadas en el modo de aventura, está delimitado por 
+      los símbolos no terminales BEGIN\_ADV y END\_ADV.
+      \begin{lstlisting}
+      adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)+ END_ADV;
+      \end{lstlisting}
+      
+      \subsubsection{Símbolo instruction}
+      Este símbolo no terminal es el más extenso de la gramática y es en el que se encuentran todas las funciones que 
+      pueden ser llamadas. Contiene dos variables de tipo, valga la redundancia, \emph{Variable} que se utilizan para 
+      recoger los resultados de la evaluación de las reglas de tipo \emph{expression} y que son utilizadas dentro de 
+      las instrucciones.
+
+    \subsection{Reglas de producción de la gramática}
+   
+  \section{Análisis semántico}
+    \subsection{Atributos: heredados y sintetizados}
+    
+    \subsection{Funciones auxiliares}
+    
+      \subsubsection{Clase Board}
+      
+      \subsubsection{Clase Position}
+      Se trata de una clase simple cuyo cometido es el de almacenar una posición en el tablero.
+      Los atributos con los que cuenta son los siguientes:
+      \begin{itemize}
+       \item x: es una variable privada de tipo entero entero que almacena la posición x de una instancia de esta clase.
+       \item y: es una variable privada de tipo entero entero que almacena la posición y de una instancia de esta clase.
+      \end{itemize}
+      Los métodos de que dispone son:
+      \begin{itemize}
+       \item Position(): constructor vacío de la clase que pondrá la posición a (-1,-1).
+       \item Position(int newX, int newY): constructor parametrizado que pondrá la posición en los valores que reciba como parámetros.
+       \item Position(Position copyPos): constructor de copia de la clase Position.
+       \item setX(int newX): función que recibe un valor entero y lo almacena en la variable x.
+       \item setY(int newY): función que recibe un valor entero y lo almacena en la variable y.
+       \item getX(): función que devuelve un entero con el valor guardado para la posición x.
+       \item getY(): función que devuelve un entero con el valor guardado para la posición y.
+       \item toString(): función que devuelve una cadena de texto que muestra la posición almacenada en esta instancia.
+       \item equals(): función que devuelve true si la posición que se le pasa como parámetro es igual a esta instancia y false en caso contrario.
+      \end{itemize}
+
+      \subsubsection{Clase Size}
+      Se trata de una clase simple cuyo cometido es el de almacenar el tamaño de algún elemento del tablero (o del propio tablero).
+      Sus atributos son:
+      \begin{itemize}
+       \item x: es una variable privada de tipo entero entero que almacena la anchura de una instancia de esta clase.
+       \item y: es una variable privada de tipo entero entero que almacena la altura de una instancia de esta clase.
+      \end{itemize}
+      Los métodos de que dispone son:
+      \begin{itemize}
+       \item Size(): constructor vacío de la clase que pondrá el tamaño a (0,0).
+       \item Size(int newWidth, int newHeight): constructor parametrizado que pondrá el tamaño en los valores que reciba como parámetros.
+       \item Size(Size copyPos): constructor de copia de la clase Size.
+       \item setWidth(int newWidth): función que recibe un valor entero y lo almacena en la variable width.
+       \item setHeight(int newHeight): función que recibe un valor entero y lo almacena en la variable height.
+       \item getWidth(): función que devuelve un entero con el valor guardado para la variable width.
+       \item getHeight(): función que devuelve un entero con el valor guardado para la posición height.
+       \item toString(): función que devuelve una cadena de texto que muestra la información de tamaños almacenada en esta instancia.
+      \end{itemize}
+
+    \subsubsection{Clase Mecca}
+    Clase que representa al aventurero del juego. Permite guardar y modificar información sobre el número de flechas que tiene, 
+    su posición, y una lista de los tesoros ganados.
+    Los atributos con los que cuenta son los siguientes:
+    \begin{itemize}
+     \item nArrows: variable privada de tipo entero que almacena el número de flechas que tiene Mecca.
+     \item position: variable privada de tipo Position que almacena la posición de Mecca en el tablero. 
+     \item treasuresWon: variable privada de tipo ArrayList de enteros que almacena los tesoros que han sido conseguidos por Mecca.
+    \end{itemize}
+    Sus métodos son:
+    \begin{itemize}
+     \item Mecca(): constructor vacío de la clase. Inicializará la posición con el constructor vacío de Position y 
+     el número de flechas a 0, así como los tesoros conseguidos.
+     \item getNArrows(): función que devuelve un entero que contiene el número de flechas que le quedan a Mecca.
+     \item setNArrows(int newArrows): función que recibe un entero que actualizará el valor de la variable nArrows.
+     \item incNarrows(int inc): función que incrementa, en el valor entero que reciba como parámetro, el valor de nArrows.
+     \item decNarrows(int inc): función que decrementa, en el valor entero que reciba como parámetro, el valor de nArrows.
+     \item incNarrows(): función que incrementa nArrows una unidad.
+     \item decNarrows(): función que decrementa nArrows una unidad.
+     \item getPos(): función que devuelve un objeto de tipo Position que contiene la posición de Mecca.
+     \item setPos(): función que recibe un objeto de tipo Position que será la nueva posición de Mecca.
+    \end{itemize}
+   \subsubsection{Clase Board}
+   Esta clase representa al tablero del juego. Permite guardar y modificar información sobre qué hay en cada casilla y 
+   mover a Mecca por todo el tablero. Gestiona todas las acciones que pueden realizarse, además de los distintos resultados 
+   que puede tener la partida.
+   
+   En cuanto a los atirbutos que contiene, en primer lugar, existen unas variables estáticas que contienen los distintos 
+   valores que puede albergar una casilla para representar lo que en ella hay dentro del juego. Son las siguientes:
+   \begin{lstlisting}
+    public static final String WUMPUS = "Wumpus";
+	public static final String TREASURE = "Treasure";
+	public static final String HOLE = "Hole";
+	public static final String BREEZE = "Breeze";
+	public static final String SMELL = "Smell";
+	public static final String START = "Start";
+	public static final String EXIT = "Exit";
+	public static final String EMPTY = "Empty"; // No Wumpus, no hole, no treasure, no start, no exit
+   \end{lstlisting}
+  En el caso de ``Empty'', cabe destacar que una casilla puede ser empty aún conteniendo el olor o la brisa, ya que 
+  esos estados son simplemente utilizados para informar a Mecca de las cosas que están cerca, pero no afectan de ninguna 
+  manera al estado del juego.
+  El resto de atributos que contiene son:
+  \begin{itemize}
+   \item boardMatrix: es una matriz de ArrayLists de cadenas que contiene, para cada casilla, una lista de cadenas con los 
+   elementos que existen en ella.
+   \item boardMatrixVisited: es una matriz booleana, del mismo tamaño que el tablero, que controla qué casillas han 
+   sido visitadas y cuáles no. Es utilizada para mostrar por pantalla sólo la información de las casillas ya visitadas 
+   y que el resto del tablero sea un misterio.
+   \item boardSize: atributo de tipo Size que guarda el tamaño del tablero.
+   \item mecca: atributo de tipo Mecca que guarda toda la información del aventurero.
+   \item wumpusPos: atributo de tipo Position que guarda información sobre la posición del Wumpus.
+   \item startPos: atributo de tipo Position que guarda información sobre la posición de la casilla de comienzo.
+   \item exitPos: atributo de tipo Position que guarda información sobre la posición de la casilla de salida.
+   \item treasuresPos: ArrayList de posiciones que contiene la posición de los tesoros existentes en el tablero.
+   \item holesPos: ArrayList de posiciones que contiene la posición de los hoyos existentes en el tablero.
+   \item isWumpusAlive: atributo booleano que será true si el Wumpus está vivo y false en caso contrario.
+   \item endOfGame: atributo booleano que será true si el juego ha terminado ya y falso en caso contrario.
+  \end{itemize}
+  
+  Los métodos de esta clase son:
+  \begin{itemize}
+   \item Board(): constructor vacío de la clase Board. Por defecto todos los tamaños y posiciones son inicializados con sus 
+   respectivos constructores vacíos.
+   \item restartBoard: método que inicializa el tablero colocando todas sus casillas como vacías. 
+   \item isEmpty(Position pos): metodo que devuelve verdadero si la casilla que se le pasa como argumento está vacía y falso en 
+   caso contrario.
+   \item isInsideBoard(Position pos): metodo que devuelve verdadero si la casilla que se le pasa como argumento está dentro 
+   del trablero y falso en caso contrario.
+   \item writeOnBoard(Position pos, String element): escribe en la posición del tablero que se le pasa como primer parámetro el 
+   elemento que recibe como segundo.
+   \item removeFromBoard(String element, Position position): borra de la posición del tablero que se le pasa como segundo parámetro 
+   el elemento que se le pasa como primero.
+   \item readFromBoardVisited(Position pos): función privada que devuelve verdadero si la posición que se le pasa como parámetro 
+   ya ha sido visitada por Mecca y falso en caso contrario.
+   \item writeOnBoardVisited(Position pos, boolean element): función privada que escribe (en la matriz de casillas visitadas) en la posición 
+   que se le pasa como primer parámetro el booleano que se le pasa como segundo parámetro.
+   \item getSize(): función que devuelve el tamaño del tablero en una variable de tipo Size.
+   \item setSize(): función que recibe como parámetro una variable de tipo Size y hace que este sea el nuevo tamaño 
+   del tablero, además de reiniciarlo.
+   \item getWumpusPos(): función que devuelve una variable de tipo Position con la posición del Wumpus.
+   \item setWumpusPos(Position newPos): función que coloca el Wumpus en la posición que recibe como parámetro. 
+   Devolverá true si todo funciona y falso en caso contrario.
+   \item removeWumpus(): función que borra al Wumpus del tablero, eliminado también su olor.
+   \item getStartPos(): función que devuelve una variable de tipo Position que contiene la posición de la casilla de comienzo.
+   \item setStartPos(Position newPos): función que coloca, si es posible, la casilla de salida en la posición que se le pasa como parámetro. 
+   Devolverá true si todo va bien y false en caso contrario.
+   \item getExitPos(): función que devuelve una variable de tipo Position que contiene la posición de la casilla de salida.
+   \item setExitPos(Position newPos): función que coloca, si es posible, la casilla de salida en la posición que se le pasa como parámetro. 
+   Devolverá true si todo va bien y false en caso contrario.
+   \item setTreasurePos(Position newPos): función que permite añadir tesoros a la lista de tesoros en la posición que se le pase como parámetro.
+   Devuelve un entero que contiene la posición en la que se encuentra el tesoro en la lista.
+   \item getTreasurePos(int treasureNo): función que devuelve la posición en el trablero del tesoro que se encuentra 
+   en la posición de la lista que indica el entero que recibe como parámetro. 
+   \item getTreasuresPos(): función que devuelve toda la lista de los tesoros con sus posiciones.
+   \item showTreasures(): función que muestra un mensaje por consola que indica la posición de cada tesoro.
+   \item editTreasurePos(int treasureNo, Position newPos): función que permite editar la posición del tesoro cuya posición en el vector se le pasa 
+   como primer parámetro. La posición que se le pondrá es la indicada por el segundo parámetro.
+   \item removeTreasure(int treasureNumber): función que borra de la lista de tesoros aquél cuya posición en esa lista sea la que 
+   se le pasa como parámetro.
+   \item removeTreasure(Position position): borra de la lista de tesoros el que se encuentre en la posición del tablero que se le pase 
+   como parámetro.
+   \item setHolePos(Position newPos): función que permite añadir hoyos a la lista de hoyos en la posición que se le pase como parámetro.
+   Devuelve un entero que contiene la posición en la que se encuentra el tesoro en la lista.
+   \item getHolePos(int holeNo): función que devuelve la posición en el trablero del hoyo que se encuentra 
+   en la posición de la lista que indica el entero que recibe como parámetro. 
+   \item getHolesPos(): función que devuelve toda la lista de los hoyos con sus posiciones.
+   \item editHolePos(int holeNo, Position newPos): función que permite editar la posición del hoyo cuya posición en el vector se le pasa 
+   como primer parámetro. La posición que se le pondrá es la indicada por el segundo parámetro.
+   \item removeHole(int holeNumber): función que borra de la lista de hoyos aquél cuya posición en esa lista sea la que 
+   se le pasa como parámetro.
+   \item showHoles(): función que muestra un mensaje por consola que indica la posición de cada hoyo.
+   \item getTotalTreasures(): función que devuelve un entero con la cantidad de tesoros existentes.
+   \item getNumberOfHoles(): función que devuelve un entero con la cantidad de hoyos existentes.
+   \item getMecca(): función que devuelve la instancia de la clase Mecca que se contiene en este tablero.
+   \item getMeccaPos(): función que devuelve un objeto de tipo Position que contiene la posición de Mecca.
+   \item setMeccaPos(Position newPos): función que recibe un objeto de tipo Position que será la nueva posición de Mecca.
+   \item getMeccaNArrows(): función que devuelve un entero que contiene el número de flechas que le quedan a Mecca.
+   \item setMeccaNArrows(int nArrows): función que recibe un entero que actualizará el valor de la variable que contiene el número de flechas que le quedan a Mecca.
+   \item incMeccaNArrows(int inc): función que incrementa, en el valor entero que reciba como parámetro, el valor del número de flechas que le quedan a Mecca.
+   \item decMeccaNArrows(int dec): función que decrementa, en el valor entero que reciba como parámetro, el valor del número de flechas que le quedan a Mecca.
+   \item meccaGoUp(): función que mueve a Mecca una casilla hacia arriba.
+   \item meccaGoDown(): función que mueve a Mecca una casilla hacia abajo.
+   \item meccaGoLeft(): función que mueve a Mecca una casilla hacia la izquierda.
+   \item meccaGoRight(): función que mueve a Mecca una casilla hacia la derecha.
+   \item meccaShoot(int direction): función booleana que permite a Mecca disparar. Devolverá true si acaba con el Wumpus
+   y false en caso contrario. Recibe un entero que indica la dirección de disparo con los siguientes valores:
+    \begin{itemize}
+     \item 1.- Arriba
+     \item 2.- Derecha
+     \item 3.- Izquierda
+     \item 4.- Abajo
+    \end{itemize}
+   \item meccaGoPosition(Position position): función privada de tipo booleano que coloca a Mecca en la posición que recibe 
+   como parámetro. Devolverá true si el movimiento pudo ser efectuado y falso en caso contrario.
+   \item checkMovement(Position position): función privada de tipo booleano que comprueba el resultado de un movimiento de Mecca.
+   Devuelve true si puede realizarse y false en caso contrario. Informa por consola del resultado de ese movimiento.
+   \item getBoardSize(): función que devuelve un objeto de tipo Size con el tamaño del tablero.
+   \item toString(): función que devuelve una cadena que contiene toda la información relativa al tablero.
+   \item isWumpusAlive(): función booleana que devuelve true si el Wumpus está vivo y false en caso contrario.
+   \item setWumpusAlive(boolean isWumpusAlive): función que recibe un booleano que será el que indique si el Wumpus está vivo o no y lo guarda.
+   \item initGame(): función booleana que comprueba si, al entrar en el modo aventura, el mapa definido tiene todo lo necesario 
+   para comenzar el juego. En caso afirmativo devuelve true, en caso negativo false.
+   \item isGameFinished(): función booleana que devuelve true si el juego ha terminado y false en caso contrario.
+   \item checkStart(): función booleana que comprueba si la casilla de comienzo ha sido colocada. 
+   Devuelve true en caso de que lo haya sido y false en caso contrario.
+   \item checkExit(): función booleana que comprueba si la casilla de salida ha sido colocada. 
+   Devuelve true en caso de que lo haya sido y false en caso contrario.
+   \item checkWumpus(): función booleana que comprueba si la casilla del Wumpus ha sido colocada. 
+   Devuelve true en caso de que lo haya sido y false en caso contrario.
+   \item showAdventureState(): fnción que muestra por consola el estado de la aventura. Es decir, muestra todos los 
+   elementos que el jugador conoce porque ya ha visitado esas casillas.
+   \end{itemize}
+   
+  \section{Tabla de símbolos}
+  En este proyecto, la tabla de símbolos se implementa con una clase que contiene como atributo un ArrayList de objetos 
+  de la clase Variable. Por esta razón, va a explicarse primero esa clase y posteriormente se explicará la tabla propiamente 
+  dicha.
+  
+  \subsection{Clase Variable}
+  Esta clase, realizada por Luis Del Moral, Juan María Palomo y Profesor, y modificada por los autores de este trabajo 
+  contiene lo necesario para representar una   variable de las que se almacenarán en la tabla de símbolos. 
+  Sus atributos, todos privados son los siguientes:
+  \begin{itemize}
+   \item \_nombre: que representa el nombre del identificador.
+   \item \_tipo: que representa el tipo del identificador. En esta aplicación concreta los tipos serán number y string.
+   \item \_valor: que representa el valor que contiene ese identificador.
+  \end{itemize}
+  En cuanto a los métodos que contiene, son los siguientes:
+  \begin{itemize}
+   \item Variable(): constructor vacío que no realiza ninguna operación.
+   \item Variable(String nombre,String tipo, String valor): constructor parametrizado que recibe el nombre, tipo y 
+   valor de una variable a crear y los guarda en los atributos privados ya comentados.
+   \item setNombre(String nombre): método que permite guardar el nombre que se le pasa como parámetro.
+   \item setValor(String valor): método que permite guardar el valor que se le pasa como parámetro.
+   \item getNombre(): método que devuelve un entero con el nombre de la variable.
+   \item getTipo(): método que devuelve un entero con el tipo de la variable.
+   \item escribirVariable(): método que escribe por pantalla toda la información relativa a una variable, es decir, nombre, 
+   tipo y valor.
+   \item isNumber(): función booleana que devuelve true si la variable es de tipo number y false en caso contrario.
+   \item isString(): función booleana que devuelve true si la variable es de tipo string y false en caso contrario.
+  \end{itemize}
+
+  Una vez definida esta clase, ya se puede entender perfectamente la clase TablaSimbolos.
+  \subsection{Clase TablaSimbolos}
+  Esta clase, realizada por Luis Del Moral, Juan María Palomo y Profesor, y modificada por los autores de este trabajo, 
+  contiene lo necesario para guardar los identificadores, tipos y valores de todas las variables creadas durante la ejecución 
+  del intérprete.
+  El único método que contiene es un ArrayList privado de objetos de la clase Variable ya explicada.
+  Los métodos que implementa son:
+  \begin{itemize}
+   \item TablaSimbolos(): constructor vacío en el que se inicializa el Arraylist.
+   \item insertarSimbolo(Variable nuevoSimbolo): función cuya misión es insertar la variable que recibe
+   como parámetro en la tabla de símbolos.
+   \item getSimbolo(int indice): devuelve la variable que ocupa la posición señalada por indice.
+   \item existeSimbolo(String nombreSimbolo): función que comprueba si existe el símbolo cuyo nombre recibe como 
+   parámetro en la tabla de símbolos. Si existe, devuelve el índice que indica la posición del símbolo, en caso contrario, 
+   devuelve -1.
+   \item eliminarSimbolo(String nombreSimbolo): función que elimina de la tabla de símbolos el identificador cuyo nombre recibe como 
+   parámetro.
+   \item escribirSimbolos(): función que escribe por pantalla los identificadores de la tabla de símbolos.
+  \end{itemize}
+  
+  \section{Elementos auxiliares para la simulación del entorno diseñado}
+
+\chapter{Modo de obtención del intérprete: descripción del fichero makefile}
+
+  \section{Nombre y descripción de cada uno de los ficheros utilizados}
+  
+  \section{Modo de generación de intérprete}
+  
+\chapter{Modo de ejecución del intérprete}
+
+  \section{Interactiva}
+  
+  \section{A partir de un fichero}
+  
+\chapter{Ejemplos}
+  
+  En el presente capítulo van a mostrarse algunos ficheros de ejecución realizados para realizar la fase de pruebas y, 
+  además, mostrar las diferentes posibilidades del intérprete desarrollado. Cada uno de los ejemplos intenta enfatizar 
+  una de las distintas posibilidades del intéprete. En todos ellos hay comentarios tanto de una línea como de varias.
+  Los ejemplos que van a verse son los siguientes:
+  \begin{itemize}
+   \item Ejemplo 1: Juego Básico
+   \item Ejemplo 2: Variables (declaración y uso)
+   \item Ejemplo 3: Uso de los esquemas condicionales
+   \item Ejemplo 4: Juego avanzado
+   \item Ejemplo 5:
+  \end{itemize}
+
+  
+  \section{Ejemplo 1: Juego Básico}
+  
+  En este fichero de ejemplo se muestra cómo crear un tablero de juego, 
+  realizando las siguientes acciones:
+  
+  \begin{itemize}
+   \item Entrada en el modo de configuración
+   \begin{itemize}
+    \item Selección del tamaño del tablero
+    \item Comprobación de que el comando anterior funcionó, llamando a las funciones 
+    encargadas de devolver el valor del número de filas y columnas
+    \item Selección de las casillas de comienzo y de salida
+    \item Selección de las posiciones de 3 hoyos
+    \item Comprobación de las posiciones de los hoyos
+    \item Selección del número de flechas que tendrá Mecca
+    \item Selección de la posición de un tesoro
+    \item Comprobación de la posición del tesoro
+    \item Selección de la posición del Wumpus
+    \item Salida del modo de configuración
+    \end{itemize}
+   \item Entrada en el modo aventura
+      \begin{itemize}
+      \item Realización de movimientos, comprobando que se muestra el 
+      olor del Wumpus
+      \item Llegada de Mecca a la casilla del tesoro
+      \item Llegada de Mecca a la casilla de salida
+      \end{itemize}
+   \end{itemize}
+  
+  Código del ejemplo:
+  \begin{lstlisting}
+    { Test file number 01
+    We will show how to create a MeccaBoard 
+    and play one game}
+
+    ConfigurationMode   #This is the mode to create the board
+    setBoardSize(5,5);  #Size of 5 rows and 5 columns
+    getBoardRows();     #Yeah, it works!
+    getBoardColumns();  #Again!
+    setStart(0,0);      #Down left corner
+    setExit(4,4);	    #Up right corner
+    setHole(1,1);	    
+    setHole(2,2);
+    setHole(0,1);
+    showHoles();
+    setArrows(3);
+    setTreasure(4,3);
+    showTreasures();
+    setWumpus(4,0);
+    endConfigurationMode
+    {
+    This is what the level should look like
+
+	    -	-	-	-	X
+	    -	~	~	~	T
+	    ~	~	H	~	-
+	    H	H	~	~	=
+	    +	~	~	=	W
+
+    }
+    #Let's start the adventure!!!
+    AdventureMode
+    goRight();
+    goRight();
+    goRight();	#It should smell bad right now
+    goUp();		#Let's avoid the Wumpus
+    goRight();
+    goUp();
+    goUp();		#You should have found a treasure here
+    goUp();		#Winner
+    endAdventureMode
+  \end{lstlisting}
+
+  
+  \section{Ejemplo 2: Variables (declaración y uso)}
+  En este ejemplo se muestra cómo se declaran y utilizan las variables. Como puede observarse, éstas pueden ser 
+  definidas y utilizadas fuera de los modos de configuración o aventura. Las acciones realizadas son las siguientes:
+  \begin{itemize}
+   \item Declaración, con asignación de valor, de tres variables numéricas
+   \item Declaración, también con asignación de valor, de cuatro variables de tipo cadena
+   \item Declaración de una cadena de cara a su impresión por pantalla siéndole asignado el resultado de una operación 
+   de suma entre las tres variables de cadena creadas anteriormente
+   \item Utilización del comando de impresión por pantalla para mostrar la cadena que ha sido creada en el paso anterior
+   \item Asignación a la cadena que ha sido imprimida de valores diferentes y realización de nuevas impresiones
+   \item Creación de una nueva variable numérica a la que se le asigna el valor de multiplicar las tres variables numéricas 
+   creadas al comienzo del ejemplo
+   \item Impresión del valor de la variable que se acaba de crear
+  \end{itemize}
+
+  Código del ejemplo:
+  \begin{lstlisting}
+    { Test file number 02
+    We will show how to declare and use variables }
+
+    #Variables can be declared outside the modes
+    number jordan:=23;
+    number magic:=32;
+    number bird:=33;
+    string jor:="Jordan";
+    string mag:="Magic";
+    string bir:="Bird";
+    string player_presentation:=" number is ";
+
+
+    #Now we are going to print them
+    string printout := jor+player_presentation+jordan;
+    read(printout);
+
+    printout := mag+player_presentation+magic;
+    read(printout);
+
+    printout := bir+player_presentation+bird;
+    read(printout);
+
+    #Let's do a mathematical operation
+    number result:=jordan*magic*bird;
+    read(result);
+  \end{lstlisting}
+
+  \section{Ejemplo 3: Uso de los esquemas condicionales}
+  En este ejemplo se crean tres variables numéricas, se utilizan esquemas condicionales comparando los valores de las mismas 
+  y se crean las variables que corresponda dependiendo de estos valores y, posteriormente se muestran por pantalla.
+  Los pasos realizados son los siguientes:
+  \begin{itemize}
+   \item Creación de tres variables numéricas
+   \item Esquema condicional en el que se comparan dos valores numéricos y se asigna un valor a una variable de tipo cadena 
+   dependiendo del resultado de esa comparación
+   \item Impresión de la variable creada
+   \item Utilización de dos esquemas condicionales anidados para la declaración de una segunda variable cadena, cuyo valor 
+   depende del resultado de la declaración
+   \item Impresión de la variable creada
+  \end{itemize}
+  
+  Código del ejemplo:
+  \begin{lstlisting}
+  { Test file number 03
+  We will show how to use conditional schemes }
+
+  #Variables can be declared outside the modes
+  number jordan:=23;
+  number magic:=32;
+  number bird:=33;
+
+  if jordan > magic then
+	  string print:=jordan+" is bigger than "+magic;
+  else
+	  string print:=jordan+" is not bigger than "+magic;
+  end_if;
+
+  read(print);
+
+  if jordan < magic then
+	  if jordan < bird then
+		  string print2:=jordan+" is smaller than "+magic+" and "+bird;
+	  end_if;
+  end_if;
+
+  read(print2);
+
+  #You can also do it like this
+
+  if jordan < magic _and jordan < bird then
+	  string print2:=jordan+" is smaller than "+magic+" and "+bird + " second way ";
+  end_if;
+
+  read(print2);
+
+  \end{lstlisting}
+
+  \section{Ejemplo 4: Juego Avanzado}
+  
+  En este fichero de ejemplo se muestra cómo crear un tablero de juego como el del ejemplo 1 pero haciendo uso 
+  de elementos más avanzados como bucles, esquemas condicionales y variables:
+  
+  \begin{itemize}
+   \item Entrada en el modo de configuración
+   \begin{itemize}
+    \item Creación de las variables de filas y columnas, denominadas rows y cols respectivamente
+    \item Asignación de un valor a la variable de filas
+    \item Asignación a la variable de columnas del valor contenido en la de filas
+    \item Selección del tamaño del tablero usando ambas variables
+    \item Comprobación de que el comando anterior funcionó, llamando a las funciones 
+    encargadas de devolver el valor del número de filas y columnas
+    \item Selección de la posición de la casilla de comienzo, cuyas coordenadas son el resultado de restar las dos variables anteriores
+    \item Selección de la posición de la casilla de finalización, cuyas coordenadas son el resultado de restarle uno a las dos variables
+    \item Utilización de un esquema condicional para insertar posiciones de hoyos
+    \item Comprobación de las posiciones de los hoyos
+    \item Utilización de un esquema de tipo ``mientras'' para la selección del número de flechas que tendrá Mecca
+    \item Selección de la posición de un tesoro
+    \item Comprobación de la posición del tesoro
+    \item Selección de la posición del Wumpus
+    \item Salida del modo de configuración
+    \end{itemize}
+   \item Entrada en el modo aventura
+      \begin{itemize}
+      \item Utilización de un bucle del tipo ``para'' con el objetivo de mover a Mecca tres casillas a la derecha
+      \item Realización de dos movimientos directamente
+      \item Creación de una variable de tipo numérico que nos servirá en el bucle siguiente
+      \item Utilización de un bucle ``repetir hasta'' que moverá a Mecca tres veces hacia arriba que producirá los siguientes eventos:
+      \begin{itemize}
+      \item Llegada de Mecca a la casilla del tesoro
+      \item Llegada de Mecca a la casilla de salida
+      \end{itemize}
+      \item Creación de dos variables de tipo cadena para mostrar un mensaje de despedida
+      \item Impresión en consola de las dos cadenas recién creadas usando \emph{read}
+      \item Utilización de \emph{read} para imprimir por pantalla una cadena directamente insertada por el usuario
+      \end{itemize}
+   \end{itemize}
+  
+  Código del ejemplo:
+  \begin{lstlisting}
+{ Test file number 04
+We will show how to create a MeccaBoard 
+and play one game while we use all kind of loops}
+
+ConfigurationMode   #This is the mode to create the board
+number rows, cols;
+rows:=5;
+cols:=rows;
+setBoardSize(rows,cols);  #Size of 5 rows and 5 columns
+getBoardRows();     #Yeah, it works!
+getBoardColumns();  #Again!
+setStart(cols-rows,rows-cols);      #Down left corner
+setExit(cols-1,rows-1);	    #Up right corner
+if cols == rows then    #Conditional
+setHole(1,1);	    
+setHole(2,2);
+setHole(0,1);
+else
+setHole(1,1);
+end_if;
+showHoles();
+while rows > 2 do    #While Loop
+incArrows(1);
+rows:=rows-1;
+end_while;
+setTreasure(4,3);
+showTreasures();
+setWumpus(4,0);
+endConfigurationMode
+{
+This is what the level should look like
+
+	-	-	-	-	X
+	-	~	~	~	T
+	~	~	H	~	-
+	H	H	~	~	=
+	+	~	~	=	W
+
+}
+#Let's start the adventure!!!
+AdventureMode
+for i from 0 until 3 step 1
+do
+goRight();
+end_for;	#We are using a for loop for moving 3 times
+goUp();		
+goRight();
+number limit:=0;
+repeat         #Repeat-until loop
+goUp();
+limit:=limit+1;
+until limit==3;
+string final:= "/************************/";
+string final2:= "/*****see you soon!******/";
+write(final);
+write(final2);
+write("/************************/");
+endAdventureMode
+  \end{lstlisting}
+
+
+%\appendix
+%\chapter{Nombre del anexo i \label{anexoi}}
+%Descomenta la línea siguiente y sustituye anexoi.tex por el archivo con tu primer anexo
+%\input{anexoi.tex}
+
+%\chapter{Nombre del anexo ii \label{anexoii}}
+%Descomenta la línea siguiente para el segundo anexo, y así sucesivamente
+%\input{anexoii.tex}
+
+%\newpage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Se acabó el documento, ahora quedan  %
+%  unos pequeños detalles               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Añade la bibliografía al índice
+\addcontentsline{toc}{chapter}{Bibliografía}
+
+%Define el estilo de la bibliografía
+\bibliographystyle{unsrt} 
+
+%La siguiente línea hace referencia al archivo de la bibliografía. 
+%Aquí utilizamos el archivo de ejemplo `archivo.bib` 
+%que deberías haber descargado junto con esta plantilla.
+%\bibliography{archivo} 
+%Recuerda que hay que compilar dos veces
+
+\begin{thebibliography}{8}
+\bibitem{Escarabajo} Edgar Allan Poe. El escarabajo de oro. Editorial: Losada. Año 2010. I.S.B.N : 9789500397124.
+\bibitem{Nuez} Stephen W. Hawking. El universo en una cáscara de nuez. Editorial: Círculo de lectores. Año 2005. I.S.B.N : 84-843-2293-9.
+\bibitem{Historia}  Stephen W. Hawking. Brevísima historia del tiempo. Editorial: Círculo de lectores. Año 2005. I.S.B.N : 84-672-1469-4.
+\bibitem{Presentation} Stephen Bartlett. Lecture 5 on Quantum Computing. NITP Summer School, Adelaide, Australia. Año: 2003. Dirección web: \url{http://www.cs.duke.edu/~reif/courses/complectures/AltModelsComp/QuantCrypt/QuantCryptOverview/Bartlett/QuantCryptOverviewBartlett.pdf}. Fecha de última consulta: 13 de Mayo de 2012.
+\bibitem{QKD} Charles H. Bennett, Gilles Bras Sard and Artur K. Ekert. Quantum Cryptography. Editorial: Scientific American. Año: 1992. Dirección web: \url{http://www.dhushara.com/book/quantcos/aq/qcrypt.htm}. Fecha de última consulta: 13 de Mayo de 2012.
+\bibitem{PFC} Jesús Martínez Mateo. PFC: Criptografía cuántica aplicada. Universidad Politécnica de Madrid. Año: 2008. Dirección web: \url{http://oa.upm.es/1298/1/PFC_JESUS_MARTINEZ_MATEO.pdf}.  Fecha de última consulta: 13 de Mayo de 2012.
+\bibitem{Noticia} Nuevo impulso a la criptografía cuántica. Universidad Politécnica de Madrid. Año: 2012. Dirección web: \url{http://www.fi.upm.es/?id=tablon&acciongt=consulta1&idet=1068}. Fecha de última consulta: 13 de Mayo de 2012. 
+\bibitem{PHD} Jesús Martínez Mateo. Tésis Doctoral: Reconciliación Eficiente de Información para la Distribución Cuántica de Claves. Universidad Politécnica de Madrid. Año: 2011. Dirección web: \url{http://oa.upm.es/9717/1/Jesus_Martinez_Mateo.pdf}. Fecha de última consulta: 13 de Mayo de 2012.
+\end{thebibliography}
+
+\end{document} %Adios

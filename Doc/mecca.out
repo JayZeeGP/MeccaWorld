@@ -1,0 +1,39 @@
+\BOOKMARK [0][-]{chapter*.1}{\315ndice de tablas}{}
+\BOOKMARK [0][-]{chapter*.2}{\315ndice de figuras}{}
+\BOOKMARK [0][-]{chapter.1}{Introducci\363n }{}
+\BOOKMARK [1][-]{section.1.1}{Descripci\363n del entorno a simular}{chapter.1}
+\BOOKMARK [1][-]{section.1.2}{Fases del proceso de generaci\363n del int\351prete}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{Definici\363n del lenguaje dise\361ado }{}
+\BOOKMARK [1][-]{section.2.1}{Sentencias o instrucciones para simular el entorno elegido}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Sentencias del lenguaje de programaci\363n de pseudoc\363digo}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.2.1}{Sentencia condicional simple}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.2}{Sentencia condicional compuesta}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.3}{Bucle ``mientras''}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.4}{Bucle ``repetir''}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.5}{Bucle ``para''}{section.2.2}
+\BOOKMARK [0][-]{chapter.3}{Descripci\363n de la gram\341tica asociada al lenguaje definido }{}
+\BOOKMARK [0][-]{chapter.4}{Descripci\363n del int\351rprete ANTLR construido para la gram\341tica }{}
+\BOOKMARK [1][-]{section.4.1}{Analizador l\351xico: componentes l\351xicos}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{Analizador sint\341ctico}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Atributos de la clase Meccasint.g}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{S\355mbolos no terminales}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.3}{Reglas de producci\363n de la gram\341tica}{section.4.2}
+\BOOKMARK [1][-]{section.4.3}{An\341lisis sem\341ntico}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.3.1}{Atributos: heredados y sintetizados}{section.4.3}
+\BOOKMARK [2][-]{subsection.4.3.2}{Funciones auxiliares}{section.4.3}
+\BOOKMARK [1][-]{section.4.4}{Tabla de s\355mbolos}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.4.1}{Clase Variable}{section.4.4}
+\BOOKMARK [2][-]{subsection.4.4.2}{Clase TablaSimbolos}{section.4.4}
+\BOOKMARK [1][-]{section.4.5}{Elementos auxiliares para la simulaci\363n del entorno dise\361ado}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Modo de obtenci\363n del int\351rprete: descripci\363n del fichero makefile}{}
+\BOOKMARK [1][-]{section.5.1}{Nombre y descripci\363n de cada uno de los ficheros utilizados}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{Modo de generaci\363n de int\351rprete}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Modo de ejecuci\363n del int\351rprete}{}
+\BOOKMARK [1][-]{section.6.1}{Interactiva}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{A partir de un fichero}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Ejemplos}{}
+\BOOKMARK [1][-]{section.7.1}{Ejemplo 1: Juego B\341sico}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Ejemplo 2: Variables \(declaraci\363n y uso\)}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{Ejemplo 3: Uso de los esquemas condicionales}{chapter.7}
+\BOOKMARK [1][-]{section.7.4}{Ejemplo 4: Juego Avanzado}{chapter.7}
+\BOOKMARK [0][-]{lstnumber.-12.58}{Bibliograf\355a}{}

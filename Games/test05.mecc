@@ -1,0 +1,87 @@
+{ Test file number 05
+We will show how to create a costumized MeccaBoard using the I/O functions}
+
+ConfigurationMode   #This is the mode to create the board
+number rows, cols;
+write("Insert the number of rows for the board");
+read(rows);
+write("Insert the number of cols for the board");
+read(cols);
+setBoardSize(rows,cols); 
+getBoardRows();   
+getBoardColumns();
+write("Insert the x coordenate for the Start position");
+read(cols);
+write("Insert the y coordenate for the Start position");
+read(rows);
+setStart(cols,rows);
+write("Insert the x coordenate for the Exit position");
+read(cols);
+write("Insert the y coordenate for the Exit position");
+read(rows);
+setExit(cols,rows);
+number nHoles,nArrows;
+write("How many holes do you want to create");   
+read(nHoles);
+for i from 0 until nHoles step 1
+do
+  write("Insert the x coordenate for the hole");
+  read(cols);
+  write("Insert the y coordenate for the hole");
+  read(rows);
+  setHole(cols,rows);
+end_for;
+showHoles();
+write("How many arrows do you want to give to Mecca?");
+while nArrows > 0 do    #While Loop
+incArrows(1);
+arrows:=arrows-1;
+end_while;
+write("How many holes do you want to create");   
+read(nHoles);
+for i from 0 until nHoles step 1
+do
+  write("Insert the x coordenate for the treasure");
+  write(i+1);
+  read(cols);
+  write("Insert the y coordenate for the treasure");
+  write(i+1);
+  read(rows);
+  setTreasure(cols,rows);
+end_for;
+showTreasures();
+write("Insert the x coordenate for the Wumpus");
+read(cols);
+write("Insert the y coordenate for the Wumpus");
+read(rows);
+setTWumpus(cols,rows);
+endConfigurationMode
+{
+This is what the level should look like
+
+	-	-	-	-	X
+	-	~	~	~	T
+	~	~	H	~	-
+	H	H	~	~	=
+	+	~	~	=	W
+
+}
+#Let's start the adventure!!!
+AdventureMode
+for i from 0 until 3 step 1
+do
+goRight();
+end_for;	#We are using a for loop for moving 3 times
+goUp();		
+goRight();
+number limit:=0;
+repeat         #Repeat-until loop
+goUp();
+limit:=limit+1;
+until limit==3;
+string final:= "/************************/";
+string final2:= "/*****see you soon!******/";
+write(final);
+write(final2);
+write("/************************/");
+endAdventureMode
