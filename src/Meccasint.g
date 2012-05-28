@@ -111,7 +111,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
-					Size newSize = new Size(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+					Size newSize = new Size((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 					board.setSize(newSize);
 					System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
 				} else {
@@ -153,7 +153,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
-					Position newTreasure = new Position(Integer.parseInt(param1.getValor()), Integer.parseInt(param2.getValor()));
+					Position newTreasure = new Position((int)Float.parseFloat(param1.getValor()), (int)Float.parseFloat(param2.getValor()));
 					int position = board.setTreasurePos(newTreasure);
 					
 					if(position != -1) {
@@ -173,7 +173,7 @@ instruction
 		{						
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
-					if(board.removeTreasure(Integer.parseInt(param1.getValor()))) {
+					if(board.removeTreasure((int)Float.parseFloat(param1.getValor()))) {
 						System.out.println("Treasure " + param1 + " has been removed");
 					} else {
 						System.out.println("Treasure " + param1 + " does not exist");
@@ -205,8 +205,10 @@ instruction
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {					
 					//Check if that treasure exists
-					if(board.getTotalTreasures() >= Integer.parseInt(param1.getValor()) && Integer.parseInt(param1.getValor()) > 0) {
-						System.out.println("Treasure "+ Integer.parseInt(param1.getValor()) +" set on column "+board.getTreasurePos(Integer.parseInt(param1.getValor())-1).getX()+" row "+board.getTreasurePos(Integer.parseInt(param1.getValor())-1).getY());
+					if(board.getTotalTreasures() >= (int)Float.parseFloat(param1.getValor()) && (int)Float.parseFloat(param1.getValor()) > 0) {
+						System.out.println("Treasure "+ (int)Float.parseFloat(param1.getValor()) +
+								" set on column "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getX()+
+								" row "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getY());
 					} else {
 						System.out.println("There is no treasure with that number");
 					}
@@ -222,7 +224,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
-					Position newHole = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+					Position newHole = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 					int position = board.setHolePos(newHole);
 					
 					if(position != -1) {
@@ -242,7 +244,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
-					if(board.removeHole(Integer.parseInt(param1.getValor()))) {
+					if(board.removeHole((int)Float.parseFloat(param1.getValor()))) {
 						System.out.println("Hole " + param1 + " has been removed");
 					} else {
 						System.out.println("Hole " + param1 + " does not exist");
@@ -269,8 +271,8 @@ instruction
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
 					//Check if that hole exists
-					if(board.getNumberOfHoles() >= Integer.parseInt(param1.getValor()) && Integer.parseInt(param1.getValor()) > 0) {
-						System.out.println("Hole "+(param1)+" set on column "+board.getHolePos(Integer.parseInt(param1.getValor())-1).getX()+" row "+board.getHolePos(Integer.parseInt(param1.getValor())-1).getY());
+					if(board.getNumberOfHoles() >= (int)Float.parseFloat(param1.getValor()) && (int)Float.parseFloat(param1.getValor()) > 0) {
+						System.out.println("Hole "+(param1)+" set on column "+board.getHolePos((int)Float.parseFloat(param1.getValor())-1).getX()+" row "+board.getHolePos((int)Float.parseFloat(param1.getValor())-1).getY());
 					} else {
 						System.out.println("There is no hole with that number");
 					}
@@ -295,7 +297,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
-					Position newWumpus = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+					Position newWumpus = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 					
 					if(board.setWumpusPos(newWumpus)) {
 						System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
@@ -321,7 +323,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
-					Position newStart = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+					Position newStart = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 					
 					if(board.setStartPos(newStart)) {
 						System.out.println("Start set on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
@@ -349,7 +351,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
-					Position newExit = new Position(Integer.parseInt(param1.getValor()),Integer.parseInt(param2.getValor()));
+					Position newExit = new Position((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
 					
 					if(board.setExitPos(newExit)) {
 						System.out.println("Exit set on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
@@ -387,7 +389,7 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
-					board.setMeccaNArrows(Integer.parseInt(param1.getValor()));
+					board.setMeccaNArrows((int)Float.parseFloat(param1.getValor()));
 					System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows");
 				} else {
 					System.out.println("Parameter must be number");	
@@ -410,9 +412,9 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
-					if(Integer.parseInt(param1.getValor()) >= 0) {
-						board.incMeccaNArrows(Integer.parseInt(param1.getValor()));
-						System.out.println("Arrows incremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+					if((int)Float.parseFloat(param1.getValor()) >= 0) {
+						board.incMeccaNArrows((int)Float.parseFloat(param1.getValor()));
+						System.out.println("Arrows incremented in "+param1.getValor()+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
 					} else {
 						System.out.println("You have to enter an integer bigger than 0");
 					}
@@ -428,9 +430,9 @@ instruction
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {						
-					if(Integer.parseInt(param1.getValor()) >= 0) {
-						board.decMeccaNArrows(Integer.parseInt(param1.getValor()));
-						System.out.println("Arrows decremented in "+param1+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
+					if((int)Float.parseFloat(param1.getValor()) >= 0) {
+						board.decMeccaNArrows((int)Float.parseFloat(param1.getValor()));
+						System.out.println("Arrows decremented in "+param1.getValor()+", Mecca has now "+board.getMeccaNArrows()+" arrows");	
 					} else {
 						System.out.println("The number of arrows has to be positive");
 					}
@@ -584,7 +586,7 @@ asignation
 				String nombre = i.getText();
 	
 				// El número se convierte en cadena
-				String valorCadena = e.getValor();
+				String valorCadena = e.getValor().toString();
 	
 				// Se inserta en la tabla de Símbolos
 				if(!insertarIdentificador(nombre,"number",valorCadena)) {
@@ -625,14 +627,14 @@ asignation
 				
 				if(simbolo.getTipo().equals("number")) {
 					try {
-						Float value = Float.parseFloat(e.getValor());
+						Float value = Float.parseFloat(e.getValor().toString());
 						simbolo.setValor(String.valueOf(value));
 						
 					} catch(NumberFormatException err) {
 						System.err.println("Error: la variable \"" + nombre + "\" es de tipo \"number\"");
 					}
 				} else {
-					simbolo.setValor(e.getValor());
+					simbolo.setValor(e.getValor().toString());
 				}
 			} else {
 				System.err.println("Error: la variable \"" + nombre + "\" no ha sido declarada");
@@ -659,6 +661,7 @@ expression
 			(
 			OP_MAS e2 = addend
 				{
+					
 					if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
 				 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) + Float.parseFloat(e2.getValor())));
 					} else if(e2.getTipo().equals("string") && result.getTipo().equals("string") ||
@@ -671,7 +674,7 @@ expression
 			 // Resta
 			| (
 			OP_MENOS e2 = addend
-				{
+				{	
 					if(e2.getTipo().equals("number") && result.getTipo().equals("number")) {
 				 		result = new Variable("", "number", String.valueOf(Float.parseFloat(result.getValor()) - Float.parseFloat(e2.getValor())));
 					}
@@ -1109,7 +1112,7 @@ parametros_number
 		String param1 = null;
 	}
 	:
-		param1=valorparametro (parametros_prima_string)*
+		param1=valorparametro (parametros_prima_number)*
 		{
 			// Se inserta en la tabla de Símbolos
 			insertarIdentificador(param1,"number","0");	

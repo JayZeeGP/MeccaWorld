@@ -1,0 +1,58 @@
+{ Test file number 04
+We will show how to create a MeccaBoard 
+and play one game while we use all kind of loops}
+
+ConfigurationMode   #This is the mode to create the board
+number rows, cols;
+rows:=5;
+cols:=rows;
+setBoardSize(rows,cols);  #Size of 5 rows and 5 columns
+getBoardRows();     #Yeah, it works!
+getBoardColumns();  #Again!
+setStart(cols-rows,rows-cols);      #Down left corner
+setExit(cols-1,rows-1);	    #Up right corner
+if cols == rows then    #Conditional
+setHole(1,1);	    
+setHole(2,2);
+setHole(0,1);
+else
+setHole(1,1);
+end_if;
+showHoles();
+while rows > 2 do    #While Loop
+incArrows(1);
+rows:=rows-1;
+end_while;
+setTreasure(4,3);
+showTreasures();
+setWumpus(4,0);
+endConfigurationMode
+{
+This is what the level should look like
+
+	-	-	-	-	X
+	-	~	~	~	T
+	~	~	H	~	-
+	H	H	~	~	=
+	+	~	~	=	W
+
+}
+#Let's start the adventure!!!
+AdventureMode
+for i from 0 until 3 step 1
+do
+goRight();
+end_for;	#We are using a for loop for moving 3 times
+goUp();		
+goRight();
+number limit:=0;
+repeat         #Repeat-until loop
+goUp();
+limit:=limit+1;
+until limit==3;
+string final:= "/************************/";
+string final2:= "/*****see you soon!******/";
+read(final);
+read(final2);
+read("/************************/");
+endAdventureMode
