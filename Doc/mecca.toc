@@ -1,0 +1,49 @@
+\select@language {spanish}
+\contentsline {chapter}{\IeC {\'I}ndice de tablas}{\es@roman {3}}{chapter*.1}
+\contentsline {chapter}{\IeC {\'I}ndice de figuras}{\es@roman {5}}{chapter*.2}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n }{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Descripci\IeC {\'o}n del entorno a simular}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Fases del proceso de generaci\IeC {\'o}n del int\IeC {\'e}prete}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Definici\IeC {\'o}n del lenguaje dise\IeC {\~n}ado }{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Sentencias o instrucciones para simular el entorno elegido}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Sentencias del lenguaje de programaci\IeC {\'o}n de pseudoc\IeC {\'o}digo}{5}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Sentencia condicional simple}{5}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Sentencia condicional compuesta}{5}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Bucle ``mientras''}{6}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Bucle ``repetir''}{6}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Bucle ``para''}{6}{subsection.2.2.5}
+\contentsline {chapter}{\numberline {3}Descripci\IeC {\'o}n de la gram\IeC {\'a}tica asociada al lenguaje definido }{7}{chapter.3}
+\contentsline {chapter}{\numberline {4}Descripci\IeC {\'o}n del int\IeC {\'e}rprete ANTLR construido para la gram\IeC {\'a}tica }{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}Analizador l\IeC {\'e}xico: componentes l\IeC {\'e}xicos}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Analizador sint\IeC {\'a}ctico}{11}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Atributos de la clase Meccasint.g}{11}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}S\IeC {\'\i }mbolos no terminales}{12}{subsection.4.2.2}
+\contentsline {subsubsection}{S\IeC {\'\i }mbolo mecca}{12}{section*.4}
+\contentsline {subsubsection}{S\IeC {\'\i }mbolo configuration}{12}{section*.5}
+\contentsline {subsubsection}{S\IeC {\'\i }mbolo adventure}{13}{section*.6}
+\contentsline {subsubsection}{S\IeC {\'\i }mbolo instruction}{13}{section*.7}
+\contentsline {subsection}{\numberline {4.2.3}Reglas de producci\IeC {\'o}n de la gram\IeC {\'a}tica}{13}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}An\IeC {\'a}lisis sem\IeC {\'a}ntico}{13}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Atributos: heredados y sintetizados}{13}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Funciones auxiliares}{13}{subsection.4.3.2}
+\contentsline {subsubsection}{Clase Board}{13}{section*.8}
+\contentsline {subsubsection}{Clase Position}{13}{section*.9}
+\contentsline {subsubsection}{Clase Size}{14}{section*.10}
+\contentsline {subsubsection}{Clase Mecca}{15}{section*.11}
+\contentsline {subsubsection}{Clase Board}{16}{section*.12}
+\contentsline {section}{\numberline {4.4}Tabla de s\IeC {\'\i }mbolos}{22}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Clase Variable}{23}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Clase TablaSimbolos}{24}{subsection.4.4.2}
+\contentsline {section}{\numberline {4.5}Elementos auxiliares para la simulaci\IeC {\'o}n del entorno dise\IeC {\~n}ado}{24}{section.4.5}
+\contentsline {chapter}{\numberline {5}Modo de obtenci\IeC {\'o}n del int\IeC {\'e}rprete: descripci\IeC {\'o}n del fichero makefile}{25}{chapter.5}
+\contentsline {section}{\numberline {5.1}Nombre y descripci\IeC {\'o}n de cada uno de los ficheros utilizados}{25}{section.5.1}
+\contentsline {section}{\numberline {5.2}Modo de generaci\IeC {\'o}n de int\IeC {\'e}rprete}{25}{section.5.2}
+\contentsline {chapter}{\numberline {6}Modo de ejecuci\IeC {\'o}n del int\IeC {\'e}rprete}{27}{chapter.6}
+\contentsline {section}{\numberline {6.1}Interactiva}{27}{section.6.1}
+\contentsline {section}{\numberline {6.2}A partir de un fichero}{27}{section.6.2}
+\contentsline {chapter}{\numberline {7}Ejemplos}{29}{chapter.7}
+\contentsline {section}{\numberline {7.1}Ejemplo 1: Juego B\IeC {\'a}sico}{29}{section.7.1}
+\contentsline {section}{\numberline {7.2}Ejemplo 2: Variables (declaraci\IeC {\'o}n y uso)}{31}{section.7.2}
+\contentsline {section}{\numberline {7.3}Ejemplo 3: Uso de los esquemas condicionales}{33}{section.7.3}
+\contentsline {section}{\numberline {7.4}Ejemplo 4: Juego Avanzado}{34}{section.7.4}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{37}{lstnumber.-12.58}
