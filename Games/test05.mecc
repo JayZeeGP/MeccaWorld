@@ -70,20 +70,4 @@ This is what the level should look like
 }
 #Let's start the adventure!!!
 AdventureMode
-for i from 0 until 3 step 1
-do
-goRight();
-end_for;	#We are using a for loop for moving 3 times
-goUp();		
-goRight();
-number limit:=0;
-repeat         #Repeat-until loop
-goUp();
-limit:=limit+1;
-until limit==3;
-string final:= "/************************/";
-string final2:= "/*****see you soon!******/";
-write(final);
-write(final2);
-write("/************************/");
-endAdventureMode
+write("Now its your time to play (remember to write endconfigurationMode when you finish)");
