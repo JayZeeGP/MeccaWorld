@@ -10,49 +10,45 @@
 */
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
-
-import antlr.collections.AST;
-
-import antlr.ANTLRException;
-import antlr.Token;
 
 
 public class Test {
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 
-	/*
-           Se crea un buffer que va a almacenar la información proporcionada 
-           desde el dipositivo de entrada estándar.
-	   Por defecto: teclado
-        */
-	BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-
-	// Se crean los componentes léxicos a partir de la información contenida en el buffer
-	Meccalex lexer = new Meccalex(input);
-
-	// Se crea el analizador sintáctico a partir de los componentes léxicos
-	Meccasint parser = new Meccasint(lexer);
-
-	String cadena = "0.0";
-	/*Token tok = lexer.nextToken();
-	
-	while(tok.getType() != Token.EOF_TYPE)
-	{ 
-		System.out.println(
-				    "\n Lexema: " + tok.getText()  
-				  + "\n Tipo de token:" + tok.getType() 
-				  + "\n Línea: " + tok.getLine()   
-				  + "   Columna: " + tok.getColumn()  
-				  );
-
-		System.out.println(tok);
-
-		tok = lexer.nextToken();
-	}*/
-	
-	// Comienza la ejecución de la función asociada al símbolo inicial: prog
-	parser.mecca();
+		try {
+			if(args.length > 0) {
+				FileInputStream file = new FileInputStream(args[0]);
+				
+				// Se crean los componentes léxicos a partir de la información contenida en el buffer
+				Meccalex lexer = new Meccalex(file);
+			
+				// Se crea el analizador sintáctico a partir de los componentes léxicos
+				Meccasint parser = new Meccasint(lexer);
+				
+				// Comienza la ejecución de la función asociada al símbolo inicial: prog
+				parser.mecca();
+			} else {
+				/*
+			       Se crea un buffer que va a almacenar la información proporcionada 
+			       desde el dipositivo de entrada estándar.
+				   Por defecto: teclado
+			        */
+				BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+				
+				// Se crean los componentes léxicos a partir de la información contenida en el buffer
+				Meccalex lexer = new Meccalex(input);
+			
+				// Se crea el analizador sintáctico a partir de los componentes léxicos
+				Meccasint parser = new Meccasint(lexer);
+				
+				// Comienza la ejecución de la función asociada al símbolo inicial: prog
+				parser.mecca();
+			}
+		} catch(FileNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }
