@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +23,7 @@ public class Board {
 	public static final String START = "Start";
 	public static final String EXIT = "Exit";
 	public static final String EMPTY = "Empty"; // No Wumpus, no hole, no treasure, no start, no exit
-	
+
 	/*
 	 * Matriz de ArrayLists de cadenas que contiene, para cada casilla, una lista de cadenas con los 
 	 * elementos que existen en ella.	
@@ -1070,6 +1073,20 @@ public class Board {
 		}
 		
 		System.out.println(returnString);
+	}
+	
+	public String read() {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String read = new String();
+		
+		try {
+			read = reader.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return read;
 	}
 
 }

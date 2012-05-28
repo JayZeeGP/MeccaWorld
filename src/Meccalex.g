@@ -35,6 +35,7 @@ tokens
     
     //Funciones
     FUNC_LEER = "read";
+    FUNC_ESCRIBIR = "write";
     FUNC_SHOWBOARD = "showBoard";
     FUNC_SHOWADVENTURESTATE = "showAdventureState";
     FUNC_SETBOARDSIZE = "setBoardSize";

@@ -97,39 +97,39 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			_loop85:
+			_loop227:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop85;
+					break _loop227;
 				}
 				
 			} while (true);
 			}
 			configuration();
 			{
-			_loop87:
+			_loop229:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop87;
+					break _loop229;
 				}
 				
 			} while (true);
 			}
 			adventure();
 			{
-			_loop89:
+			_loop231:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop89;
+					break _loop231;
 				}
 				
 			} while (true);
@@ -162,10 +162,32 @@ public Meccasint(ParserSharedInputState state) {
 							//It searches the identifier in the symbols table
 							int index = symbolsTable.existeSimbolo(i2.getText());
 									
-							if( index >= 0) {
-								String stringValue = symbolsTable.getSimbolo(index).getValor();
-								System.out.println(stringValue);
-							}					
+							if(index >= 0) {
+								Variable variable = symbolsTable.getSimbolo(index);
+								
+								String read = board.read();
+								
+								if(variable.getTipo().equals("number")) {
+									float valor = Float.parseFloat(read);
+									variable.setValor(String.valueOf(valor));
+								} else {
+									variable.setValor(read);
+								}
+							} else {
+								System.out.println("Variable " + i2.getText() + " is not declared");	
+							}
+						
+				break;
+			}
+			case FUNC_ESCRIBIR:
+			{
+				match(FUNC_ESCRIBIR);
+				match(PARENT_IZ);
+				param1=expression();
+				match(PARENT_DE);
+				match(PUNTO_COMA);
+				
+							System.out.println(param1.getValor());
 						
 				break;
 			}
@@ -928,13 +950,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			_loop92:
+			_loop234:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop92;
+					break _loop234;
 				}
 				
 			} while (true);
@@ -954,13 +976,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			_loop95:
+			_loop237:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop95;
+					break _loop237;
 				}
 				
 			} while (true);
@@ -990,7 +1012,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=addend();
 				result = e1;
 				{
-				_loop104:
+				_loop246:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1026,7 +1048,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop104;
+						break _loop246;
 					}
 					}
 				} while (true);
@@ -1038,7 +1060,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=negative();
 				result = e1;
 				{
-				_loop108:
+				_loop250:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1069,7 +1091,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop108;
+						break _loop250;
 					}
 					}
 				} while (true);
@@ -1234,17 +1256,17 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==true)) {
 				{
-				int _cnt119=0;
-				_loop119:
+				int _cnt261=0;
+				_loop261:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt119>=1 ) { break _loop119; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt261>=1 ) { break _loop261; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt119++;
+					_cnt261++;
 				} while (true);
 				}
 				{
@@ -1253,19 +1275,19 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt122=0;
-					_loop122:
+					int _cnt264=0;
+					_loop264:
 					do {
 						// nongreedy exit test
-						if ( _cnt122>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop122;
+						if ( _cnt264>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop264;
 						if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 							matchNot(EOF);
 						}
 						else {
-							if ( _cnt122>=1 ) { break _loop122; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt264>=1 ) { break _loop264; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt122++;
+						_cnt264++;
 					} while (true);
 					}
 					break;
@@ -1285,19 +1307,19 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==false)) {
 				{
-				int _cnt124=0;
-				_loop124:
+				int _cnt266=0;
+				_loop266:
 				do {
 					// nongreedy exit test
-					if ( _cnt124>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop124;
+					if ( _cnt266>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop266;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						if ( _cnt124>=1 ) { break _loop124; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt266>=1 ) { break _loop266; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt124++;
+					_cnt266++;
 				} while (true);
 				}
 				{
@@ -1306,17 +1328,17 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt127=0;
-					_loop127:
+					int _cnt269=0;
+					_loop269:
 					do {
 						if ((_tokenSet_0.member(LA(1)))) {
 							instruction();
 						}
 						else {
-							if ( _cnt127>=1 ) { break _loop127; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt269>=1 ) { break _loop269; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt127++;
+						_cnt269++;
 					} while (true);
 					}
 					break;
@@ -1361,15 +1383,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				_loop139:
+				_loop281:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop139;
+					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop281;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop139;
+						break _loop281;
 					}
 					
 				} while (true);
@@ -1379,17 +1401,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				int _cnt141=0;
-				_loop141:
+				int _cnt283=0;
+				_loop283:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt141>=1 ) { break _loop141; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt283>=1 ) { break _loop283; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt141++;
+					_cnt283++;
 				} while (true);
 				}
 				match(RES_FIN_MIENTRAS);
@@ -1423,15 +1445,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				_loop145:
+				_loop287:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop145;
+					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop287;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop145;
+						break _loop287;
 					}
 					
 				} while (true);
@@ -1442,17 +1464,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				int _cnt147=0;
-				_loop147:
+				int _cnt289=0;
+				_loop289:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt147>=1 ) { break _loop147; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt289>=1 ) { break _loop289; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt147++;
+					_cnt289++;
 				} while (true);
 				}
 				match(RES_HASTA);
@@ -1525,15 +1547,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) >= Float.parseFloat(endValue.getValor()))) {
 				{
-				_loop151:
+				_loop293:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop151;
+					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop293;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop151;
+						break _loop293;
 					}
 					
 				} while (true);
@@ -1543,17 +1565,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) < Float.parseFloat(endValue.getValor()))) {
 				{
-				int _cnt153=0;
-				_loop153:
+				int _cnt295=0;
+				_loop295:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt153>=1 ) { break _loop153; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt295>=1 ) { break _loop295; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt153++;
+					_cnt295++;
 				} while (true);
 				}
 				symbolsTable.getSimbolo(index).setValor(String.valueOf(Float.parseFloat(symbolsTable.getSimbolo(index).getValor())+Float.parseFloat(inc.getValor())));
@@ -1585,13 +1607,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop159:
+			_loop301:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima_number();
 				}
 				else {
-					break _loop159;
+					break _loop301;
 				}
 				
 			} while (true);
@@ -1616,13 +1638,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop156:
+			_loop298:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima_string();
 				}
 				else {
-					break _loop156;
+					break _loop298;
 				}
 				
 			} while (true);
@@ -1649,7 +1671,7 @@ public Meccasint(ParserSharedInputState state) {
 			e1=factor();
 			result = e1;
 			{
-			_loop113:
+			_loop255:
 			do {
 				switch ( LA(1)) {
 				case OP_PRODUCTO:
@@ -1680,7 +1702,7 @@ public Meccasint(ParserSharedInputState state) {
 				}
 				default:
 				{
-					break _loop113;
+					break _loop255;
 				}
 				}
 			} while (true);
@@ -1833,7 +1855,7 @@ public Meccasint(ParserSharedInputState state) {
 						result = e1;
 				
 			{
-			_loop133:
+			_loop275:
 			do {
 				switch ( LA(1)) {
 				case OP_Y:
@@ -1908,7 +1930,7 @@ public Meccasint(ParserSharedInputState state) {
 				}
 				default:
 				{
-					break _loop133;
+					break _loop275;
 				}
 				}
 			} while (true);
@@ -2148,6 +2170,7 @@ public Meccasint(ParserSharedInputState state) {
 		"IDENT",
 		"PARENT_DE",
 		"PUNTO_COMA",
+		"FUNC_ESCRIBIR",
 		"FUNC_SHOWBOARD",
 		"FUNC_SHOWADVENTURESTATE",
 		"FUNC_SETBOARDSIZE",
@@ -2221,7 +2244,7 @@ public Meccasint(ParserSharedInputState state) {
 	};
 	
 	private static final long[] mk_tokenSet_0() {
-		long[] data = { 2312598408654677248L, 41984L, 0L, 0L};
+		long[] data = { 4625196817309361408L, 83968L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
@@ -2231,27 +2254,27 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
 	private static final long[] mk_tokenSet_2() {
-		long[] data = { -6910773628200098318L, 324609L, 0L, 0L};
+		long[] data = { 4625196817309361650L, 649219L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 2312598408654677312L, 41984L, 0L, 0L};
+		long[] data = { 4625196817309361472L, 83968L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 2312598408654677250L, 41984L, 0L, 0L};
+		long[] data = { 4625196817309361410L, 83968L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 2312598408654681344L, 41984L, 0L, 0L};
+		long[] data = { 4625196817309365504L, 83968L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
 	private static final long[] mk_tokenSet_6() {
-		long[] data = { 1026820715040474112L, 0L};
+		long[] data = { 2053641430080947200L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
@@ -2261,17 +2284,17 @@ public Meccasint(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
 	private static final long[] mk_tokenSet_8() {
-		long[] data = { 5791629120798529536L, 150524L, 0L, 0L};
+		long[] data = { -6863485832112498688L, 301048L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());
 	private static final long[] mk_tokenSet_9() {
-		long[] data = { 4611686018427387904L, 0L};
+		long[] data = { -9223372036854775808L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_9 = new BitSet(mk_tokenSet_9());
 	private static final long[] mk_tokenSet_10() {
-		long[] data = { 69632L, 0L};
+		long[] data = { 135168L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_10 = new BitSet(mk_tokenSet_10());

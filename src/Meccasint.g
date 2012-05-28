@@ -83,10 +83,25 @@ instruction
 			//It searches the identifier in the symbols table
 			int index = symbolsTable.existeSimbolo(i2.getText());
 					
-			if( index >= 0) {
-				String stringValue = symbolsTable.getSimbolo(index).getValor();
-				System.out.println(stringValue);
-			}					
+			if(index >= 0) {
+				Variable variable = symbolsTable.getSimbolo(index);
+				
+				String read = board.read();
+				
+				if(variable.getTipo().equals("number")) {
+					float valor = Float.parseFloat(read);
+					variable.setValor(String.valueOf(valor));
+				} else {
+					variable.setValor(read);
+				}
+			} else {
+				System.out.println("Variable " + i2.getText() + " is not declared");	
+			}
+		}
+		
+		| FUNC_ESCRIBIR PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
+		{
+			System.out.println(param1.getValor());
 		}
 				
 		| FUNC_SHOWBOARD PARENT_IZ PARENT_DE PUNTO_COMA 
