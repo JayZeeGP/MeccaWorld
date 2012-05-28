@@ -107,7 +107,7 @@ instruction
 		| FUNC_SHOWBOARD PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
-				System.out.println(board.toString());
+				System.out.println(board.showBoard());
 			} else {
 				System.out.println("This instruction has to be called in Configuration Mode");
 			}
@@ -529,6 +529,7 @@ instruction
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
 					board.meccaGoLeft();
+					board.showAdventureState();
 				} else {
 					System.out.println("The game has finished!");	
 				}
@@ -542,6 +543,7 @@ instruction
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
 					board.meccaGoRight();
+					board.showAdventureState();
 				} else {
 					System.out.println("The game has finished!");	
 				}
@@ -555,6 +557,7 @@ instruction
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
 					board.meccaGoUp();
+					board.showAdventureState();
 				} else {
 					System.out.println("The game has finished!");	
 				}
@@ -568,6 +571,7 @@ instruction
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
 					board.meccaGoDown();
+					board.showAdventureState();
 				} else {
 					System.out.println("The game has finished!");	
 				}

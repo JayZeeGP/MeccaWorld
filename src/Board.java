@@ -848,10 +848,8 @@ public class Board {
 	
 	/*
 	 * Función que devuelve una cadena que contiene toda la información relativa al tablero.
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
 	 */
-	public String toString(){
+	public String showBoard(){
 		String returnString = new String();
 		
 		if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
