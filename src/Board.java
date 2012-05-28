@@ -1,7 +1,17 @@
 import java.util.ArrayList;
 
+/**
+ * Clase que representa al tablero del juego. Permite guardar y modificar información sobre 
+ * qué hay en cada casilla y mover a Mecca por todo el tablero. Gestiona todas las acciones que 
+ * pueden ocurrir, además de los distintos resultados que puede tener la partida.
+ * @author Rubén Salado y José Carlos Garrido
+ */
 
 public class Board {
+	/*
+	 * Variables estáticas que contienen los distintos valores que puede albergar una casilla
+	 * para representar lo que en ella hay dentro del juego.
+	 */
 	public static final String WUMPUS = "Wumpus";
 	public static final String TREASURE = "Treasure";
 	public static final String HOLE = "Hole";
@@ -11,26 +21,69 @@ public class Board {
 	public static final String EXIT = "Exit";
 	public static final String EMPTY = "Empty"; // No Wumpus, no hole, no treasure, no start, no exit
 	
-	//private ArrayList <Character> [][] boardMatrix;	
+	/*
+	 * Matriz de ArrayLists de cadenas que contiene, para cada casilla, una lista de cadenas con los 
+	 * elementos que existen en ella.	
+	 */
 	private ArrayList<String> [][] boardMatrix;
+	/*
+	 * Matriz booleana, del mismo tamaño que el tablero, que controla qué casillas han sido visitadas 
+	 * y cuáles no. Es utilizada para mostrar por pantalla sólo la información de las casillas ya 
+	 * visitadas y que el resto del tablero sea un misterio.
+	 */
 	private boolean[][] boardMatrixVisited;
+	/*
+	 * Atributo de tipo Size que guarda el tamaño del tablero.
+	 */
 	private Size boardSize;
 	
+	/*
+	 * Atributo de tipo Mecca que guarda toda la información del aventurero.
+	 */
 	public Mecca mecca = new Mecca();
 	
+	/*
+	 * Atributo de tipo Position que guarda información sobre la posición del Wumpus.
+	 */
 	private Position wumpusPos;
+	
+	/*
+	 * Atributo de tipo Position que guarda información sobre la posición de la casilla de comienzo.
+	 */
 	private Position startPos;
+	
+	/*
+	 * Atributo de tipo Position que guarda información sobre la posición de la casilla de salida.
+	 */
 	private Position exitPos;
 	
+	/*
+	 * ArrayList de posiciones que contiene la posición de los tesoros existentes en el tablero.
+	 */
 	private ArrayList <Position> treasuresPos;
+	
+	/*
+	 * ArrayList de posiciones que contiene la posición de los hoyos existentes en el tablero.
+	 */
 	private ArrayList <Position> holesPos;
 	
+	/*
+	 * Atributo booleano que será true si el Wumpus está vivo y false en caso contrario.
+	 */
 	private boolean isWumpusAlive;
+	/*
+	 * Atributo booleano que será true si el juego ha terminado ya y falso en caso contrario.
+	 */
 	private boolean endOfGame;
 	
+	/*
+	 * Constructor vacío de la clase Board. Por defecto todos los tamaños y posiciones son 
+	 * inicializados con sus respectivos constructores vacíos.
+	 */
 	public Board(){
 		boardSize = new Size(); //(0,0) by default
 		this.restartBoard(); 
+		endOfGame = false;
 		
 		wumpusPos = new Position();  //(-1,-1) by default
 		startPos = new Position();
@@ -44,7 +97,7 @@ public class Board {
 	}
 	
 	/*
-	 * Initializes an empty board
+	 * Inicializa el tablero vacío
 	 */
 	@SuppressWarnings("unchecked")
 	public void restartBoard(){
@@ -134,28 +187,50 @@ public class Board {
 		return remove;
 	}
 	
+	/*
+	 * Función privada que devuelve verdadero si la posición que se le pasa como parámetro 
+	 * ya ha sido visitada por Mecca y falso en caso contrario.
+	 */
 	private boolean readFromBoardVisited(Position pos) {
 		return boardMatrixVisited[pos.getX()][pos.getY()];
 	}
 	
+	/*
+	 * Función privada que escribe (en la matriz de casillas visitadas) en la posición 
+	 * que se le pasa como primer parámetro el booleano que se le pasa como segundo parámetro.
+	 */
 	private void writeOnBoardVisited(Position pos, boolean element) {
 		boardMatrixVisited[pos.getX()][pos.getY()] = element;
 	}
 	
-	public Size getSize(){
+	/*
+	 * Función que devuelve el tamaño del tablero en una variable de tipo Size.
+	 */
+	public Size getSize() {
 		return boardSize;
 	}
 	
-	public void setSize(Size newSize){
+	/*
+	 * Función que recibe como parámetro una variable de tipo Size y hace que este sea el nuevo tamaño 
+	 * del tablero, además de reiniciarlo.
+	 */
+	public void setSize(Size newSize) {
 		getSize().setWidth(newSize.getWidth());
 		getSize().setHeight(newSize.getHeight());
 		this.restartBoard();
 	}
 	
+	/*
+	 * Función que devuelve una variable de tipo Position con la posición del Wumpus.
+	 */
 	public Position getWumpusPos(){
 		return wumpusPos;
 	}
 	
+	/*
+	 * Función que coloca el Wumpus en la posición que recibe como parámetro. Devolverá true si 
+	 * todo funciona y falso en caso contrario.
+	 */
 	public boolean setWumpusPos(Position newPos){
 		boolean success = false;
 		
@@ -199,6 +274,9 @@ public class Board {
 		return success;
 	}
 	
+	/*
+	 * Función que borra al Wumpus del tablero, eliminado también su olor.
+	 */
 	private boolean removeWumpus() {
 		boolean success = false;
 		
@@ -230,10 +308,18 @@ public class Board {
 		return success;
 	}
 	
+	/*
+	 * Función que devuelve una variable de tipo Position que contiene la posición de la 
+	 * casilla de comienzo.
+	 */
 	public Position getStartPos(){
 		return startPos;
 	}
 	
+	/*
+	 * Función que coloca, si es posible, la casilla de comienzo en la posición que se le pasa como 
+	 * parámetro. Devolverá true si todo va bien y false en caso contrario.
+	 */
 	public boolean setStartPos(Position newPos){
 		boolean success = false;
 		
@@ -261,10 +347,18 @@ public class Board {
 		return success;
 	}
 	
+	/*
+	 * Función que devuelve una variable de tipo Position que contiene la posición de la 
+	 * casilla de salida.
+	 */	 
 	public Position getExitPos(){
 		return exitPos;
 	}
 	
+	/*
+	 * Función que coloca, si es posible, la casilla de salida en la posición que se le pasa como 
+	 * parámetro. Devolverá true si todo va bien y false en caso contrario.
+	 */
 	public boolean setExitPos(Position newPos) {
 		boolean success = false;
 		
@@ -288,7 +382,11 @@ public class Board {
 		return success;
 	}
 	
-	//It may be good to change this name
+	/*
+	 * Función que permite añadir tesoros a la lista de tesoros en la posición que 
+	 * se le pase como parámetro. Devuelve un entero que contiene la posición en la que se 
+	 * encuentra el tesoro en el vector.
+	 */
 	public int setTreasurePos(Position newPos) {
 		int nTreasure = -1;
 	
@@ -308,15 +406,30 @@ public class Board {
 		return nTreasure;
 	}
 	
-	public Position getTreasurePos(int treasureNo){
-		return getTreasuresPos().get(treasureNo);
+	/*
+	 * Función que devuelve la posición en el trablero del tesoro que se encuentra en la 
+	 * posición de la lista que indica el entero que recibe como parámetro. 
+	 */
+	public Position getTreasurePos(int treasureNo) {
+		Position returnedValue = null;
+		
+		if(treasureNo<getTreasuresPos().size()) {
+			returnedValue = getTreasuresPos().get(treasureNo);
+		}
+		
+		return returnedValue;
 	}
 	
+	/*
+	 * Función que devuelve toda la lista de los tesoros con sus posiciones.
+	 */
 	public ArrayList<Position> getTreasuresPos() {
 		return treasuresPos;
 	}
 	
-	//Displays a message with the position of every hole
+	/*
+	 * Función que muestra un mensaje por consola que indica la posición de cada tesoro.
+	 */
 	public void showTreasures() {
 		if(treasuresPos.size()!=0) {
 			for(int i = 0; i< treasuresPos.size() ; i++) {
@@ -327,12 +440,19 @@ public class Board {
 		}
 	}
 	
-	//We still didn't decide to put this, but I think it's good
+	/*
+	 * Función que permite editar la posición del tesoro cuya posición en el vector se le pasa 
+	 * como primer parámetro. La posición que se le pondrá es la indicada por el segundo parámetro.
+	 */
 	public void editTreasurePos(int treasureNo, Position newPos) {
 		Position treasure = new Position(newPos.getX(),newPos.getY());
 		getTreasuresPos().set(treasureNo, treasure);
 	}
 	
+	/*
+	 * Función que borra de la lista de tesoros aquél cuya posición en esa lista sea la que 
+	 * se le pasa como parámetro.
+	 */
 	public boolean removeTreasure(int treasureNumber) {
 		boolean success = false;
 		
@@ -346,6 +466,10 @@ public class Board {
 		return success;
 	}
 	
+	/*
+	 * Borra de la lista de tesoros el que se encuentre en la posición del tablero que se le pase
+	 * como parámetro.
+	 */
 	public boolean removeTreasure(Position position) {
 		boolean success = false;
 		
@@ -364,8 +488,12 @@ public class Board {
 		
 		return success;
 	}
-	
-	//It may be good to change this name
+
+	/*
+	 * función que permite añadir hoyos a la lista de hoyos en la posición que se le pase como 
+	 * parámetro. Devuelve un entero que contiene la posición en la que se encuentra el tesoro 
+	 * en la lista.
+	 */
 	public int setHolePos(Position newPos){
 		int nHole = -1;
 		
@@ -401,20 +529,34 @@ public class Board {
 		return nHole;
 	}
 	
+	/*
+	 * Función que devuelve la posición en el trablero del hoyo que se encuentra 
+	 * en la posición de la lista que indica el entero que recibe como parámetro. 
+	 */
 	public Position getHolePos(int holeNo){
 		return getHolesPos().get(holeNo);
 	}
 	
+	/*
+	 * Función que devuelve toda la lista de los hoyos con sus posiciones.
+	 */
 	public ArrayList<Position> getHolesPos() {
 		return holesPos;
 	}
 	
-	//We still didn't decide to put this, but I think it's good
+	/*
+	 * Función que permite editar la posición del hoyo cuya posición en el vector se le pasa 
+	 * como primer parámetro. La posición que se le pondrá es la indicada por el segundo parámetro.
+	 */
 	public void editHolePos(int holeNo, Position newPos){
 		Position hole = new Position(newPos.getX(),newPos.getY());
 		getHolesPos().set(holeNo, hole);
 	}
 	
+	/*
+	 * Función que borra de la lista de hoyos aquél cuya posición en esa lista sea la que 
+	 * se le pasa como parámetro.
+	 */
 	public boolean removeHole(int holeNumber) {
 		boolean success = false;
 		
@@ -445,7 +587,9 @@ public class Board {
 	}
 	
 	
-	//Displays a message with the position of every hole
+	/*
+	 * Función que muestra un mensaje por consola que indica la posición de cada hoyo.
+	 */
 	public void showHoles() {
 		if(holesPos.size()!=0) {
 			for(int i = 0; i< holesPos.size() ; i++) {
@@ -456,42 +600,72 @@ public class Board {
 		}
 	}
 
+	/*
+	 * Función que devuelve un entero con la cantidad de tesoros existentes.
+	 */
 	public int getTotalTreasures(){
 		return getTreasuresPos().size();
 	}
 
+	/*
+	 * Función que devuelve un entero con la cantidad de hoyos existentes.
+	 */
 	public int getNumberOfHoles(){
 		return getHolesPos().size();
 	}
 	
+	/*
+	 * Función que devuelve la instancia de la clase Mecca que se contiene en este tablero.
+	 */
 	public Mecca getMecca() {
 		return mecca;
 	}
-
-	public Position getMeccaPos(){
+	
+	/*
+	 * Función que devuelve un objeto de tipo Position que contiene la posición de Mecca.
+	 */
+	public Position getMeccaPos() {
 		return getMecca().getPos();
 	}
 	
-	public void setMeccaPos(Position newPos){
+	/*
+	 * Función que recibe un objeto de tipo Position que será la nueva posición de Mecca.
+	 */
+	public void setMeccaPos(Position newPos) {
 		getMecca().setPos(newPos);
 	}
 	
-	public int getMeccaNArrows(){
+	/*
+	 * Función que devuelve un entero que contiene el número de flechas que le quedan a Mecca.
+	 */
+	public int getMeccaNArrows() {
 		return getMecca().getNArrows();
 	}
 	
+	/*
+	 * Función que recibe un entero que actualizará el valor del número de flechas que le quedan a Mecca.
+	 */
 	public void setMeccaNArrows(int nArrows) {
 		getMecca().setNArrows(nArrows);
 	}
 	
+	/*
+	 * Función que incrementa, en el valor entero que reciba como parámetro, el valor del número de flechas que le quedan a Mecca.
+	 */
 	public void incMeccaNArrows(int inc) {
 		getMecca().incNarrows(inc);
 	}
-	
+
+	/*
+	 * Función que incrementa, en el valor entero que reciba como parámetro, el valor del número de flechas que le quedan a Mecca.
+	 */
 	public void decMeccaNArrows(int dec) {
 		getMecca().decNarrows(dec);
 	}
 	
+	/*
+	 * Función que mueve a Mecca una casilla hacia arriba.
+	 */
 	public void meccaGoUp() {
 		Position pos = new Position(getMeccaPos().getX(), getMeccaPos().getY()+1);
 		
@@ -499,7 +673,10 @@ public class Board {
 			writeOnBoardVisited(pos, true);
 		}
 	}
-	
+
+	/*
+	 * Función que mueve a Mecca una casilla hacia abajo.
+	 */
 	public void meccaGoDown() {
 		Position pos = new Position(getMeccaPos().getX(), getMeccaPos().getY()-1);
 		
@@ -508,6 +685,9 @@ public class Board {
 		}
 	}
 	
+	/*
+	 * Función que mueve a Mecca una casilla hacia la izquierda.
+	 */
 	public void meccaGoLeft() {
 		Position pos = new Position(getMeccaPos().getX()-1, getMeccaPos().getY());
 		
@@ -515,7 +695,10 @@ public class Board {
 			writeOnBoardVisited(pos, true);
 		}
 	}
-	
+
+	/*
+	 * Función que mueve a Mecca una casilla hacia la derecha.
+	 */
 	public void meccaGoRight() {
 		Position pos = new  Position(getMeccaPos().getX()+1, getMeccaPos().getY());
 		
@@ -524,7 +707,16 @@ public class Board {
 		}
 	}
 	
-	public boolean meccaShoot(int direction){ //1 UP 2 RIGHT 3 LEFT 4 DOWN
+	/*
+	 * Función booleana que permite a Mecca disparar. Devolverá true si acaba con el Wumpus
+	 * y false en caso contrario. Recibe un entero que indica la dirección de disparo con los 
+	 * siguientes valores:
+	 * 		1.- Arriba
+	 * 		2.- Derecha
+	 * 		3.- Izquierda
+	 * 		4.- Abajo
+	 */
+	public boolean meccaShoot(int direction) { 
 		boolean shoot = false;
 		boolean kill = false; 
 		
@@ -569,7 +761,11 @@ public class Board {
 		
 		return shoot;
 	}
-	
+
+	/*
+	 * Función privada de tipo booleano que coloca a Mecca en la posición que recibe como parámetro.
+	 * Devolverá true si el movimiento pudo ser efectuado y falso en caso contrario.
+	 */
 	private boolean meccaGoPosition(Position position) {
 		boolean success = false;
 		
@@ -583,6 +779,11 @@ public class Board {
 		return success;
 	}
 	
+	/*
+	 * Función privada de tipo booleano que comprueba el resultado de un movimiento de Mecca.
+	 * Devuelve true si puede realizarse y false en caso contrario.
+	 * Informa por consola del resultado de ese movimiento.
+	 */
 	private boolean checkMovement(Position position) {
 		boolean success = true;
 		
@@ -635,10 +836,18 @@ public class Board {
 		return success;
 	}
 	
+	/*
+	 * Función que devuelve un objeto de tipo Size con el tamaño del tablero.
+	 */
 	public Size getBoardSize() {
 		return boardSize;
 	}
 	
+	/*
+	 * Función que devuelve una cadena que contiene toda la información relativa al tablero.
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		String returnString = new String();
 		
@@ -686,10 +895,16 @@ public class Board {
 		return returnString;
 	}
 
+	/*
+	 * Función booleana que devuelve true si el Wumpus está vivo y false en caso contrario.
+	 */
 	public boolean isWumpusAlive() {
 		return isWumpusAlive;
 	}
 
+	/*
+	 * Función que recibe un booleano que será el que indique si el Wumpus está vivo o no y lo guarda.
+	 */
 	public void setWumpusAlive(boolean isWumpusAlive) {
 		this.isWumpusAlive = isWumpusAlive;
 		
@@ -698,6 +913,11 @@ public class Board {
 		}
 	}
 	
+	/*
+	 * Función booleana que comprueba si, al entrar en el modo aventura, el mapa definido 
+	 * tiene todo lo necesario para comenzar el juego. En caso afirmativo devuelve true, 
+	 * en caso negativo false.
+	 */
 	public boolean initGame() {
 		boolean init = true;
 		
@@ -736,10 +956,17 @@ public class Board {
 		endOfGame = true;
 	}
 	
+	/*
+	 * Función booleana que devuelve true si el juego ha terminado y false en caso contrario.
+	 */
 	public boolean isGameFinished() {
 		return endOfGame;
 	}
 	
+	/*
+	 * Función booleana que comprueba si la casilla de comienzo ha sido colocada.
+	 * Devuelve true en caso de que lo haya sido y false en caso contrario.
+	 */
 	private boolean checkStart() {
 		boolean start = true;
 		
@@ -750,6 +977,10 @@ public class Board {
 		return start;
 	}
 	
+	/*
+	 * Función booleana que comprueba si la casilla de salida ha sido colocada.
+	 * Devuelve true en caso de que lo haya sido y false en caso contrario.
+	 */
 	private boolean checkExit() {
 		boolean exit = true;
 		
@@ -760,6 +991,10 @@ public class Board {
 		return exit;
 	}
 	
+	/*
+	 * Función booleana que comprueba si la casilla del Wupus ha sido colocada.
+	 * Devuelve true en caso de que lo haya sido y false en caso contrario.
+	 */
 	private boolean checkWumpus() {
 		boolean wumpus = true;
 		
@@ -770,6 +1005,10 @@ public class Board {
 		return wumpus;
 	}
 	
+	/*
+	 * Función que muestra por consola el estado de la aventura. Es decir, muestra todos los 
+	 * elementos que el jugador conoce porque ya ha visitado esas casillas.
+	 */
 	public void showAdventureState() {
 		String returnString = new String();
 		

@@ -136,6 +136,9 @@ public class Variable
 		System.out.println("Identificador: "+ getNombre()+ "\t Tipo: " + getTipo()+"\t Valor: "+ getValor());
 	}
 	
+	/*
+	 * Función booleana que devuelve true si la variable es de tipo number y false en caso contrario.
+	 */
 	public boolean isNumber() {
 		if(getTipo().equals("number")) {
 			return true;
@@ -144,6 +147,9 @@ public class Variable
 		}
 	}
 	
+	/*
+	 * Función booleana que devuelve true si la variable es de tipo string y false en caso contrario.
+	 */
 	public boolean isString() {
 		if(getTipo().equals("string")) {
 			return true;
@@ -151,9 +157,6 @@ public class Variable
 			return false;
 		}
 	}
-
-
-
-
+	
 }
 

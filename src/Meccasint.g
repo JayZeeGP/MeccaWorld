@@ -8,11 +8,12 @@ options
 	exportVocab = Meccasint;
 }
 
-// Nuevos atributos de la clase Anasint
+// Nuevos atributos de la clase Meccasint
 {
 	public static final String NO_MODE = "NoMode";
 	public static final String CONFIGURATION_MODE = "ConfigurationMode";
 	public static final String ADVENTURE_MODE = "AdventureMode";
+	
 	public static final String NUMBER = "number";
 	public static final String STRING = "string";
 	
@@ -63,18 +64,17 @@ options
 }
 
 
-//HECHO POR TEAM MECCA
+//Símbolos no terminales
 
 mecca: (instruction)* configuration (instruction)* adventure (instruction)*;
 
-configuration:  BEGIN_CONF {mode = CONFIGURATION_MODE;} (instruction)+ END_CONF;
+configuration:  BEGIN_CONF {mode = CONFIGURATION_MODE;} (instruction)* END_CONF;
 
-adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)+ END_ADV;
+adventure: BEGIN_ADV {if(board.initGame()) mode = ADVENTURE_MODE;} (instruction)* END_ADV;
 
 instruction
 	{
 		Variable param1, param2;
-		String info;
 	}
 	: 
 	
