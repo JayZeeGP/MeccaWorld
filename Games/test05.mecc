@@ -36,10 +36,11 @@ write("How many arrows do you want to give to Mecca?");
 read(nArrows);
 while nArrows > 0 do    #While Loop
 incArrows(1);
-arrows:=arrows-1;
+nArrows:=nArrows-1;
 end_while;
-write("How many holes do you want to create");   
-read(nHoles);
+number nTreasures;
+write("How many treasures do you want to create");   
+read(nTreasures);
 for i from 0 until nHoles step 1
 do
   write("Insert the x coordenate for the treasure");

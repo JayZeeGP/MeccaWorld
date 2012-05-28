@@ -33,6 +33,7 @@ do
 end_for;
 showHoles();
 write("How many arrows do you want to give to Mecca?");
+read(nArrows);
 while nArrows > 0 do    #While Loop
 incArrows(1);
 arrows:=arrows-1;
@@ -54,7 +55,7 @@ write("Insert the x coordenate for the Wumpus");
 read(cols);
 write("Insert the y coordenate for the Wumpus");
 read(rows);
-setTWumpus(cols,rows);
+setWumpus(cols,rows);
 endConfigurationMode
 {
 This is what the level should look like
