@@ -97,39 +97,39 @@ public Meccasint(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			_loop4228:
+			_loop7103:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop4228;
+					break _loop7103;
 				}
 				
 			} while (true);
 			}
 			configuration();
 			{
-			_loop4230:
+			_loop7105:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop4230;
+					break _loop7105;
 				}
 				
 			} while (true);
 			}
 			adventure();
 			{
-			_loop4232:
+			_loop7107:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop4232;
+					break _loop7107;
 				}
 				
 			} while (true);
@@ -143,7 +143,43 @@ public Meccasint(ParserSharedInputState state) {
 	
 	public final void instruction() throws RecognitionException, TokenStreamException {
 		
+		Token  e1 = null;
 		Token  i2 = null;
+		Token  e2 = null;
+		Token  e3 = null;
+		Token  e4 = null;
+		Token  e5 = null;
+		Token  e6 = null;
+		Token  e7 = null;
+		Token  e8 = null;
+		Token  e9 = null;
+		Token  e10 = null;
+		Token  e11 = null;
+		Token  e12 = null;
+		Token  e13 = null;
+		Token  e14 = null;
+		Token  e15 = null;
+		Token  e16 = null;
+		Token  e17 = null;
+		Token  e18 = null;
+		Token  e19 = null;
+		Token  e20 = null;
+		Token  e21 = null;
+		Token  e22 = null;
+		Token  e23 = null;
+		Token  e24 = null;
+		Token  e25 = null;
+		Token  e26 = null;
+		Token  e27 = null;
+		Token  e28 = null;
+		Token  e29 = null;
+		Token  e30 = null;
+		Token  e31 = null;
+		Token  e32 = null;
+		Token  e33 = null;
+		Token  e34 = null;
+		Token  e35 = null;
+		Token  e36 = null;
 		
 				Variable param1, param2;
 			
@@ -152,6 +188,7 @@ public Meccasint(ParserSharedInputState state) {
 			switch ( LA(1)) {
 			case FUNC_LEER:
 			{
+				e1 = LT(1);
 				match(FUNC_LEER);
 				match(PARENT_IZ);
 				i2 = LT(1);
@@ -174,7 +211,7 @@ public Meccasint(ParserSharedInputState state) {
 									variable.setValor(read);
 								}
 							} else {
-								System.out.println("Variable " + i2.getText() + " is not declared");	
+								System.err.println("Line " + e1.getLine() + ":" + e1.getColumn() + " - Variable \"" + i2.getText() + "\" is not declared");	
 							}
 						
 				break;
@@ -193,6 +230,7 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			case FUNC_SHOWBOARD:
 			{
+				e2 = LT(1);
 				match(FUNC_SHOWBOARD);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -201,13 +239,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								System.out.println(board.showBoard());
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e2.getLine() + ":" + e2.getColumn() + " - This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SHOWADVENTURESTATE:
 			{
+				e3 = LT(1);
 				match(FUNC_SHOWADVENTURESTATE);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -216,13 +255,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == ADVENTURE_MODE) {
 								board.showAdventureState();
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e3.getLine() + ":" + e3.getColumn() + " - This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SETBOARDSIZE:
 			{
+				e4 = LT(1);
 				match(FUNC_SETBOARDSIZE);
 				match(PARENT_IZ);
 				param1=expression();
@@ -237,16 +277,17 @@ public Meccasint(ParserSharedInputState state) {
 									board.setSize(newSize);
 									System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
 								} else {
-									System.out.println("Parameters must be numbers");
+									System.err.println("Line " + e4.getLine() + ":" + e4.getColumn() + " - " + "Parameters must be numbers");
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e4.getLine() + ":" + e4.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GETBOARDROWS:
 			{
+				e5 = LT(1);
 				match(FUNC_GETBOARDROWS);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -255,13 +296,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {					
 								System.out.println("Board has "+board.getSize().getHeight()+" rows");
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");							
+								System.err.println("Line " + e5.getLine() + ":" + e5.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");							
 							}
 						
 				break;
 			}
 			case FUNC_GETBOARDCOLUMNS:
 			{
+				e6 = LT(1);
 				match(FUNC_GETBOARDCOLUMNS);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -270,13 +312,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {	
 								System.out.println("Board has "+board.getSize().getWidth()+" columns");
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");							
+								System.err.println("Line " + e6.getLine() + ":" + e6.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");							
 							}
 						
 				break;
 			}
 			case FUNC_GETBOARDSIZE:
 			{
+				e7 = LT(1);
 				match(FUNC_GETBOARDSIZE);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -285,13 +328,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {	
 								System.out.println("Board size is "+board.getSize().getHeight()+" rows and "+board.getSize().getWidth()+" columns");
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");													
+								System.err.println("Line " + e7.getLine() + ":" + e7.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");													
 							}
 						
 				break;
 			}
 			case FUNC_SETTREASURE:
 			{
+				e8 = LT(1);
 				match(FUNC_SETTREASURE);
 				match(PARENT_IZ);
 				param1=expression();
@@ -311,16 +355,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("The given board position is not empty or not exists");
 									}
 								} else {
-									System.out.println("Parameters must be numbers");	
+									System.err.println("Line " + e8.getLine() + ":" + e8.getColumn() + " - " + "Parameters must be numbers");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e8.getLine() + ":" + e8.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_REMOVETREASURE:
 			{
+				e9 = LT(1);
 				match(FUNC_REMOVETREASURE);
 				match(PARENT_IZ);
 				param1=expression();
@@ -332,13 +377,13 @@ public Meccasint(ParserSharedInputState state) {
 									if(board.removeTreasure((int)Float.parseFloat(param1.getValor()))) {
 										System.out.println("Treasure " + param1 + " has been removed");
 									} else {
-										System.out.println("Treasure " + param1 + " does not exist");
+										System.err.println("Treasure " + param1 + " does not exist");
 									}
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e9.getLine() + ":" + e9.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e9.getLine() + ":" + e9.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
@@ -356,6 +401,7 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			case FUNC_SHOWTREASURES:
 			{
+				e10 = LT(1);
 				match(FUNC_SHOWTREASURES);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -364,13 +410,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								board.showTreasures();
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");							
+								System.err.println("Line " + e10.getLine() + ":" + e10.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 							}
 						
 				break;
 			}
 			case FUNC_GETTREASURE:
 			{
+				e11 = LT(1);
 				match(FUNC_GETTREASURE);
 				match(PARENT_IZ);
 				param1=expression();
@@ -385,19 +432,20 @@ public Meccasint(ParserSharedInputState state) {
 												" set on column "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getX()+
 												" row "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getY());
 									} else {
-										System.out.println("There is no treasure with that number");
+										System.err.println("There is no treasure with that number");
 									}
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e11.getLine() + ":" + e11.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e11.getLine() + ":" + e11.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SETHOLE:
 			{
+				e12 = LT(1);
 				match(FUNC_SETHOLE);
 				match(PARENT_IZ);
 				param1=expression();
@@ -417,16 +465,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("The given board position is not empty or not exists");
 									}
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e12.getLine() + ":" + e12.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e12.getLine() + ":" + e12.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_REMOVEHOLE:
 			{
+				e13 = LT(1);
 				match(FUNC_REMOVEHOLE);
 				match(PARENT_IZ);
 				param1=expression();
@@ -441,16 +490,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("Hole " + param1 + " does not exist");
 									}
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e13.getLine() + ":" + e13.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");							
+								System.err.println("Line " + e13.getLine() + ":" + e13.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 							}
 						
 				break;
 			}
 			case FUNC_GETNUMBEROFHOLES:
 			{
+				e14 = LT(1);
 				match(FUNC_GETNUMBEROFHOLES);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -459,13 +509,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								System.out.println("The number of holes is: "+board.getNumberOfHoles());
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");							
+								System.err.println("Line " + e14.getLine() + ":" + e14.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 							}
 						
 				break;
 			}
 			case FUNC_GETHOLE:
 			{
+				e15 = LT(1);
 				match(FUNC_GETHOLE);
 				match(PARENT_IZ);
 				param1=expression();
@@ -481,16 +532,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("There is no hole with that number");
 									}
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e15.getLine() + ":" + e15.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");							
+								System.out.println("Line " + e15.getLine() + ":" + e15.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 							}
 						
 				break;
 			}
 			case FUNC_SHOWHOLES:
 			{
+				e16 = LT(1);
 				match(FUNC_SHOWHOLES);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -499,13 +551,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								board.showHoles();
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");							
+								System.err.println("Line " + e16.getLine() + ":" + e16.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 							}
 						
 				break;
 			}
 			case FUNC_SETWUMPUS:
 			{
+				e17 = LT(1);
 				match(FUNC_SETWUMPUS);
 				match(PARENT_IZ);
 				param1=expression();
@@ -522,16 +575,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
 									}
 								} else {
-									System.out.println("Parameters must be numbers");	
+									System.err.println("Line " + e17.getLine() + ":" + e17.getColumn() + " - " + "Parameters must be numbers");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e17.getLine() + ":" + e17.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GETWUMPUS:
 			{
+				e18 = LT(1);
 				match(FUNC_GETWUMPUS);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -540,13 +594,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {		
 								System.out.println("The Wumpus is on column "+ board.getWumpusPos().getX()+" row " + board.getWumpusPos().getY());
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e18.getLine() + ":" + e18.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SETSTART:
 			{
+				e19 = LT(1);
 				match(FUNC_SETSTART);
 				match(PARENT_IZ);
 				param1=expression();
@@ -565,16 +620,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("The given board position is not empty or not exists");
 										}
 								} else {
-									System.out.println("Parameters must be numbers");	
+									System.err.println("Line " + e19.getLine() + ":" + e19.getColumn() + " - " + "Parameters must be numbers");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e19.getLine() + ":" + e19.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GETSTART:
 			{
+				e20 = LT(1);
 				match(FUNC_GETSTART);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -583,13 +639,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								System.out.println("Start is on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e20.getLine() + ":" + e20.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}	
 						
 				break;
 			}
 			case FUNC_SETEXIT:
 			{
+				e21 = LT(1);
 				match(FUNC_SETEXIT);
 				match(PARENT_IZ);
 				param1=expression();
@@ -608,16 +665,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("The given board position is not empty or not exists");
 									}
 								} else {
-									System.out.println("Parameters must be numbers");	
+									System.err.println("Line " + e21.getLine() + ":" + e21.getColumn() + " - " + "Parameters must be numbers");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e21.getLine() + ":" + e21.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GETEXIT:
 			{
+				e22 = LT(1);
 				match(FUNC_GETEXIT);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -626,13 +684,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE) {
 								System.out.println("Exit is on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e22.getLine() + ":" + e22.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GETMECCA:
 			{
+				e23 = LT(1);
 				match(FUNC_GETMECCA);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -641,13 +700,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {
 								System.out.println("Mecca is on row "+ board.getMeccaPos().getY()+" column " + board.getMeccaPos().getX());
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");
+								System.err.println("Line " + e23.getLine() + ":" + e23.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SETARROWS:
 			{
+				e24 = LT(1);
 				match(FUNC_SETARROWS);
 				match(PARENT_IZ);
 				param1=expression();
@@ -659,16 +719,17 @@ public Meccasint(ParserSharedInputState state) {
 									board.setMeccaNArrows((int)Float.parseFloat(param1.getValor()));
 									System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows");
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e24.getLine() + ":" + e24.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e24.getLine() + ":" + e24.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							} 				
 						
 				break;
 			}
 			case FUNC_GETARROWS:
 			{
+				e25 = LT(1);
 				match(FUNC_GETARROWS);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -677,13 +738,14 @@ public Meccasint(ParserSharedInputState state) {
 							if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {
 								System.out.println("Mecca has "+board.getMeccaNArrows()+" arrows");
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");
+								System.err.println("Line " + e25.getLine() + ":" + e25.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");
 							}						
 						
 				break;
 			}
 			case FUNC_INCARROWS:
 			{
+				e26 = LT(1);
 				match(FUNC_INCARROWS);
 				match(PARENT_IZ);
 				param1=expression();
@@ -699,16 +761,17 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("You have to enter an integer bigger than 0");
 									}
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e26.getLine() + ":" + e26.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e26.getLine() + ":" + e26.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}	
 						
 				break;
 			}
 			case FUNC_DECARROWS:
 			{
+				e27 = LT(1);
 				match(FUNC_DECARROWS);
 				match(PARENT_IZ);
 				param1=expression();
@@ -724,27 +787,33 @@ public Meccasint(ParserSharedInputState state) {
 										System.out.println("The number of arrows has to be positive");
 									}
 								} else {
-									System.out.println("Parameter must be number");	
+									System.err.println("Line " + e27.getLine() + ":" + e27.getColumn() + " - " + "Parameter must be number");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Configuration Mode");
+								System.err.println("Line " + e27.getLine() + ":" + e27.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 							}	
 						
 				break;
 			}
 			case FUNC_GETREMAININGTREASURES:
 			{
+				e28 = LT(1);
 				match(FUNC_GETREMAININGTREASURES);
 				match(PARENT_IZ);
 				match(PARENT_DE);
 				match(PUNTO_COMA);
 				
-							System.out.println("X Treasures remaining");
+							if(mode == ADVENTURE_MODE) {
+								System.out.println(board.getTotalTreasures() + " treasures remaining");
+							} else {
+								System.err.println("Line " + e28.getLine() + ":" + e28.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
+							}
 						
 				break;
 			}
 			case FUNC_SHOOTLEFT:
 			{
+				e29 = LT(1);
 				match(FUNC_SHOOTLEFT);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -759,13 +828,14 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e29.getLine() + ":" + e29.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SHOOTRIGHT:
 			{
+				e30 = LT(1);
 				match(FUNC_SHOOTRIGHT);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -780,13 +850,14 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e30.getLine() + ":" + e30.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SHOOTUP:
 			{
+				e31 = LT(1);
 				match(FUNC_SHOOTUP);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -801,13 +872,14 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e31.getLine() + ":" + e31.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_SHOOTDOWN:
 			{
+				e32 = LT(1);
 				match(FUNC_SHOOTDOWN);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -822,13 +894,14 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e32.getLine() + ":" + e32.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GOLEFT:
 			{
+				e33 = LT(1);
 				match(FUNC_GOLEFT);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -842,13 +915,14 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e33.getLine() + ":" + e33.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GORIGHT:
 			{
+				e34 = LT(1);
 				match(FUNC_GORIGHT);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -862,13 +936,14 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e34.getLine() + ":" + e34.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GOUP:
 			{
+				e35 = LT(1);
 				match(FUNC_GOUP);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -882,13 +957,14 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e35.getLine() + ":" + e35.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
 			}
 			case FUNC_GODOWN:
 			{
+				e36 = LT(1);
 				match(FUNC_GODOWN);
 				match(PARENT_IZ);
 				match(PARENT_DE);
@@ -902,7 +978,7 @@ public Meccasint(ParserSharedInputState state) {
 									System.out.println("The game has finished!");	
 								}
 							} else {
-								System.out.println("This instruction has to be called in Adventure Mode");
+								System.err.println("Line " + e36.getLine() + ":" + e36.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 							}
 						
 				break;
@@ -954,13 +1030,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_CONF);
 			mode = CONFIGURATION_MODE;
 			{
-			_loop4235:
+			_loop7110:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop4235;
+					break _loop7110;
 				}
 				
 			} while (true);
@@ -980,13 +1056,13 @@ public Meccasint(ParserSharedInputState state) {
 			match(BEGIN_ADV);
 			if(board.initGame()) mode = ADVENTURE_MODE;
 			{
-			_loop4238:
+			_loop7113:
 			do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					instruction();
 				}
 				else {
-					break _loop4238;
+					break _loop7113;
 				}
 				
 			} while (true);
@@ -1016,7 +1092,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=addend();
 				result = e1;
 				{
-				_loop4247:
+				_loop7122:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1052,7 +1128,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop4247;
+						break _loop7122;
 					}
 					}
 				} while (true);
@@ -1064,7 +1140,7 @@ public Meccasint(ParserSharedInputState state) {
 				e1=negative();
 				result = e1;
 				{
-				_loop4251:
+				_loop7126:
 				do {
 					switch ( LA(1)) {
 					case OP_MAS:
@@ -1095,7 +1171,7 @@ public Meccasint(ParserSharedInputState state) {
 					}
 					default:
 					{
-						break _loop4251;
+						break _loop7126;
 					}
 					}
 				} while (true);
@@ -1118,7 +1194,9 @@ public Meccasint(ParserSharedInputState state) {
 	
 	public final void asignation() throws RecognitionException, TokenStreamException {
 		
+		Token  e37 = null;
 		Token  i = null;
+		Token  e38 = null;
 		Token  i2 = null;
 		Token  i3 = null;
 		
@@ -1129,6 +1207,7 @@ public Meccasint(ParserSharedInputState state) {
 			switch ( LA(1)) {
 			case TIPO_NUMERO:
 			{
+				e37 = LT(1);
 				match(TIPO_NUMERO);
 				{
 				if ((LA(1)==IDENT) && (LA(2)==OP_ASIG)) {
@@ -1156,17 +1235,15 @@ public Meccasint(ParserSharedInputState state) {
 					
 								// Se inserta en la tabla de Símbolos
 								if(!insertarIdentificador(nombre,"number",valorCadena)) {
-									System.err.println("La variable \"" + nombre + "\" ya había sido declarada"); 	
+									System.err.println("Line " + e37.getLine() + ":" + e37.getColumn() + " - " + "La variable \"" + nombre + "\" ya había sido declarada"); 	
 								}
 							}
-						
-								// Se muestra por pantalla: depuración
-								// System.out.println(" Asignación => " + nombre + " := " + e);
 						
 				break;
 			}
 			case TIPO_CADENA:
 			{
+				e38 = LT(1);
 				match(TIPO_CADENA);
 				{
 				if ((LA(1)==IDENT) && (LA(2)==OP_ASIG)) {
@@ -1193,11 +1270,9 @@ public Meccasint(ParserSharedInputState state) {
 								
 								// Se inserta en la tabla de Símbolos
 								if(!insertarIdentificador(nombre,"number",valorCadena)) {
-									System.err.println("La variable \"" + nombre + "\" ya había sido declarada"); 	
+									System.err.println("Line " + e38.getLine() + ":" + e38.getColumn() + " - " + "La variable \"" + nombre + "\" ya había sido declarada"); 	
 								}
 							}
-							// Se muestra por pantalla: depuración
-							// System.out.println(" Asignación => " + nombre + " := " + e);
 						
 				break;
 			}
@@ -1223,13 +1298,13 @@ public Meccasint(ParserSharedInputState state) {
 										simbolo.setValor(String.valueOf(value));
 										
 									} catch(NumberFormatException err) {
-										System.err.println("Error: la variable \"" + nombre + "\" es de tipo \"number\"");
+										System.err.println("Line " + i3.getLine() + ":" + i3.getColumn() + " - " + "La variable \"" + nombre + "\" es de tipo \"number\"");
 									}
 								} else {
 									simbolo.setValor(e.getValor().toString());
 								}
 							} else {
-								System.err.println("Error: la variable \"" + nombre + "\" no ha sido declarada");
+								System.err.println("Line " + i3.getLine() + ":" + i3.getColumn() + " - " + "La variable \"" + nombre + "\" no ha sido declarada");
 							}		
 						
 				break;
@@ -1260,17 +1335,17 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==true)) {
 				{
-				int _cnt4262=0;
-				_loop4262:
+				int _cnt7137=0;
+				_loop7137:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt4262>=1 ) { break _loop4262; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt7137>=1 ) { break _loop7137; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt4262++;
+					_cnt7137++;
 				} while (true);
 				}
 				{
@@ -1279,19 +1354,19 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt4265=0;
-					_loop4265:
+					int _cnt7140=0;
+					_loop7140:
 					do {
 						// nongreedy exit test
-						if ( _cnt4265>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop4265;
+						if ( _cnt7140>=1 && (LA(1)==RES_FIN_SI) && (LA(2)==PUNTO_COMA)) break _loop7140;
 						if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 							matchNot(EOF);
 						}
 						else {
-							if ( _cnt4265>=1 ) { break _loop4265; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt7140>=1 ) { break _loop7140; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt4265++;
+						_cnt7140++;
 					} while (true);
 					}
 					break;
@@ -1311,19 +1386,19 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor==false)) {
 				{
-				int _cnt4267=0;
-				_loop4267:
+				int _cnt7142=0;
+				_loop7142:
 				do {
 					// nongreedy exit test
-					if ( _cnt4267>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop4267;
+					if ( _cnt7142>=1 && (LA(1)==RES_SI_NO||LA(1)==RES_FIN_SI) && (_tokenSet_5.member(LA(2)))) break _loop7142;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						if ( _cnt4267>=1 ) { break _loop4267; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt7142>=1 ) { break _loop7142; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt4267++;
+					_cnt7142++;
 				} while (true);
 				}
 				{
@@ -1332,17 +1407,17 @@ public Meccasint(ParserSharedInputState state) {
 				{
 					match(RES_SI_NO);
 					{
-					int _cnt4270=0;
-					_loop4270:
+					int _cnt7145=0;
+					_loop7145:
 					do {
 						if ((_tokenSet_0.member(LA(1)))) {
 							instruction();
 						}
 						else {
-							if ( _cnt4270>=1 ) { break _loop4270; } else {throw new NoViableAltException(LT(1), getFilename());}
+							if ( _cnt7145>=1 ) { break _loop7145; } else {throw new NoViableAltException(LT(1), getFilename());}
 						}
 						
-						_cnt4270++;
+						_cnt7145++;
 					} while (true);
 					}
 					break;
@@ -1387,15 +1462,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				_loop4282:
+				_loop7157:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop4282;
+					if ((LA(1)==RES_FIN_MIENTRAS) && (LA(2)==PUNTO_COMA)) break _loop7157;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop4282;
+						break _loop7157;
 					}
 					
 				} while (true);
@@ -1405,17 +1480,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				int _cnt4284=0;
-				_loop4284:
+				int _cnt7159=0;
+				_loop7159:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt4284>=1 ) { break _loop4284; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt7159>=1 ) { break _loop7159; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt4284++;
+					_cnt7159++;
 				} while (true);
 				}
 				match(RES_FIN_MIENTRAS);
@@ -1449,15 +1524,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == true)) {
 				{
-				_loop4288:
+				_loop7163:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop4288;
+					if ((LA(1)==RES_HASTA) && (_tokenSet_6.member(LA(2)))) break _loop7163;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop4288;
+						break _loop7163;
 					}
 					
 				} while (true);
@@ -1468,17 +1543,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(valor == false)) {
 				{
-				int _cnt4290=0;
-				_loop4290:
+				int _cnt7165=0;
+				_loop7165:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt4290>=1 ) { break _loop4290; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt7165>=1 ) { break _loop7165; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt4290++;
+					_cnt7165++;
 				} while (true);
 				}
 				match(RES_HASTA);
@@ -1551,15 +1626,15 @@ public Meccasint(ParserSharedInputState state) {
 			{
 			if ((((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) >= Float.parseFloat(endValue.getValor()))) {
 				{
-				_loop4294:
+				_loop7169:
 				do {
 					// nongreedy exit test
-					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop4294;
+					if ((LA(1)==RES_FIN_PARA) && (LA(2)==PUNTO_COMA)) break _loop7169;
 					if (((LA(1) >= BEGIN_CONF && LA(1) <= RES_FIN_PARA)) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA))) {
 						matchNot(EOF);
 					}
 					else {
-						break _loop4294;
+						break _loop7169;
 					}
 					
 				} while (true);
@@ -1569,17 +1644,17 @@ public Meccasint(ParserSharedInputState state) {
 			}
 			else if (((_tokenSet_0.member(LA(1))) && ((LA(2) >= BEGIN_CONF && LA(2) <= RES_FIN_PARA)))&&(Float.parseFloat(symbolsTable.getSimbolo(index).getValor()) < Float.parseFloat(endValue.getValor()))) {
 				{
-				int _cnt4296=0;
-				_loop4296:
+				int _cnt7171=0;
+				_loop7171:
 				do {
 					if ((_tokenSet_0.member(LA(1)))) {
 						instruction();
 					}
 					else {
-						if ( _cnt4296>=1 ) { break _loop4296; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt7171>=1 ) { break _loop7171; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt4296++;
+					_cnt7171++;
 				} while (true);
 				}
 				symbolsTable.getSimbolo(index).setValor(String.valueOf(Float.parseFloat(symbolsTable.getSimbolo(index).getValor())+Float.parseFloat(inc.getValor())));
@@ -1611,13 +1686,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop4302:
+			_loop7177:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima_number();
 				}
 				else {
-					break _loop4302;
+					break _loop7177;
 				}
 				
 			} while (true);
@@ -1642,13 +1717,13 @@ public Meccasint(ParserSharedInputState state) {
 		try {      // for error handling
 			param1=valorparametro();
 			{
-			_loop4299:
+			_loop7174:
 			do {
 				if ((LA(1)==COMA)) {
 					parametros_prima_string();
 				}
 				else {
-					break _loop4299;
+					break _loop7174;
 				}
 				
 			} while (true);
@@ -1675,7 +1750,7 @@ public Meccasint(ParserSharedInputState state) {
 			e1=factor();
 			result = e1;
 			{
-			_loop4256:
+			_loop7131:
 			do {
 				switch ( LA(1)) {
 				case OP_PRODUCTO:
@@ -1706,7 +1781,7 @@ public Meccasint(ParserSharedInputState state) {
 				}
 				default:
 				{
-					break _loop4256;
+					break _loop7131;
 				}
 				}
 			} while (true);
@@ -1772,7 +1847,7 @@ public Meccasint(ParserSharedInputState state) {
 								
 								result = symbolsTable.getSimbolo(indice);
 							} else
-								System.err.println("Error: el identificador " + i.getText() + " está indefinido");
+								System.err.println("Line " + i.getLine() + ":" + i.getColumn() + " - " + "El identificador " + i.getText() + " está indefinido");
 						
 				break;
 			}
@@ -1859,7 +1934,7 @@ public Meccasint(ParserSharedInputState state) {
 						result = e1;
 				
 			{
-			_loop4276:
+			_loop7151:
 			do {
 				switch ( LA(1)) {
 				case OP_Y:
@@ -1934,7 +2009,7 @@ public Meccasint(ParserSharedInputState state) {
 				}
 				default:
 				{
-					break _loop4276;
+					break _loop7151;
 				}
 				}
 			} while (true);
