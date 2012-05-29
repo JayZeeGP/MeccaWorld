@@ -78,7 +78,7 @@ instruction
 	}
 	: 
 	
-		FUNC_LEER PARENT_IZ i2:IDENT PARENT_DE PUNTO_COMA 
+		e1:FUNC_LEER PARENT_IZ i2:IDENT PARENT_DE PUNTO_COMA 
 		{	
 			//It searches the identifier in the symbols table
 			int index = symbolsTable.existeSimbolo(i2.getText());
@@ -95,7 +95,7 @@ instruction
 					variable.setValor(read);
 				}
 			} else {
-				System.out.println("Variable " + i2.getText() + " is not declared");	
+				System.err.println("Line " + e1.getLine() + ":" + e1.getColumn() + " - Variable \"" + i2.getText() + "\" is not declared");	
 			}
 		}
 		
@@ -104,25 +104,25 @@ instruction
 			System.out.println(param1.getValor());
 		}
 				
-		| FUNC_SHOWBOARD PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e2:FUNC_SHOWBOARD PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				System.out.println(board.showBoard());
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e2.getLine() + ":" + e2.getColumn() + " - This instruction has to be called in Configuration Mode");
 			}
 		}
 			
-		| FUNC_SHOWADVENTURESTATE PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e3:FUNC_SHOWADVENTURESTATE PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				board.showAdventureState();
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e3.getLine() + ":" + e3.getColumn() + " - This instruction has to be called in Configuration Mode");
 			}
 		}
 					
-		| FUNC_SETBOARDSIZE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
+		| e4:FUNC_SETBOARDSIZE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
@@ -130,41 +130,41 @@ instruction
 					board.setSize(newSize);
 					System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
 				} else {
-					System.out.println("Parameters must be numbers");
+					System.err.println("Line " + e4.getLine() + ":" + e4.getColumn() + " - " + "Parameters must be numbers");
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e4.getLine() + ":" + e4.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 			
-		| FUNC_GETBOARDROWS PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e5:FUNC_GETBOARDROWS PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {					
 				System.out.println("Board has "+board.getSize().getHeight()+" rows");
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");							
+				System.err.println("Line " + e5.getLine() + ":" + e5.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");							
 			}
 		}
 			
-		| FUNC_GETBOARDCOLUMNS PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e6:FUNC_GETBOARDCOLUMNS PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {	
 				System.out.println("Board has "+board.getSize().getWidth()+" columns");
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");							
+				System.err.println("Line " + e6.getLine() + ":" + e6.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");							
 			}
 		}
 			
-		| FUNC_GETBOARDSIZE PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e7:FUNC_GETBOARDSIZE PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {	
 				System.out.println("Board size is "+board.getSize().getHeight()+" rows and "+board.getSize().getWidth()+" columns");
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");													
+				System.err.println("Line " + e7.getLine() + ":" + e7.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");													
 			}
 		}
 			
-		| FUNC_SETTREASURE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
+		| e8:FUNC_SETTREASURE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
@@ -177,27 +177,27 @@ instruction
 						System.out.println("The given board position is not empty or not exists");
 					}
 				} else {
-					System.out.println("Parameters must be numbers");	
+					System.err.println("Line " + e8.getLine() + ":" + e8.getColumn() + " - " + "Parameters must be numbers");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e8.getLine() + ":" + e8.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 			
-		| FUNC_REMOVETREASURE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
+		| e9:FUNC_REMOVETREASURE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
 		{						
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
 					if(board.removeTreasure((int)Float.parseFloat(param1.getValor()))) {
 						System.out.println("Treasure " + param1 + " has been removed");
 					} else {
-						System.out.println("Treasure " + param1 + " does not exist");
+						System.err.println("Treasure " + param1 + " does not exist");
 					}
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e9.getLine() + ":" + e9.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e9.getLine() + ":" + e9.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}					
 				
@@ -206,16 +206,16 @@ instruction
 			System.out.println("The number of total treasures is: "+board.getTotalTreasures());
 		}
 		
-		| FUNC_SHOWTREASURES PARENT_IZ  PARENT_DE PUNTO_COMA 
+		| e10:FUNC_SHOWTREASURES PARENT_IZ  PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				board.showTreasures();
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");							
+				System.err.println("Line " + e10.getLine() + ":" + e10.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 			}
 		}					
 					
-		| FUNC_GETTREASURE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
+		| e11:FUNC_GETTREASURE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {					
@@ -225,17 +225,17 @@ instruction
 								" set on column "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getX()+
 								" row "+board.getTreasurePos((int)Float.parseFloat(param1.getValor())-1).getY());
 					} else {
-						System.out.println("There is no treasure with that number");
+						System.err.println("There is no treasure with that number");
 					}
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e11.getLine() + ":" + e11.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e11.getLine() + ":" + e11.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 		
-		| FUNC_SETHOLE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
+		| e12:FUNC_SETHOLE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
@@ -248,14 +248,14 @@ instruction
 						System.out.println("The given board position is not empty or not exists");
 					}
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e12.getLine() + ":" + e12.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e12.getLine() + ":" + e12.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 		
-		| FUNC_REMOVEHOLE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
+		| e13:FUNC_REMOVEHOLE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
@@ -265,23 +265,23 @@ instruction
 						System.out.println("Hole " + param1 + " does not exist");
 					}
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e13.getLine() + ":" + e13.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");							
+				System.err.println("Line " + e13.getLine() + ":" + e13.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 			}
 		}
 			
-		| FUNC_GETNUMBEROFHOLES PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e14:FUNC_GETNUMBEROFHOLES PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				System.out.println("The number of holes is: "+board.getNumberOfHoles());
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");							
+				System.err.println("Line " + e14.getLine() + ":" + e14.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 			}
 		}
 			
-		| FUNC_GETHOLE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
+		| e15:FUNC_GETHOLE PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
@@ -292,23 +292,23 @@ instruction
 						System.out.println("There is no hole with that number");
 					}
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e15.getLine() + ":" + e15.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");							
+				System.out.println("Line " + e15.getLine() + ":" + e15.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 			}
 		}
 			
-		| FUNC_SHOWHOLES PARENT_IZ  PARENT_DE PUNTO_COMA 
+		| e16:FUNC_SHOWHOLES PARENT_IZ  PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				board.showHoles();
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");							
+				System.err.println("Line " + e16.getLine() + ":" + e16.getColumn() + " - " + "This instruction has to be called in Configuration Mode");							
 			}
 		}
 				
-		| FUNC_SETWUMPUS PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
+		| e17:FUNC_SETWUMPUS PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
@@ -318,23 +318,23 @@ instruction
 						System.out.println("Wumpus set on column "+board.getWumpusPos().getX()+" row "+board.getWumpusPos().getY());
 					}
 				} else {
-					System.out.println("Parameters must be numbers");	
+					System.err.println("Line " + e17.getLine() + ":" + e17.getColumn() + " - " + "Parameters must be numbers");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e17.getLine() + ":" + e17.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 				
-		| FUNC_GETWUMPUS PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e18:FUNC_GETWUMPUS PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {		
 				System.out.println("The Wumpus is on column "+ board.getWumpusPos().getX()+" row " + board.getWumpusPos().getY());
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e18.getLine() + ":" + e18.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 			
-		| FUNC_SETSTART PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
+		| e19:FUNC_SETSTART PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
@@ -346,23 +346,23 @@ instruction
 						System.out.println("The given board position is not empty or not exists");
 						}
 				} else {
-					System.out.println("Parameters must be numbers");	
+					System.err.println("Line " + e19.getLine() + ":" + e19.getColumn() + " - " + "Parameters must be numbers");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e19.getLine() + ":" + e19.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 			
-		| FUNC_GETSTART PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e20:FUNC_GETSTART PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				System.out.println("Start is on column "+board.getStartPos().getX()+" row "+board.getStartPos().getY());
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e20.getLine() + ":" + e20.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}	
 		}
 			
-		| FUNC_SETEXIT PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
+		| e21:FUNC_SETEXIT PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber() && param2.isNumber()) {
@@ -374,56 +374,56 @@ instruction
 						System.out.println("The given board position is not empty or not exists");
 					}
 				} else {
-					System.out.println("Parameters must be numbers");	
+					System.err.println("Line " + e21.getLine() + ":" + e21.getColumn() + " - " + "Parameters must be numbers");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e21.getLine() + ":" + e21.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 				
-		| FUNC_GETEXIT PARENT_IZ  PARENT_DE PUNTO_COMA 
+		| e22:FUNC_GETEXIT PARENT_IZ  PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				System.out.println("Exit is on column "+board.getExitPos().getX()+" row "+board.getExitPos().getY());
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e22.getLine() + ":" + e22.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}
 		}
 				
 		//Esto en realidad no tiene pinta de que se vaya a utilizar en el conf mode
-		| FUNC_GETMECCA PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e23:FUNC_GETMECCA PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {
 				System.out.println("Mecca is on row "+ board.getMeccaPos().getY()+" column " + board.getMeccaPos().getX());
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");
+				System.err.println("Line " + e23.getLine() + ":" + e23.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");
 			}
 		}
 					
-		| FUNC_SETARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
+		| e24:FUNC_SETARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
 					board.setMeccaNArrows((int)Float.parseFloat(param1.getValor()));
 					System.out.println("Mecca has now "+board.getMeccaNArrows()+" arrows");
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e24.getLine() + ":" + e24.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e24.getLine() + ":" + e24.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			} 				
 		}
 		
-		| FUNC_GETARROWS PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e25:FUNC_GETARROWS PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE || mode == ADVENTURE_MODE) {
 				System.out.println("Mecca has "+board.getMeccaNArrows()+" arrows");
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode or Adventure Mode");
+				System.err.println("Line " + e25.getLine() + ":" + e25.getColumn() + " - " + "This instruction has to be called in Configuration Mode or Adventure Mode");
 			}						
 		}
 					
-		| FUNC_INCARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
+		| e26:FUNC_INCARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {
@@ -434,14 +434,14 @@ instruction
 						System.out.println("You have to enter an integer bigger than 0");
 					}
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e26.getLine() + ":" + e26.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e26.getLine() + ":" + e26.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}	
 		}
 					
-		| FUNC_DECARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
+		| e27:FUNC_DECARROWS PARENT_IZ param1=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
 				if(param1.isNumber()) {						
@@ -452,19 +452,23 @@ instruction
 						System.out.println("The number of arrows has to be positive");
 					}
 				} else {
-					System.out.println("Parameter must be number");	
+					System.err.println("Line " + e27.getLine() + ":" + e27.getColumn() + " - " + "Parameter must be number");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Configuration Mode");
+				System.err.println("Line " + e27.getLine() + ":" + e27.getColumn() + " - " + "This instruction has to be called in Configuration Mode");
 			}	
 		}
 					
-		| FUNC_GETREMAININGTREASURES PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e28:FUNC_GETREMAININGTREASURES PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
-			System.out.println("X Treasures remaining");
+			if(mode == ADVENTURE_MODE) {
+				System.out.println(board.getTotalTreasures() + " treasures remaining");
+			} else {
+				System.err.println("Line " + e28.getLine() + ":" + e28.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
+			}
 		}
 					
-		| FUNC_SHOOTLEFT PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e29:FUNC_SHOOTLEFT PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -475,11 +479,11 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e29.getLine() + ":" + e29.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 					
-		| FUNC_SHOOTRIGHT PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e30:FUNC_SHOOTRIGHT PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -490,11 +494,11 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e30.getLine() + ":" + e30.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 					
-		| FUNC_SHOOTUP PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e31:FUNC_SHOOTUP PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -505,11 +509,11 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e31.getLine() + ":" + e31.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 					
-		| FUNC_SHOOTDOWN PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e32:FUNC_SHOOTDOWN PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -520,11 +524,11 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e32.getLine() + ":" + e32.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 					
-		| FUNC_GOLEFT PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e33:FUNC_GOLEFT PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -534,11 +538,11 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e33.getLine() + ":" + e33.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 			
-		| FUNC_GORIGHT PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e34:FUNC_GORIGHT PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -548,11 +552,11 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e34.getLine() + ":" + e34.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 				
-		| FUNC_GOUP PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e35:FUNC_GOUP PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -562,11 +566,11 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e35.getLine() + ":" + e35.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 			
-		| FUNC_GODOWN PARENT_IZ PARENT_DE PUNTO_COMA 
+		| e36:FUNC_GODOWN PARENT_IZ PARENT_DE PUNTO_COMA 
 		{
 			if(mode == ADVENTURE_MODE) {
 				if(!board.isGameFinished()) {
@@ -576,7 +580,7 @@ instruction
 					System.out.println("The game has finished!");	
 				}
 			} else {
-				System.out.println("This instruction has to be called in Adventure Mode");
+				System.err.println("Line " + e36.getLine() + ":" + e36.getColumn() + " - " + "This instruction has to be called in Adventure Mode");
 			}
 		}
 				
@@ -598,7 +602,7 @@ asignation
 	}
 	:   
 	
-		TIPO_NUMERO (i:IDENT OP_ASIG e=expression | parametros_number) PUNTO_COMA  //Añadido por mí el ;
+		e37:TIPO_NUMERO (i:IDENT OP_ASIG e=expression | parametros_number) PUNTO_COMA  //Añadido por mí el ;
 		{
 			if(i != null) {
 				// Se toma el nombre del identificador
@@ -606,18 +610,21 @@ asignation
 	
 				// El número se convierte en cadena
 				String valorCadena = e.getValor().toString();
-	
+				
 				// Se inserta en la tabla de Símbolos
-				if(!insertarIdentificador(nombre,"number",valorCadena)) {
-					System.err.println("La variable \"" + nombre + "\" ya había sido declarada"); 	
+				try {
+					Float.parseFloat(e.getValor());
+					
+					if(!insertarIdentificador(nombre,"number",valorCadena)) {
+						System.err.println("Line " + e37.getLine() + ":" + e37.getColumn() + " - " + "Variable \"" + nombre + "\" is already declared"); 	
+					}
+				} catch(NumberFormatException err) {
+					System.err.println("Line " + e37.getLine() + ":" + e37.getColumn() + " - " + "Variable \"" + nombre + "\" has not received a number"); 	
 				}
 			}
-		
-				// Se muestra por pantalla: depuración
-				// System.out.println(" Asignación => " + nombre + " := " + e);
 		}
 		
-		| TIPO_CADENA (i2:IDENT OP_ASIG e=expression | parametros_string) PUNTO_COMA
+		| e38:TIPO_CADENA (i2:IDENT OP_ASIG e=expression | parametros_string) PUNTO_COMA
 	 	{
 			if(i2 != null && e != null) {
 				// Se toma el nombre del identificador
@@ -625,13 +632,21 @@ asignation
 				
 				String valorCadena = e.getValor();
 				
-				// Se inserta en la tabla de Símbolos
-				if(!insertarIdentificador(nombre,"number",valorCadena)) {
-					System.err.println("La variable \"" + nombre + "\" ya había sido declarada"); 	
+				try {
+					Float.parseFloat(e.getValor());
+					
+					if(e.getTipo().equals("number")) {
+						System.err.println("Line " + e38.getLine() + ":" + e38.getColumn() + " - " + "Variable \"" + nombre + "\" has not received a string");
+					} else {
+						insertarIdentificador(nombre,"string",valorCadena);
+					}
+				} catch(NumberFormatException err) {
+					// Se inserta en la tabla de Símbolos
+					if(!insertarIdentificador(nombre,"string",valorCadena)) {
+						System.err.println("Line " + e38.getLine() + ":" + e38.getColumn() + " - " + "Variable \"" + nombre + "\" is already declared"); 	
+					}
 				}
 			}
-			// Se muestra por pantalla: depuración
-			// System.out.println(" Asignación => " + nombre + " := " + e);
 		}
 		
 		| i3:IDENT OP_ASIG e=expression PUNTO_COMA
@@ -650,13 +665,13 @@ asignation
 						simbolo.setValor(String.valueOf(value));
 						
 					} catch(NumberFormatException err) {
-						System.err.println("Error: la variable \"" + nombre + "\" es de tipo \"number\"");
+						System.err.println("Line " + i3.getLine() + ":" + i3.getColumn() + " - " + "Variable \"" + nombre + "\" es de tipo \"number\"");
 					}
 				} else {
 					simbolo.setValor(e.getValor().toString());
 				}
 			} else {
-				System.err.println("Error: la variable \"" + nombre + "\" no ha sido declarada");
+				System.err.println("Line " + i3.getLine() + ":" + i3.getColumn() + " - " + "La variable \"" + nombre + "\" no ha sido declarada");
 			}		
 		}
 	;
@@ -790,7 +805,7 @@ factor
 				
 				result = symbolsTable.getSimbolo(indice);
 			} else
-				System.err.println("Error: el identificador " + i.getText() + " está indefinido");
+				System.err.println("Line " + i.getLine() + ":" + i.getColumn() + " - " + "El identificador " + i.getText() + " está indefinido");
 		}
 
 		| n:LIT_NUMERO  //Ponía número aquí
