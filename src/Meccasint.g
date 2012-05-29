@@ -610,10 +610,16 @@ asignation
 	
 				// El número se convierte en cadena
 				String valorCadena = e.getValor().toString();
-	
+				
 				// Se inserta en la tabla de Símbolos
-				if(!insertarIdentificador(nombre,"number",valorCadena)) {
-					System.err.println("Line " + e37.getLine() + ":" + e37.getColumn() + " - " + "La variable \"" + nombre + "\" ya había sido declarada"); 	
+				try {
+					Float.parseFloat(e.getValor());
+					
+					if(!insertarIdentificador(nombre,"number",valorCadena)) {
+						System.err.println("Line " + e37.getLine() + ":" + e37.getColumn() + " - " + "Variable \"" + nombre + "\" is already declared"); 	
+					}
+				} catch(NumberFormatException err) {
+					System.err.println("Line " + e37.getLine() + ":" + e37.getColumn() + " - " + "Variable \"" + nombre + "\" has not received a number"); 	
 				}
 			}
 		}
@@ -626,9 +632,19 @@ asignation
 				
 				String valorCadena = e.getValor();
 				
-				// Se inserta en la tabla de Símbolos
-				if(!insertarIdentificador(nombre,"number",valorCadena)) {
-					System.err.println("Line " + e38.getLine() + ":" + e38.getColumn() + " - " + "La variable \"" + nombre + "\" ya había sido declarada"); 	
+				try {
+					Float.parseFloat(e.getValor());
+					
+					if(e.getTipo().equals("number")) {
+						System.err.println("Line " + e38.getLine() + ":" + e38.getColumn() + " - " + "Variable \"" + nombre + "\" has not received a string");
+					} else {
+						insertarIdentificador(nombre,"string",valorCadena);
+					}
+				} catch(NumberFormatException err) {
+					// Se inserta en la tabla de Símbolos
+					if(!insertarIdentificador(nombre,"string",valorCadena)) {
+						System.err.println("Line " + e38.getLine() + ":" + e38.getColumn() + " - " + "Variable \"" + nombre + "\" is already declared"); 	
+					}
 				}
 			}
 		}
@@ -649,7 +665,7 @@ asignation
 						simbolo.setValor(String.valueOf(value));
 						
 					} catch(NumberFormatException err) {
-						System.err.println("Line " + i3.getLine() + ":" + i3.getColumn() + " - " + "La variable \"" + nombre + "\" es de tipo \"number\"");
+						System.err.println("Line " + i3.getLine() + ":" + i3.getColumn() + " - " + "Variable \"" + nombre + "\" es de tipo \"number\"");
 					}
 				} else {
 					simbolo.setValor(e.getValor().toString());
