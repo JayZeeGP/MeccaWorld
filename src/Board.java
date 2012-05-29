@@ -814,6 +814,10 @@ public class Board {
 				}
 				
 				System.out.println(msg);
+				
+				if(elements.contains(BREEZE)) {
+					System.out.println("You feel a gentle breeze...");
+				}
 			}  else if(elements.contains(EXIT)) {
 				if(getTotalTreasures() == 0) {
 					System.out.println("You win! Congratulations!");

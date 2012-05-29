@@ -72,5 +72,6 @@ This is what the level should look like
 }
 #Let's start the adventure!!!
 AdventureMode
+
 write("Now its your time to play (remember to write endconfigurationMode when you finish)");
 
