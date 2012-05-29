@@ -643,22 +643,64 @@
    parámetro.
    \item escribirSimbolos(): función que escribe por pantalla los identificadores de la tabla de símbolos.
   \end{itemize}
-  
-  \section{Elementos auxiliares para la simulación del entorno diseñado}
 
-\chapter{Modo de obtención del intérprete: descripción del fichero makefile}
+\chapter{Modo de obtención del intérprete: descripción de la creación del fichero ``.jar''}
 
   \section{Nombre y descripción de cada uno de los ficheros utilizados}
+  Los ficheros necesarios para la obtención del intérprete son:
+  \begin{itemize}
+  \item Ficheros de la gramática:
+  \begin{itemize}
+   \item Meccalex.g: generará el analizador léxico, que permitirá reconocer los \emph{tokens} de la gramática.
+   \item Meccasint.g: generará el analizador sintáctico, que utilizará los \emph{tokens} que recibirá del 
+   léxico para realizar el análisis sintáctico.  
+   \item TablaSimbolos.java: contiene lo necesario para crear la tabla de símbolos en la que se almacenarán 
+   las variables.
+   \item Variable.java: define la clase variable que se utiliza en la tabla de símbolos.
+  \end{itemize}
+  \item Ficheros para las funciones auxiliares:
+  \begin{itemize}
+   \item Board.java: contiene la clase que simula el fichero y sus componentes, permite configurar el fichero y realizar 
+   cambios sobre él, ya sea en el modo de configuración o en el de aventura.
+   \item Mecca.java: contiene la clase que simula el comportamiento del aventurero protagonista del juego.
+   \item Position.java: cuyo cometido es el de almacenar una posición en el tablero.
+   \item Size.java: cuyo cometido es el de almacenar el tamaño de algún elemento del tablero (o del propio tablero).
+  \end{itemize}
+  \item Test.java: clase de Java que va a contener el método main y cuyo objetivo es el de que se pueda ejecutar el intérprete 
+  tanto en línea de comandos como recibiendo un fichero como parámetro.
+  \end{itemize}
+  
+
   
   \section{Modo de generación de intérprete}
+  Para generar este intérprete se ha utilizado el entorno de desarrollo Eclipse, concretamente su versión 3.7.1. Además, 
+  se ha utilizado la versión 4.1 de ANTLR que fue descargada de su web \url{http://www.antlr.org/}, descomprimida en la 
+  máquina local e instalada como plugin de Eclipse usando el menú ``Help'' y la opción ``Install new software'', añadiendo 
+  en la opción superior el repositorio de ANTLR que se acaba de descargar e instalando la opción ANTLR UI. 
+  
+  Una vez hecho esto y creado el proyecto de Eclipse con los ficheros comentados en el apartado anterior, se hizo click en 
+  la carpeta del proyecto y, posteriormente, en la opción ``Toggle ANTLR project nature''.
   
 \chapter{Modo de ejecución del intérprete}
-  En ambos casos, se proporciona un fichero ``.jar'' cuyo nombre es ``MeccaWorld.jar'' que puede ser ejecutado desde la 
-  consola utilizando el comando: 
-  \quote{java -jar MeccaWorld.jar}
+  Se proporciona un fichero ``.jar'' cuyo nombre es ``MeccaWorld.jar''.
+  
   \section{Interactiva}
+  Si se desea realizar una ejecución interactiva del intérprete, se debe acceder mediante consola al directorio en 
+  el que esté contenido el fichero ``MecaWorld.jar'' e introducir el siguiente comando:\newline\newline
+  \emph{java -jar MeccaWorld.jar}
   
   \section{A partir de un fichero}
+  En caso de que se desee realizar la interpretación de los comandos contenidos en un fichero externo, la llamada debe ser 
+  la siguiente:
+  \newline
+  \newline
+  \emph{java -jar MeccaWorld.jar ``rutaFichero''}
+  \newline
+  \newline
+  Donde ``rutaFichero'' es la ruta (sin comillas) hacia el fichero que se quiere ejecutar, por ejemplo:
+  \newline
+  \newline
+  \emph{java -jar MeccaWorld.jar test05.mecc}
   
 \chapter{Ejemplos}
   
@@ -671,7 +713,7 @@
    \item Ejemplo 2: Variables (declaración y uso)
    \item Ejemplo 3: Uso de los esquemas condicionales
    \item Ejemplo 4: Juego avanzado
-   \item Ejemplo 5:
+   \item Ejemplo 5: Juego personalizado usando E/S
   \end{itemize}
 
   
@@ -747,7 +789,6 @@
     goUp();		#Winner
     endAdventureMode
   \end{lstlisting}
-
   
   \section{Ejemplo 2: Variables (declaración y uso)}
   En este ejemplo se muestra cómo se declaran y utilizan las variables. Como puede observarse, éstas pueden ser 
@@ -946,6 +987,108 @@ write("/************************/");
 endAdventureMode
   \end{lstlisting}
 
+  \section{Ejemplo 5: Juego personalizado usando E/S}
+  
+  En este fichero de ejemplo se muestra cómo, haciendo uso de las funciones de entrada y salida, puede crearse un ``script'' que 
+  vaya pidiendo algunos parámetros por teclado al usuario y, haciendo uso de diferentes bucles, permita que un usuario que 
+  no sepa nada del lenguaje utilizado, pueda crear su propio tablero de juego.
+  
+  \begin{itemize}
+   \item Entrada en el modo de configuración
+   \begin{itemize}
+    \item Creación de las variables de filas y columnas, denominadas rows y cols respectivamente
+    \item Petición del número de filas al usuario (y recogida del valor de las mismas en la variable rows)
+    \item Petición del número de columnas al usuario (y recogida del valor de las mismas en la variable cols)
+    \item Selección del tamaño del tablero usando ambas variables
+    \item Comprobación de que el comando anterior funcionó, llamando a las funciones 
+    encargadas de devolver el valor del número de filas y columnas
+    \item Selección de la posición de la casilla de comienzo, cuyas coordenadas son el resultado de restar las dos variables anteriores
+    \item Selección de la posición de la casilla de finalización, cuyas coordenadas son el resultado de restarle uno a las dos variables
+    \item Utilización de un esquema condicional para insertar posiciones de hoyos
+    \item Comprobación de las posiciones de los hoyos
+    \item Utilización de un esquema de tipo ``mientras'' para la selección del número de flechas que tendrá Mecca
+    \item Selección de la posición de un tesoro
+    \item Comprobación de la posición del tesoro
+    \item Selección de la posición del Wumpus
+    \item Salida del modo de configuración
+    \end{itemize}
+   \item Entrada en el modo aventura
+      \begin{itemize}
+      \item Utilización de un bucle del tipo ``para'' con el objetivo de mover a Mecca tres casillas a la derecha
+      \item Realización de dos movimientos directamente
+      \item Creación de una variable de tipo numérico que nos servirá en el bucle siguiente
+      \item Utilización de un bucle ``repetir hasta'' que moverá a Mecca tres veces hacia arriba que producirá los siguientes eventos:
+      \begin{itemize}
+      \item Llegada de Mecca a la casilla del tesoro
+      \item Llegada de Mecca a la casilla de salida
+      \end{itemize}
+      \item Creación de dos variables de tipo cadena para mostrar un mensaje de despedida
+      \item Impresión en consola de las dos cadenas recién creadas usando \emph{read}
+      \item Utilización de \emph{read} para imprimir por pantalla una cadena directamente insertada por el usuario
+      \end{itemize}
+   \end{itemize}
+  
+  Código del ejemplo:
+  \begin{lstlisting}
+{ Test file number 04
+We will show how to create a MeccaBoard 
+and play one game while we use all kind of loops}
+
+ConfigurationMode   #This is the mode to create the board
+number rows, cols;
+rows:=5;
+cols:=rows;
+setBoardSize(rows,cols);  #Size of 5 rows and 5 columns
+getBoardRows();     #Yeah, it works!
+getBoardColumns();  #Again!
+setStart(cols-rows,rows-cols);      #Down left corner
+setExit(cols-1,rows-1);	    #Up right corner
+if cols == rows then    #Conditional
+setHole(1,1);	    
+setHole(2,2);
+setHole(0,1);
+else
+setHole(1,1);
+end_if;
+showHoles();
+while rows > 2 do    #While Loop
+incArrows(1);
+rows:=rows-1;
+end_while;
+setTreasure(4,3);
+showTreasures();
+setWumpus(4,0);
+endConfigurationMode
+{
+This is what the level should look like
+
+	-	-	-	-	X
+	-	~	~	~	T
+	~	~	H	~	-
+	H	H	~	~	=
+	+	~	~	=	W
+
+}
+#Let's start the adventure!!!
+AdventureMode
+for i from 0 until 3 step 1
+do
+goRight();
+end_for;	#We are using a for loop for moving 3 times
+goUp();		
+goRight();
+number limit:=0;
+repeat         #Repeat-until loop
+goUp();
+limit:=limit+1;
+until limit==3;
+string final:= "/************************/";
+string final2:= "/*****see you soon!******/";
+write(final);
+write(final2);
+write("/************************/");
+endAdventureMode
+  \end{lstlisting}
 
 %\appendix
 %\chapter{Nombre del anexo i \label{anexoi}}

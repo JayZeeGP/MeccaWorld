@@ -24,8 +24,7 @@
 \BOOKMARK [1][-]{section.4.4}{Tabla de s\355mbolos}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.4.1}{Clase Variable}{section.4.4}
 \BOOKMARK [2][-]{subsection.4.4.2}{Clase TablaSimbolos}{section.4.4}
-\BOOKMARK [1][-]{section.4.5}{Elementos auxiliares para la simulaci\363n del entorno dise\361ado}{chapter.4}
-\BOOKMARK [0][-]{chapter.5}{Modo de obtenci\363n del int\351rprete: descripci\363n del fichero makefile}{}
+\BOOKMARK [0][-]{chapter.5}{Modo de obtenci\363n del int\351rprete: descripci\363n de la creaci\363n del fichero ``.jar''}{}
 \BOOKMARK [1][-]{section.5.1}{Nombre y descripci\363n de cada uno de los ficheros utilizados}{chapter.5}
 \BOOKMARK [1][-]{section.5.2}{Modo de generaci\363n de int\351rprete}{chapter.5}
 \BOOKMARK [0][-]{chapter.6}{Modo de ejecuci\363n del int\351rprete}{}
@@ -36,4 +35,5 @@
 \BOOKMARK [1][-]{section.7.2}{Ejemplo 2: Variables \(declaraci\363n y uso\)}{chapter.7}
 \BOOKMARK [1][-]{section.7.3}{Ejemplo 3: Uso de los esquemas condicionales}{chapter.7}
 \BOOKMARK [1][-]{section.7.4}{Ejemplo 4: Juego Avanzado}{chapter.7}
-\BOOKMARK [0][-]{lstnumber.-12.58}{Bibliograf\355a}{}
+\BOOKMARK [1][-]{section.7.5}{Ejemplo 5: Juego personalizado usando E/S}{chapter.7}
+\BOOKMARK [0][-]{lstnumber.-13.77}{Bibliograf\355a}{}

@@ -33,16 +33,16 @@
 \contentsline {section}{\numberline {4.4}Tabla de s\IeC {\'\i }mbolos}{22}{section.4.4}
 \contentsline {subsection}{\numberline {4.4.1}Clase Variable}{23}{subsection.4.4.1}
 \contentsline {subsection}{\numberline {4.4.2}Clase TablaSimbolos}{24}{subsection.4.4.2}
-\contentsline {section}{\numberline {4.5}Elementos auxiliares para la simulaci\IeC {\'o}n del entorno dise\IeC {\~n}ado}{24}{section.4.5}
-\contentsline {chapter}{\numberline {5}Modo de obtenci\IeC {\'o}n del int\IeC {\'e}rprete: descripci\IeC {\'o}n del fichero makefile}{25}{chapter.5}
+\contentsline {chapter}{\numberline {5}Modo de obtenci\IeC {\'o}n del int\IeC {\'e}rprete: descripci\IeC {\'o}n de la creaci\IeC {\'o}n del fichero ``.jar''}{25}{chapter.5}
 \contentsline {section}{\numberline {5.1}Nombre y descripci\IeC {\'o}n de cada uno de los ficheros utilizados}{25}{section.5.1}
-\contentsline {section}{\numberline {5.2}Modo de generaci\IeC {\'o}n de int\IeC {\'e}rprete}{25}{section.5.2}
+\contentsline {section}{\numberline {5.2}Modo de generaci\IeC {\'o}n de int\IeC {\'e}rprete}{26}{section.5.2}
 \contentsline {chapter}{\numberline {6}Modo de ejecuci\IeC {\'o}n del int\IeC {\'e}rprete}{27}{chapter.6}
 \contentsline {section}{\numberline {6.1}Interactiva}{27}{section.6.1}
 \contentsline {section}{\numberline {6.2}A partir de un fichero}{27}{section.6.2}
 \contentsline {chapter}{\numberline {7}Ejemplos}{29}{chapter.7}
 \contentsline {section}{\numberline {7.1}Ejemplo 1: Juego B\IeC {\'a}sico}{29}{section.7.1}
 \contentsline {section}{\numberline {7.2}Ejemplo 2: Variables (declaraci\IeC {\'o}n y uso)}{31}{section.7.2}
-\contentsline {section}{\numberline {7.3}Ejemplo 3: Uso de los esquemas condicionales}{32}{section.7.3}
+\contentsline {section}{\numberline {7.3}Ejemplo 3: Uso de los esquemas condicionales}{33}{section.7.3}
 \contentsline {section}{\numberline {7.4}Ejemplo 4: Juego Avanzado}{34}{section.7.4}
-\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{36}{lstnumber.-12.58}
+\contentsline {section}{\numberline {7.5}Ejemplo 5: Juego personalizado usando E/S}{37}{section.7.5}
+\contentsline {chapter}{Bibliograf\IeC {\'\i }a}{40}{lstnumber.-13.77}

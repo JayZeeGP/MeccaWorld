@@ -1011,66 +1011,68 @@ public class Board {
 	 * elementos que el jugador conoce porque ya ha visitado esas casillas.
 	 */
 	public void showAdventureState() {
-		String returnString = new String();
-		
-		if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
-			for(int i=getBoardSize().getHeight()-1; i>=0; i--) {
-				returnString += "\n";
-				for(int j=0; j<getBoardSize().getWidth(); j++) {
-					ArrayList<String> square = readFromBoard(new Position(j, i));
-					
-					returnString += "\t";
-					
-					if(getMeccaPos().getX() == j && getMeccaPos().getY() == i) {
-						returnString += "M";
-					} else {
-						String element = new String("");
+			if(!this.isGameFinished()){
+			String returnString = new String();
+			
+			if(getBoardSize().getHeight() != 0 && getBoardSize().getWidth() != 0) {
+				for(int i=getBoardSize().getHeight()-1; i>=0; i--) {
+					returnString += "\n";
+					for(int j=0; j<getBoardSize().getWidth(); j++) {
+						ArrayList<String> square = readFromBoard(new Position(j, i));
 						
-						if(readFromBoardVisited(new Position(j, i))) {
-							if(square.contains(WUMPUS)) {
-								element = "W";
-							} else if(square.contains(HOLE)) {
-								element = "H";
-							} else if(square.contains(TREASURE)) {
-								element = "T";
-							} else if(square.contains(START)) {
-								element = "+";
-							} else if(square.contains(EXIT)) {
-								element = "X";
-							} else if(square.contains(BREEZE) && !square.contains(HOLE) && !square.contains(WUMPUS)
-									&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
-								element = "~";
-							} else if(square.contains(SMELL) && !square.contains(HOLE) && !square.contains(WUMPUS)
-									&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
-								element = "=";
-							} else {
-								element = "-";
-							}
+						returnString += "\t";
+						
+						if(getMeccaPos().getX() == j && getMeccaPos().getY() == i) {
+							returnString += "M";
 						} else {
-							element = "?";
+							String element = new String("");
+							
+							if(readFromBoardVisited(new Position(j, i))) {
+								if(square.contains(WUMPUS)) {
+									element = "W";
+								} else if(square.contains(HOLE)) {
+									element = "H";
+								} else if(square.contains(TREASURE)) {
+									element = "T";
+								} else if(square.contains(START)) {
+									element = "+";
+								} else if(square.contains(EXIT)) {
+									element = "X";
+								} else if(square.contains(BREEZE) && !square.contains(HOLE) && !square.contains(WUMPUS)
+										&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
+									element = "~";
+								} else if(square.contains(SMELL) && !square.contains(HOLE) && !square.contains(WUMPUS)
+										&& !square.contains(TREASURE) && !square.contains(START) && !square.contains(EXIT)) {
+									element = "=";
+								} else {
+									element = "-";
+								}
+							} else {
+								element = "?";
+							}
+							
+							returnString += element;
 						}
-						
-						returnString += element;
 					}
 				}
-			}
-			
-
-			returnString += "\n\nArrows: " + getMeccaNArrows();
-			returnString += "\nWumpus: ";
-			
-			if(isWumpusAlive()) {
-				returnString += "Alive";
+				
+	
+				returnString += "\n\nArrows: " + getMeccaNArrows();
+				returnString += "\nWumpus: ";
+				
+				if(isWumpusAlive()) {
+					returnString += "Alive";
+				} else {
+					returnString += "Dead";
+				}
+				
+				returnString += "\nTreasures remaining: " + getTotalTreasures();
 			} else {
-				returnString += "Dead";
+				returnString += "There is no board";
 			}
 			
-			returnString += "\nTreasures remaining: " + getTotalTreasures();
-		} else {
-			returnString += "There is no board";
+			System.out.println(returnString);
 		}
-		
-		System.out.println(returnString);
 	}
 	
 	public String read() {
