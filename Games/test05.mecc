@@ -26,8 +26,10 @@ read(nHoles);
 for i from 0 until nHoles step 1
 do
   write("Insert the x coordenate for the hole");
+  write(i+1);
   read(cols);
   write("Insert the y coordenate for the hole");
+  write(i+1);
   read(rows);
   setHole(cols,rows);
 end_for;
@@ -41,7 +43,7 @@ end_while;
 number nTreasures;
 write("How many treasures do you want to create");   
 read(nTreasures);
-for i from 0 until nHoles step 1
+for j from 0 until nTreasures step 1
 do
   write("Insert the x coordenate for the treasure");
   write(i+1);
@@ -71,3 +73,4 @@ This is what the level should look like
 #Let's start the adventure!!!
 AdventureMode
 write("Now its your time to play (remember to write endconfigurationMode when you finish)");
+

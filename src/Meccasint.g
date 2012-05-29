@@ -1172,7 +1172,7 @@ valorparametro
 		}
 	;
 
-variable: IDENT;
+//variable: IDENT;
 
 //entero returns [int value=0]: 
 		//i1:LIT_ENTERO				{value = Integer.parseInt(i1.getText());}
