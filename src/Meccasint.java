@@ -2147,18 +2147,6 @@ public Meccasint(ParserSharedInputState state) {
 		}
 	}
 	
-	public final void variable() throws RecognitionException, TokenStreamException {
-		
-		
-		try {      // for error handling
-			match(IDENT);
-		}
-		catch (RecognitionException ex) {
-			reportError(ex);
-			recover(ex,_tokenSet_1);
-		}
-	}
-	
 	
 	public static final String[] _tokenNames = {
 		"<0>",

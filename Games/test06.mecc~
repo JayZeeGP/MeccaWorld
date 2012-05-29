@@ -7,8 +7,4 @@ ConfigurationMode
 setBoardSize(5,5);
 setWumpus(6,6);    #Creating the Wumpus outside the board
 number a__b := 5; #Invalid identifier
-number a:=5;  #Correct value for number
-number b:="hola";  #Invalid value for number
-write(b);
-string c:=5;
-write(5);
+

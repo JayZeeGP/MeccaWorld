@@ -1002,62 +1002,94 @@ endAdventureMode
     \item Selección del tamaño del tablero usando ambas variables
     \item Comprobación de que el comando anterior funcionó, llamando a las funciones 
     encargadas de devolver el valor del número de filas y columnas
-    \item Selección de la posición de la casilla de comienzo, cuyas coordenadas son el resultado de restar las dos variables anteriores
-    \item Selección de la posición de la casilla de finalización, cuyas coordenadas son el resultado de restarle uno a las dos variables
-    \item Utilización de un esquema condicional para insertar posiciones de hoyos
-    \item Comprobación de las posiciones de los hoyos
-    \item Utilización de un esquema de tipo ``mientras'' para la selección del número de flechas que tendrá Mecca
-    \item Selección de la posición de un tesoro
-    \item Comprobación de la posición del tesoro
-    \item Selección de la posición del Wumpus
-    \item Salida del modo de configuración
+    \item Petición de los datos para colocar la casilla de comienzo y selección de su posición
+    \item Misma operación anterior pero con la casilla de finalización
+    \item Petición del número de hoyos que se desea crear que será almacenada en la variable ``nHoles''
+    \item Uso de la variable anterior para crear un bucle ``para'' en el que se van pidiendo las posiciones de los hoyos (tantas veces 
+    como indique ``nHoles'') y los inserta en el tablero
+    \item Se muestran todos los hoyos creados para comprobar que la inserción fue correcta
+    \item Se pide el número de flechas que se desea que tenga Mecca y se almacena en ``nArrows''
+    \item Uso de un bucle de tipo ``mientras'' con la variable anterior para ir añadiendo flechas de una en una (esto 
+    podría haberse hecho más fácilmente incrementando las flechas en ``nArrows'' pero se quiere mostrar el uso del bucle)
+    \item Petición del número de tesoros que se desea crear que será almacenada en la variable ``nTreasures''
+    \item Uso de la variable anterior para crear un bucle ``para'' en el que se van pidiendo las posiciones de los tesoros (tantas veces 
+    como indique ``nTreasures'') y los inserta en el tablero
+    \item Se muestran todos los tesoros creados para comprobar que la inserción fue correcta
+    \item Del mismo modo que se utilizó para la casilla de comienzo y de finalización, se piden las coordenadas para el Wumpus
+    \item Se coloca el Wumpus en las coordenadas dadas
+    \item Se sale del modo de configuración
     \end{itemize}
    \item Entrada en el modo aventura
       \begin{itemize}
-      \item Utilización de un bucle del tipo ``para'' con el objetivo de mover a Mecca tres casillas a la derecha
-      \item Realización de dos movimientos directamente
-      \item Creación de una variable de tipo numérico que nos servirá en el bucle siguiente
-      \item Utilización de un bucle ``repetir hasta'' que moverá a Mecca tres veces hacia arriba que producirá los siguientes eventos:
-      \begin{itemize}
-      \item Llegada de Mecca a la casilla del tesoro
-      \item Llegada de Mecca a la casilla de salida
-      \end{itemize}
-      \item Creación de dos variables de tipo cadena para mostrar un mensaje de despedida
-      \item Impresión en consola de las dos cadenas recién creadas usando \emph{read}
-      \item Utilización de \emph{read} para imprimir por pantalla una cadena directamente insertada por el usuario
+      \item Impresión de un mensaje de texto para informar al usuario de que puede jugar y de que salga del modo aventura 
+      cuando termine
       \end{itemize}
    \end{itemize}
   
   Código del ejemplo:
   \begin{lstlisting}
-{ Test file number 04
-We will show how to create a MeccaBoard 
-and play one game while we use all kind of loops}
+{ Test file number 05
+We will show how to create a costumized 
+MeccaBoard using the I/O functions}
 
 ConfigurationMode   #This is the mode to create the board
 number rows, cols;
-rows:=5;
-cols:=rows;
-setBoardSize(rows,cols);  #Size of 5 rows and 5 columns
-getBoardRows();     #Yeah, it works!
-getBoardColumns();  #Again!
-setStart(cols-rows,rows-cols);      #Down left corner
-setExit(cols-1,rows-1);	    #Up right corner
-if cols == rows then    #Conditional
-setHole(1,1);	    
-setHole(2,2);
-setHole(0,1);
-else
-setHole(1,1);
-end_if;
+write("Insert the number of rows for the board");
+read(rows);
+write("Insert the number of cols for the board");
+read(cols);
+setBoardSize(rows,cols); 
+getBoardRows();   
+getBoardColumns();
+write("Insert the x coordenate for the Start position");
+read(cols);
+write("Insert the y coordenate for the Start position");
+read(rows);
+setStart(cols,rows);
+write("Insert the x coordenate for the Exit position");
+read(cols);
+write("Insert the y coordenate for the Exit position");
+read(rows);
+setExit(cols,rows);
+number nHoles,nArrows;
+write("How many holes do you want to create");   
+read(nHoles);
+for i from 0 until nHoles step 1
+do
+  write("Insert the x coordenate for the hole");
+  write(i+1);
+  read(cols);
+  write("Insert the y coordenate for the hole");
+  write(i+1);
+  read(rows);
+  setHole(cols,rows);
+end_for;
 showHoles();
-while rows > 2 do    #While Loop
+write("How many arrows do you want to give to Mecca?");
+read(nArrows);
+while nArrows > 0 do    #While Loop
 incArrows(1);
-rows:=rows-1;
+nArrows:=nArrows-1;
 end_while;
-setTreasure(4,3);
+number nTreasures;
+write("How many treasures do you want to create");   
+read(nTreasures);
+for j from 0 until nTreasures step 1
+do
+  write("Insert the x coordenate for the treasure");
+  write(i+1);
+  read(cols);
+  write("Insert the y coordenate for the treasure");
+  write(i+1);
+  read(rows);
+  setTreasure(cols,rows);
+end_for;
 showTreasures();
-setWumpus(4,0);
+write("Insert the x coordenate for the Wumpus");
+read(cols);
+write("Insert the y coordenate for the Wumpus");
+read(rows);
+setWumpus(cols,rows);
 endConfigurationMode
 {
 This is what the level should look like
@@ -1071,23 +1103,8 @@ This is what the level should look like
 }
 #Let's start the adventure!!!
 AdventureMode
-for i from 0 until 3 step 1
-do
-goRight();
-end_for;	#We are using a for loop for moving 3 times
-goUp();		
-goRight();
-number limit:=0;
-repeat         #Repeat-until loop
-goUp();
-limit:=limit+1;
-until limit==3;
-string final:= "/************************/";
-string final2:= "/*****see you soon!******/";
-write(final);
-write(final2);
-write("/************************/");
-endAdventureMode
+write("Now its your time to play (remember to write 
+endconfigurationMode when you finish)");
   \end{lstlisting}
 
 %\appendix

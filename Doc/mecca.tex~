@@ -399,6 +399,7 @@
     \subsection{Reglas de producción de la gramática}
    
   \section{Análisis semántico}
+  En esta sección va a comentarse el análisis sintáctico realizado para el desarrollo de este intérprete
     \subsection{Atributos: heredados y sintetizados}
     
     \subsection{Funciones auxiliares}
@@ -1029,7 +1030,8 @@ endAdventureMode
   Código del ejemplo:
   \begin{lstlisting}
 { Test file number 05
-We will show how to create a costumized MeccaBoard using the I/O functions}
+We will show how to create a costumized 
+MeccaBoard using the I/O functions}
 
 ConfigurationMode   #This is the mode to create the board
 number rows, cols;
@@ -1056,10 +1058,10 @@ read(nHoles);
 for i from 0 until nHoles step 1
 do
   write("Insert the x coordenate for the hole");
-  write(i+1)
+  write(i+1);
   read(cols);
   write("Insert the y coordenate for the hole");
-  write(i+1)
+  write(i+1);
   read(rows);
   setHole(cols,rows);
 end_for;
@@ -1073,7 +1075,7 @@ end_while;
 number nTreasures;
 write("How many treasures do you want to create");   
 read(nTreasures);
-for i from 0 until nHoles step 1
+for j from 0 until nTreasures step 1
 do
   write("Insert the x coordenate for the treasure");
   write(i+1);
@@ -1102,7 +1104,8 @@ This is what the level should look like
 }
 #Let's start the adventure!!!
 AdventureMode
-write("Now its your time to play (remember to write endconfigurationMode when you finish)");
+write("Now its your time to play (remember to write 
+endconfigurationMode when you finish)");
   \end{lstlisting}
 
 %\appendix
