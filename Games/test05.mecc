@@ -46,10 +46,10 @@ read(nTreasures);
 for j from 0 until nTreasures step 1
 do
   write("Insert the x coordenate for the treasure");
-  write(i+1);
+  write(j+1);
   read(cols);
   write("Insert the y coordenate for the treasure");
-  write(i+1);
+  write(j+1);
   read(rows);
   setTreasure(cols,rows);
 end_for;
@@ -60,16 +60,6 @@ write("Insert the y coordenate for the Wumpus");
 read(rows);
 setWumpus(cols,rows);
 endConfigurationMode
-{
-This is what the level should look like
-
-	-	-	-	-	X
-	-	~	~	~	T
-	~	~	H	~	-
-	H	H	~	~	=
-	+	~	~	=	W
-
-}
 #Let's start the adventure!!!
 AdventureMode
 write("Now its your time to play (remember to write endconfigurationMode when you finish)");
