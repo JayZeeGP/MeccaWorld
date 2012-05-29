@@ -254,6 +254,72 @@
   
   
   \chapter{Descripción de la gramática asociada al lenguaje definido \label{defgra}}
+MECCA $\rightarrow$ MECCA’ CONF MECCA’ ADV MECCA’ ;\\
+MECCA’ $\rightarrow$ $\varepsilon$\\
+MECCA’ $\rightarrow$ INST\\
+CONF $\rightarrow$ configurationMode CONF’ endConfigurationMode\\
+CONF’ $\rightarrow$ $\varepsilon$\\
+CONF’ $\rightarrow$ INST\\
+ADV $\rightarrow$ adventureMode ADV’ endAdventureMode\\
+ADV’ $\rightarrow$ $\varepsilon$\\
+ADV’ $\rightarrow$ INST\\
+INST $\rightarrow$ ASSIG INST’\\
+INST $\rightarrow$ CONDITIONAL INST’\\
+INST $\rightarrow$ WHILE INST’\\
+INST $\rightarrow$ DO INST’\\
+INST $\rightarrow$ FOR INST’\\
+INST $\rightarrow$ nombre\_función ( PARAM ) ; INST’\\
+INST’ $\rightarrow$ $\varepsilon$\\
+INST’ $\rightarrow$ INST\\
+PARAM $\rightarrow$ $\varepsilon$\\
+PARAM $\rightarrow$ EXPR PARAM’\\
+PARAM ‘ $\rightarrow$ , EXPR PARAM’\\
+PARAM’ $\rightarrow$ $\varepsilon$\\
+EXPR $\rightarrow$ ADDEND ADDEND’\\
+EXPR $\rightarrow$ NEGATIVE ADDEND’\\
+EXPR $\rightarrow$ $\varepsilon$\\
+NEGATIVE $\rightarrow$ - FACTOR\\
+ADDEND $\rightarrow$ FACTOR FACTOR’\\
+FACTOR $\rightarrow$ identificador\\
+FACTOR $\rightarrow$ número\\
+FACTOR $\rightarrow$ cadena\\
+FACTOR $\rightarrow$ ( EXPR )\\
+FACTOR’ $\rightarrow$ * FACTOR FACTOR’\\
+FACTOR’ $\rightarrow$ / FACTOR FACTOR’\\
+FACTOR’ $\rightarrow$ $\varepsilon$\\
+ADDEND’ $\rightarrow$ + ADDEND ADDEND’\\
+ADDEND’ $\rightarrow$ - ADDEND ADDEND’\\
+ADDEND’ $\rightarrow$ $\varepsilon$\\
+CONDITIONAL $\rightarrow$ if LOG\_CONDITION then BODY end\_if ;\\
+LOG\_CONDITION $\rightarrow$ no CONDITION LOG\_CONDITION’\\
+LOG\_CONDITION $\rightarrow$ CONDITION LOG\_CONDITION’\\
+LOG\_CONDITION’ $\rightarrow$ $\varepsilon$\\
+LOG\_CONDITION’ $\rightarrow$ and CONDITION LOG\_CONDITION’\\
+LOG\_CONDITION’ $\rightarrow$ or CONDITION LOG\_CONDITION’\\
+CONDITION $\rightarrow$ EXPR == EXPR\\
+CONDITION $\rightarrow$ EXPR != EXPR\\
+CONDITION $\rightarrow$ EXPR < EXPR\\
+CONDITION $\rightarrow$ EXPR <= EXPR\\
+CONDITION $\rightarrow$ EXPR >= EXPR\\
+CONDITION $\rightarrow$ EXPR > EXPR\\
+BODY $\rightarrow$ INST\\
+BODY $\rightarrow$ else INST\\
+WHILE $\rightarrow$ while CONDITION do INST end\_while ;\\
+DO $\rightarrow$ do INST until CONDITION ;\\
+FOR $\rightarrow$ for identificador from EXPR until EXPR step EXPR do INST end\_for ;\\
+ASSIGN $\rightarrow$ número identificador := EXPR ;\\
+ASSIGN $\rightarrow$ número PARAM\_NUMBER ;\\
+ASSIGN $\rightarrow$ cadena identificador := EXPR ;\\
+ASSIGN $\rightarrow$ cadena PARAM\_STRING ;\\
+PARAM\_NUMBER $\rightarrow$ PARAM\_VALUE PARAM\_NUMBER’\\
+PARAM\_NUMBER’ $\rightarrow$ $\varepsilon$\\
+PARAM\_NUMBER’ $\rightarrow$ PARAM\_PRIMA\_NUMBER PARAM\_NUMBER’\\
+PARAM\_VALUE $\rightarrow$ identificador\\
+PARAM\_PRIMA\_NUMBER $\rightarrow$ , PARAM\_VALUE\\
+PARAM\_STRING $\rightarrow$ PARAM\_VALUE PARAM\_STRING’\\
+PARAM\_STRING’ $\rightarrow$ $\varepsilon$\\
+PARAM\_STRING’ $\rightarrow$ PARAM\_PRIMA\_STRING PARAM\_STRING’\\
+PARAM\_PRIMA\_STRING $\rightarrow$ , PARAM\_VALUE\\
 
 \chapter{Descripción del intérprete ANTLR construido para la gramática \label{defantlr}}
   \section{Analizador léxico: componentes léxicos}
