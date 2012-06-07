@@ -125,8 +125,8 @@ instruction
 		| e4:FUNC_SETBOARDSIZE PARENT_IZ param1=expression COMA param2=expression PARENT_DE PUNTO_COMA 
 		{
 			if(mode == CONFIGURATION_MODE) {
-				if(param1.isNumber()) {
-					Size newSize = new Size((int)Float.parseFloat(param1.getValor()),(int)Float.parseFloat(param2.getValor()));
+				if(param1.isNumber() && param2.isNumber()) {
+					Size newSize = new Size((int)Float.parseFloat(param2.getValor()),(int)Float.parseFloat(param1.getValor()));
 					board.setSize(newSize);
 					System.out.println("Board has now "+board.getSize().getWidth()+" columns and "+board.getSize().getHeight()+" rows");
 				} else {

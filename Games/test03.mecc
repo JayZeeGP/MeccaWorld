@@ -12,7 +12,7 @@ else
 	string print:=jordan+" is not bigger than "+magic;
 end_if;
 
-read(print);
+write(print);
 
 if jordan < magic then
 	if jordan < bird then
@@ -20,13 +20,13 @@ if jordan < magic then
 	end_if;
 end_if;
 
-read(print2);
+write(print2);
 
 #You can also do it like this
 
-if jordan < magic _and jordan < bird then
-	string print2:=jordan+" is smaller than "+magic+" and "+bird + " second way ";
+if jordan < magic and jordan < bird then
+	print2:=jordan+" is smaller than "+magic+" and "+bird + " second way ";
 end_if;
 
-read(print2);
+write(print2);
 

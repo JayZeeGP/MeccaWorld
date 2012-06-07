@@ -7,7 +7,7 @@ write("Insert the number of rows for the board");
 read(rows);
 write("Insert the number of cols for the board");
 read(cols);
-setBoardSize(rows,cols); 
+setBoardSize(cols,rows); 
 getBoardRows();   
 getBoardColumns();
 write("Insert the x coordenate for the Start position");
